@@ -12,7 +12,6 @@ server = require('./rgbledserver.js');
 server.start(receivedcommand,8201);
 
 
-
 for(var i = 0; i < buffer.length; i+=3){
     buffer[i]=0;
     buffer[i+1]=0;
