@@ -3,7 +3,7 @@
  */
 //open spi port
 var SPI = require('pi-spi');
-var numberLEDS = 10;
+var numberLEDS = 50;
 var buffer = new Buffer(3*numberLEDS);
 var array = new Array(3*numberLEDS);
 var spi = SPI.initialize("/dev/spidev0.0");
@@ -13,14 +13,16 @@ server.start(receivedcommand,8201);
 
 
 for(var i = 0; i < buffer.length; i+=3){
-    buffer[i]=0;
-    buffer[i+1]=0;
+    buffer[i]=110;
+    buffer[i+1]=110;
     buffer[i+2]=0;
 }
 
 writeSPI();
 
 function receivedcommand(o){
+    console.log("error here" + o);
+
     if (o.command == 'ledSetColor' ){
         ledSetColor (o.led,o.value);
         writeSPI();

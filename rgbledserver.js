@@ -14,13 +14,18 @@ exports.start = function(callback,port) {
 
         req.on('data', function (data) {
             body += data;
-            //console.log("Partial body: " + body);
+            console.log("Partial body: " + body);
         });
         req.on('end', function () {
             // this is where the button press happens
             //   console.log(req.url);
-            //console.log(body);
-            callback(JSON.parse(body));
+            try{
+                callback(JSON.parse(body));
+            }
+            catch(e){
+                console.log("caught json parse error" + e);
+            }
+
             //console.log (stdata.device+ ' '+stdata.value);
             res.write(body);
             res.end();
