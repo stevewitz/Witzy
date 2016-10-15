@@ -1,10 +1,11 @@
-server = require('./witzyserver')
-server.start(receivedcommand,8201);
-server.send({console:"Witzy server UP",serverup:true})
-// captures errors and ctrl-c's
-process.stdin.resume();
+ll = require('./llib');
+server = require('./witzyserver');
 
-server.cleanup();
+
+// captures errors and ctrl-c's
+//process.stdin.resume();
+
+ll.cleanup();
 
 
 function receivedcommand(o){

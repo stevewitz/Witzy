@@ -3,38 +3,86 @@
  */
 var request = require('request');
 
-exports.start = function(callback,port) {
-    if (!port){
-        port = 8201
-    }
-    console.log('RGB LED Server api listening on '+port);
-    var apihttp = require("http");
-    apihttp.createServer(function (req, res) {
-        //console.log("Rest server:" + req.url + "(" + req.method + ")");
-        //console.log(req.method);
-        var body = '';
+var express = require('express');
 
-        req.on('data', function (data) {
-            body += data;
-            //console.log("Partial body: " + body);
-        });
-        req.on('end', function () {
-            // this is where the button press happens
-            //   console.log(req.url);
-            //console.log(body);
-            callback(JSON.parse(body));
-            //console.log (stdata.device+ ' '+stdata.value);
-            res.write(body);
-            res.end();
+var  app = express();
+var ejs = require('ejs');
+var bodyParser = require('body-parser');
+app.use(express.static('public')); // set up the public directory as web accessible
+app.use(bodyParser.json()); // lets us get the json body out
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.send(500, 'Something broke!');
+});
+app.post('/api', function (req, res) {
 
-        });
-        req.on('error', function(e) {
-            console.log(e.name + ' was thrown: ' + e.message);
-        });
+       console.log(req.body)
 
 
-    }).listen(port);
-};
+
+
+
+    res.status(200).end();
+
+});
+
+app.get('/api', function (req, res) {
+
+    res.render('api.ejs');
+
+
+})
+app.get('/servertest', function (req, res) {
+
+    res.send({txt:"server alive"});
+
+
+})
+
+
+
+app.use(function(req, res, next) {
+    res.status(404).send('Witzy - Sorry cant find that!');
+});
+
+
+var webserver = app.listen(8201, function () {
+    console.log(ll.ansi('brightBlue','Webserver listening at http://'+webserver.address().address+':'+webserver.address().port));
+    server.send({console:"Witzy server UP",serverup:true})
+});
+
+// exports.start = function(callback,port) {
+//     if (!port){
+//         port = 8201
+//     }
+//     console.log('RGB LED Server api listening on '+port);
+//     var apihttp = require("http");
+//     apihttp.createServer(function (req, res) {
+//         //console.log("Rest server:" + req.url + "(" + req.method + ")");
+//         //console.log(req.method);
+//         var body = '';
+//
+//         req.on('data', function (data) {
+//             body += data;
+//             //console.log("Partial body: " + body);
+//         });
+//         req.on('end', function () {
+//             // this is where the button press happens
+//             //   console.log(req.url);
+//             //console.log(body);
+//             callback(JSON.parse(body));
+//             //console.log (stdata.device+ ' '+stdata.value);
+//             res.write(body);
+//             res.end();
+//
+//         });
+//         req.on('error', function(e) {
+//             console.log(e.name + ' was thrown: ' + e.message);
+//         });
+//
+//
+//     }).listen(port);
+// };
 exports.send = function(data,exitcode){
     //this will send data back to the witzy.api
     // use for buttons - status updats - etc
@@ -60,26 +108,3 @@ exports.send = function(data,exitcode){
 
 }
 
-exports.cleanup = function(callback) {
-//https://github.com/nodejs/node-v0.x-archive/blob/master/doc/api/process.markdown#exit-codes
-//http://stackoverflow.com/questions/14031763/doing-a-cleanup-action-just-before-node-js-exits
-    // catch ctrl+c event and exit normally
-
-    process.on('SIGINT', function () {
-        server.send({console:"Witzy server DOWN-SIGINT",serverup:false},2)
-
-        console.log('Ctrl-C...');
-
-    });
-
-    //catch uncaught exceptions, trace, then exit normally
-    process.on('uncaughtException', function(e) {
-        console.log('Uncaught Exception...');
-        process.stdin.resume();
-        console.log('\n'+e.stack);
-        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION",error:e,serverup:false},1)
-
-
-      //  process.exit(1);
-    });
-};
