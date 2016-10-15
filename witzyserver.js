@@ -34,7 +34,8 @@ app.get('/api', function (req, res) {
 })
 app.get('/servertest', function (req, res) {
 
-    res.send({txt:"server alive"});
+    res.send({txt:"server alive - leds in strip:"+numberLEDS,
+    serverleds:numberLEDS});
 
 
 })

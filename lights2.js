@@ -3,7 +3,7 @@
  */
 //open spi port
 var SPI = require('pi-spi');
-var numberLEDS = 50;
+//var numberLEDS = 50; // set this global in app
 var buffer = new Buffer(4*numberLEDS);
 var array = new Array(4*numberLEDS);
 var spi = SPI.initialize("/dev/spidev0.0");
