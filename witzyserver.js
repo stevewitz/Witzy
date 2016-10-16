@@ -89,7 +89,7 @@ exports.send = function(data,exitcode){
     // use for buttons - status updats - etc
 
     var request_options = {
-        uri:'http://10.6.1.2:3000/api/witzy',
+        uri:'http://192.168.2.222:3001/api/witzy',
         method:"POST",
         json: data
     };
