@@ -3,87 +3,63 @@
  */
 var request = require('request');
 
-var express = require('express');
-
-var  app = express();
-var ejs = require('ejs');
-var bodyParser = require('body-parser');
-app.use(express.static('public')); // set up the public directory as web accessible
-app.use(bodyParser.json()); // lets us get the json body out
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.send(500, 'Something broke!');
-});
-app.post('/api', function (req, res) {
-
-       console.log(req.body)
+exports.start = function() {
 
 
+    var express = require('express');
+    var app = express();
+    var ejs = require('ejs');
+    var bodyParser = require('body-parser');
+    app.use(express.static('public')); // set up the public directory as web accessible
+    app.use(bodyParser.json()); // lets us get the json body out
+    app.use(function (err, req, res, next) {
+        console.error(err.stack);
+        res.send(500, 'Something broke!');
+    });
+    app.post('/api', function (req, res) {
+
+        console.log(req.body)
 
 
+        res.status(200).end();
 
-    res.status(200).end();
+    });
 
-});
+    app.get('/api', function (req, res) {
 
-app.get('/api', function (req, res) {
-
-    res.render('api.ejs');
-
-
-})
-app.get('/servertest', function (req, res) {
-
-    res.send({txt:"server alive - leds in strip:"+numberLEDS,
-    serverleds:numberLEDS});
+        res.render('api.ejs');
 
 
-})
+    })
+    app.get('/servertest', function (req, res) {
+
+        res.send({
+            txt: "server alive - leds in strip:" + numberLEDS,
+            serverleds: numberLEDS
+        });
 
 
-
-app.use(function(req, res, next) {
-    res.status(404).send('Witzy - Sorry cant find that!');
-});
+    })
 
 
-var webserver = app.listen(8201, function () {
-    console.log(ll.ansi('brightBlue','Webserver listening at http://'+webserver.address().address+':'+webserver.address().port));
-    server.send({console:"Witzy server UP",serverup:true})
-});
+    app.use(function (req, res, next) {
+        res.status(404).send('Witzy - Sorry cant find that!');
+    });
 
-// exports.start = function(callback,port) {
-//     if (!port){
-//         port = 8201
-//     }
-//     console.log('RGB LED Server api listening on '+port);
-//     var apihttp = require("http");
-//     apihttp.createServer(function (req, res) {
-//         //console.log("Rest server:" + req.url + "(" + req.method + ")");
-//         //console.log(req.method);
-//         var body = '';
-//
-//         req.on('data', function (data) {
-//             body += data;
-//             //console.log("Partial body: " + body);
-//         });
-//         req.on('end', function () {
-//             // this is where the button press happens
-//             //   console.log(req.url);
-//             //console.log(body);
-//             callback(JSON.parse(body));
-//             //console.log (stdata.device+ ' '+stdata.value);
-//             res.write(body);
-//             res.end();
-//
-//         });
-//         req.on('error', function(e) {
-//             console.log(e.name + ' was thrown: ' + e.message);
-//         });
-//
-//
-//     }).listen(port);
-// };
+
+    var webserver = app.listen(settings.options.webserver.listenport, function () {
+        console.log(ll.ansi('brightBlue', 'Webserver listening at http://' + webserver.address().address + ':' + webserver.address().port));
+        server.send({console: "Witzy server UP:"+witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
+            ipaddess:localaddress+':'+settings.options.webserver.listenport,
+            serverup: true,
+            name:witzyname,
+            id:witzyname,
+            controller:"witzy",
+            type:"server",
+            ipaddess:localaddress+':'+settings.options.webserver.listenport})
+    });
+}
+
 exports.send = function(data,exitcode){
     //this will send data back to the witzy.api
     // use for buttons - status updats - etc
