@@ -28,13 +28,18 @@ exports.startmongo = function(collectionname,ip,callback) {
             global.db = db;
             //load setting database into memory
 
-            db.collection('witzysettings').findOne({"type": "settings"}, function (err, result) {
+            db.collection('settings').findOne({"type": "settings"}, function (err, result) {
                 if (result) {
                     global.settings = result;
+
+                    db.collection('things').find({}).toArray( function (err, result) {
+
+                        global.things=result;
                         callback();
+                    });
 
                 } else {
-                    console.log("Gatherer Settings not fould in database - creating emtpy");
+                    console.log("Witzy Settings not fould in database - creating emtpy");
                     //retrun an empty object
 
                     global.settings ={
@@ -44,17 +49,19 @@ exports.startmongo = function(collectionname,ip,callback) {
                             websocket:{listenport:8300},
                             webserver:{listenport:8201},
                         },
-                        rulzy:{ipaddress:'10.6.1.2:3000'}
+                        rulzy:{}
 
                     };
 
-                    db.collection('witzysettings').insertOne(settings, function (err, res) {
+                    db.collection('settings').insertOne(settings, function (err, res) {
                        if (err){
                            console.log('Error creating mongo settings:',err)
 
                        }
                         console.log("Witzy settings created " + res);
-                        callback();
+                        console.log('please restart');
+                        process.exit(0);
+
 
                     });
                 }
@@ -160,7 +167,18 @@ if (chunk !== null) {
 }
 });
 
+exports.savesettings = function(){
+    db.collection('settings').updateOne({'type':'settings'},settings,{upsert:true, w:1},function(err,res){
+        if (err){
+            console.log('failure writing settings to mongo -- aborting');
+            process.exit(1);
+        }
+     //   console.log(JSON.stringify(settings,null,4))
+    });
 
+
+
+};
 function commandline(s){
     s = s.toString();
     t = s.replace(',',' ').match(/\S+/g); // breaks string into array
@@ -173,15 +191,41 @@ function commandline(s){
             fs.writeFile('setup.txt', t[1]+','+t[2], (err) => {
                 if (err) throw err;
                 console.log('server named:'+t[2])
-                console.log("Rulzy IP addess saved ("+t[1]+") please restart")
+                console.log("Mongo IP addess saved ("+t[1]+") please restart")
                 process.exit(0);
             })
             break;
-
+        case "rulzy":
+            settings.rulzy.ipaddress = t[1];
+            ll.savesettings();
+            console.log("Rulzy IP addess saved ("+t[1]+") ")
+            break;
 
         default:
             console.log('Unknown input:'+s)
 
     }
+
+}
+exports.serverup = function(){
+    server.send({console: "Witzy server UP:"+witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
+        serverconfig:{
+            ipaddess:localaddress+':'+settings.options.webserver.listenport,
+            name:witzyname,
+            id:witzyname,
+            controller:"witzy",
+            type:"server",
+            ipaddess:localaddress+':'+settings.options.webserver.listenport,
+            events:[{name:'serverstatus',values:["online,offline"]}]
+        },
+        event:{
+            id:witzyname,
+            event:'serverstatus',
+            value:'online',
+            eventdata:{},
+            source:witzyname
+        }
+    })
+
 
 }

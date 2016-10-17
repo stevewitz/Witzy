@@ -50,30 +50,20 @@ exports.start = function() {
 
     var webserver = app.listen(settings.options.webserver.listenport, function () {
         console.log(ll.ansi('brightBlue', 'Webserver listening at http://' + webserver.address().address + ':' + webserver.address().port));
-        server.send({console: "Witzy server UP:"+witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
-            serverconfig:{
-                ipaddess:localaddress+':'+settings.options.webserver.listenport,
-                name:witzyname,
-                id:witzyname,
-                controller:"witzy",
-                type:"server",
-                ipaddess:localaddress+':'+settings.options.webserver.listenport,
-                events:[{name:'serverstatus',values:["online,offline"]}]
-            },
-            event:{
-                id:witzyname,
-                event:'serverstatus',
-                value:'online',
-                eventdata:{},
-                source:witzyname
-            }
-        })
+        ll.serverup();
     });
 }
 
 exports.send = function(data,exitcode){
     //this will send data back to the witzy.api
     // use for buttons - status updats - etc
+if (!settings.rulzy.ipaddress){
+    console.log(ll.ansi('inverse','WARNING:')+" no ipaddress set for mongo.");
+    console.log(ll.ansi('red','Type "rulzy <RULZY ipaddress:port>"<enter> in the terminal window to set address'));
+    return;
+}
+
+
 
     var request_options = {
         uri:'http://'+settings.rulzy.ipaddress+'/api/witzy',
