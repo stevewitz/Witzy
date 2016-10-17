@@ -173,7 +173,6 @@ exports.savesettings = function(){
             console.log('failure writing settings to mongo -- aborting');
             process.exit(1);
         }
-     //   console.log(JSON.stringify(settings,null,4))
     });
 
 
