@@ -54,17 +54,23 @@ function drawstrip(id,leds){
     //canvas.style.position = "absolute";
     canvas.style.border   = "1px solid";
     document.getElementById('strips').appendChild(canvas); // adds the canvas to #someBox
-    var buf = []
-   for (i = 0; i <leds*3; i++) {buf[i]= 0}
+    var buf = new Uint32Array(leds)
+    buf[1]=0xff0000;
+    buf[0]=0x0000ff;
     writestrip(id,buf)
 
 }
 function writestrip(id,buffer){
-    var leds = buffer.length/3;
+    var leds = buffer.length;
     var ctx=document.getElementById(id).getContext("2d");
+    var pad = "#000000";
+    var out;
     for (i = 0; i <leds; i++)
     {
-        ctx.fillStyle = 'rgb('+buffer[i*3]+','+ buffer[(i*3)+1]+','+ buffer[(i*3)+2]+')';
+
+        out = buffer[i].toString(16);
+        ctx.fillStyle = pad.substring(0, pad.length - out.length) + out ;// this is super stupid
+
         ctx.fillRect(i*25, 3,20, 20);
     }
 }

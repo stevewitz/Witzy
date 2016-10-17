@@ -64,6 +64,12 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
 function initialized(){
     global.server = require('./witzyserver');
     websock = require('./websocket');
+    if (settings.options.modules.rgbled){
+        rbg = require('./rbgled');
+    }
+
+
+
     server.start()
 
 
