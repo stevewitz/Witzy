@@ -1,9 +1,10 @@
 ll = require('./llibwitzy');
-global.server = require('./witzyserver');
+
+
 const fs = require('fs');
 ll.cleanup();
 
-fs.readFile('mongoipadderss.txt', 'utf8',function(err,filetxt){
+fs.readFile('setup.txt', 'utf8',function(err,filetxt){
 
     if (err){
         console.log(ll.ansi('inverse','WARNING:')+" no ipaddress set for mongo.");
@@ -62,6 +63,8 @@ fs.readFile('mongoipadderss.txt', 'utf8',function(err,filetxt){
 
 function initialized(){
 
+    global.server = require('./witzyserver');
+    websock = require('./websocket');
 
 
     server.start()

@@ -28,7 +28,7 @@ exports.startmongo = function(collectionname,ip,callback) {
             global.db = db;
             //load setting database into memory
 
-            db.collection('settings').findOne({"type": "settings"}, function (err, result) {
+            db.collection('witzysettings').findOne({"type": "settings"}, function (err, result) {
                 if (result) {
                     global.settings = result;
                         callback();
@@ -44,7 +44,7 @@ exports.startmongo = function(collectionname,ip,callback) {
                             websocket:{listenport:8300},
                             webserver:{listenport:8201},
                         },
-                        rulzy:{ipaddrss:'10.6.1.2:3000'}
+                        rulzy:{ipaddress:'10.6.1.2:3000'}
 
                     };
 
@@ -119,8 +119,15 @@ exports.cleanup = function(callback) {
     // catch ctrl+c event and exit normally
 
     process.on('SIGINT', function () {
-        server.send({console:"Witzy server DOWN-SIGINT",name:witzyname,serverup:false},2);
-
+        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION",
+            event:{
+                id:witzyname,
+                event:'serverstatus',
+                value:'offline',
+                eventdata:{},
+                source:witzyname
+            }
+        },2);
         console.log('Ctrl-C...');
 
     });
@@ -130,7 +137,15 @@ exports.cleanup = function(callback) {
         console.log('Uncaught Exception...');
         process.stdin.resume();
         console.log('\n'+e.stack);
-        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION",error:e,name:witzyname,serverup:false},1);
+        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION",
+            event:{
+            id:witzyname,
+            event:'serverstatus',
+            value:'offline',
+            eventdata:{error:e},
+            source:witzyname
+        }
+        },1);
 
 
         //  process.exit(1);
@@ -155,10 +170,10 @@ function commandline(s){
             process.exit(0);
             break;
         case "setup":
-            fs.writeFile('mongoipadderss.txt', t[1]+','+t[2], (err) => {
+            fs.writeFile('setup.txt', t[1]+','+t[2], (err) => {
                 if (err) throw err;
-                console.log('server named:',t[2])
-                console.log("Mongo IP addess saved ("+t[1]+") please restart")
+                console.log('server named:'+t[2])
+                console.log("Rulzy IP addess saved ("+t[1]+") please restart")
                 process.exit(0);
             })
             break;

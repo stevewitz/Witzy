@@ -1,0 +1,33 @@
+<html>
+<script src="/javascripts/reconnectingWebsocket.js"> </script>
+<script src="/javascripts/lightstrip.js"> </script>
+
+<% if (global.settings.options.webserver.defaultcssfile) {%>
+<LINK href="<%=global.settings.options.webserver.defaultcssfile%>" rel="stylesheet" type="text/css">
+<%}%>
+
+<head>
+
+
+</head>
+<body onload="load()">
+
+<h2>LED Strip</h2>
+LED String Emulator<hr>
+<div id = 'strips' \>
+
+</div>
+</body>
+</html>
+<script>
+
+
+
+    function load() {
+        options=<%-JSON.stringify(options)%>
+                wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
+        websockstart();
+    }
+
+
+</script>

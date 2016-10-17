@@ -26,11 +26,12 @@ exports.start = function() {
     });
 
     app.get('/api', function (req, res) {
-
         res.render('api.ejs');
-
-
     })
+    app.get('/lightstrip', function (req, res) {
+        res.render('lightstrip.ejs',{options:global.settings.options,wsport:settings.options.websocket.listenport});
+    })
+
     app.get('/servertest', function (req, res) {
 
         res.send({
@@ -50,13 +51,23 @@ exports.start = function() {
     var webserver = app.listen(settings.options.webserver.listenport, function () {
         console.log(ll.ansi('brightBlue', 'Webserver listening at http://' + webserver.address().address + ':' + webserver.address().port));
         server.send({console: "Witzy server UP:"+witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
-            ipaddess:localaddress+':'+settings.options.webserver.listenport,
-            serverup: true,
-            name:witzyname,
-            id:witzyname,
-            controller:"witzy",
-            type:"server",
-            ipaddess:localaddress+':'+settings.options.webserver.listenport})
+            serverconfig:{
+                ipaddess:localaddress+':'+settings.options.webserver.listenport,
+                name:witzyname,
+                id:witzyname,
+                controller:"witzy",
+                type:"server",
+                ipaddess:localaddress+':'+settings.options.webserver.listenport,
+                events:[{name:'serverstatus',values:["online,offline"]}]
+            },
+            event:{
+                id:witzyname,
+                event:'serverstatus',
+                value:'online',
+                eventdata:{},
+                source:witzyname
+            }
+        })
     });
 }
 
@@ -65,11 +76,17 @@ exports.send = function(data,exitcode){
     // use for buttons - status updats - etc
 
     var request_options = {
-        uri:'http://192.168.2.222:3001/api/witzy',
+        uri:'http://'+settings.rulzy.ipaddress+'/api/witzy',
         method:"POST",
         json: data
     };
     request(request_options,function(error, response, body){
+        if (error){
+            console.log('Error sending to api server:'+error);
+            process.exit(exitcode);
+
+
+        }
         if(response.statusCode != '200'){
             console.log('Error sending to api server:'+JSON.stringify(response,null,4));
 
