@@ -173,4 +173,14 @@ exports.inwebsocket = function(data){
     }
 
 }
+exports.updatestrip = function(o){
+    switch (o.type){
+        case 'ws2812b':
+            var sendbuffer = buffer[o.name];
 
+
+    }
+
+
+
+}
