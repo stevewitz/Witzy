@@ -173,5 +173,4 @@ function convertTo32Array(bgrArray){
         j+=1;
     }
     return integer32;
-
 }
