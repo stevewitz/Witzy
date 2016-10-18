@@ -1,3 +1,7 @@
+var debug = 1;
+var console = {}
+console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
+
 /**
  * Created by steve on 9/9/2016. A
  */
@@ -113,7 +117,8 @@ function writeSPI(){ //sends entire buffer to led strip
 }
 
 function stripSetColor (o,value){ // first led is led 1  //
-   console.log(value);
+
+    console.log(o.startLed+':'+o.endLed);
     if (typeof(value) == 'number'){
         for(var i = (o.startLed); i <= (o.endLed); ++i){
             buffer[o.stripname][i] = value;

@@ -24,10 +24,10 @@ function websockstart(){
                 statusupdates.value = x.data.message+'\n'+statusupdates.value;
                 break;
             case "buffer":
-                console.log('leds::'+x.data.leds)
+              //  console.log('leds:'+x.data.leds)
+                //for some reason the buff comes over as on object
                 var obuffer = new Uint32Array(x.data.leds);
                 for(var i = 0; i < x.data.leds; ++i){
-
                     obuffer[i] = x.data.buffer[i];
                 }
 
@@ -65,15 +65,15 @@ function drawstrip(id,leds){
     canvas.style.border   = "1px solid";
     document.getElementById('strips').appendChild(canvas); // adds the canvas to #someBox
     var buf = new Uint32Array(leds)
-    buf[1]=0xff0000;
-    buf[0]=0x0000ff;
+   // buf[1]=0xff0000;
+    //buf[0]=0x0000ff;
     writestrip(id,buf)
 
 }
 function writestrip(id,buffer){
     var leds = buffer.length;
     console.log('leds'+leds)
-    leds=10
+   // leds=10
     var ctx=document.getElementById(id).getContext("2d");
     var pad = "#000000";
     var out;
@@ -81,7 +81,7 @@ function writestrip(id,buffer){
     {
 
         out = buffer[i].toString(16);
-       console.log(out)
+      // console.log(out)
         ctx.fillStyle = pad.substring(0, pad.length - out.length) + out ;// this is super stupid
 
         ctx.fillRect(i*25, 3,20, 20);

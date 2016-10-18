@@ -1,3 +1,6 @@
+var debug = 1;
+var console = {}
+console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('green','witzyserver ') + x + '\n');}}})();
 /**
  * Created by todd on 9/16/2016. A
  */

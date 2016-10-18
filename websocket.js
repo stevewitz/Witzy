@@ -1,6 +1,7 @@
 var debug = 1;
 var console = {}
-console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('blue','websocket ') + x + '\n');}}})();/**
+console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('blue','websocket ') + x + '\n');}}})();
+/**
  * Created by todd on 1/22/14.
  */
 websocket = {};

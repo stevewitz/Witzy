@@ -243,7 +243,6 @@ exports.serverup = function(){
         things:things
     })
 
-console.log (JSON.stringify(things))
 }
 exports.writething = function(obj,savesettings,dontmerge){
     // This adds or updates an object to the settings
