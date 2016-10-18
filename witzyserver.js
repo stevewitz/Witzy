@@ -33,7 +33,7 @@ exports.start = function() {
         res.render('api.ejs');
     })
     app.get('/lightstrip', function (req, res) {
-        res.render('lightstrip.ejs',{settings:global.settings,wsport:settings.options.websocket.listenport});
+        res.render('lightstrip.ejs',{things:things,settings:global.settings,wsport:settings.options.websocket.listenport});
     })
 
     app.get('/servertest', function (req, res) {

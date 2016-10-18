@@ -14,9 +14,38 @@
 
 <h2>LED Strip</h2>
 LED String Emulator<hr>
-<div id = 'strips' \>
-
+<div id = 'strips' >
 </div>
+<div id="'commands">
+    Commands:
+    Device:
+    <select id="selectedthingcommand" onChange="populatecommandlist(this)">
+        <%for (index = 0; index < things.length; ++index) {%>
+        <option value="<%=index%>">
+
+            <%=((things[index].name!=things[index].label) && things[index].label)?things[index].label+' ('+things[index].name+')':things[index].name%>
+        </option>
+        <%};%>
+
+    </select>
+    <hr>
+    <div id="thingcommand">
+
+        <select id='commandlist' onChange="commandclicked()" size=1  style="width:150"> </select>
+        <textarea id="viewcommand" rows="7" cols="30" ></textarea>
+
+        value <input id="commandvalue" list="commandvalueoptions" ></input>
+        <datalist id="commandvalueoptions">
+
+        </datalist>
+        <button onclick="buttonruncommand()">Run Command</button>
+
+
+    </div>
+    <hr>
+</div>
+
+
 </body>
 </html>
 <script>
@@ -25,7 +54,10 @@ LED String Emulator<hr>
 
     function load() {
         settings=<%-JSON.stringify(settings)%>
-                wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
+        things=<%-JSON.stringify(things)%>
+        wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
+        drawstrips();
+        populatecommandlist(document.getElementById('selectedthingcommand'))
         websockstart();
     }
 
