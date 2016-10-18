@@ -5,12 +5,11 @@ function websockstart(){
     ws.onopen = function(evt){
         console.log("websocket connected")
         websocketsend('setwebpage',{pagename:pagename});
-        drawstrip('strip1',5);
+        drawstrip('strip1',10);
         drawstrip('strip2',50);
 
     };
     ws.onmessage = function(evt) {
-
         var x = JSON.parse(evt.data);
         switch(x.object){
 
@@ -24,6 +23,17 @@ function websockstart(){
                 var statusupdates = document.getElementById("statusupdates")
                 statusupdates.value = x.data.message+'\n'+statusupdates.value;
                 break;
+            case "buffer":
+                console.log('leds::'+x.data.leds)
+                var obuffer = new Uint32Array(x.data.leds);
+                for(var i = 0; i < x.data.leds; ++i){
+
+                    obuffer[i] = x.data.buffer[i];
+                }
+
+                    writestrip(x.data.stripname,obuffer);
+                break;
+               // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
 
             default:
                 alert(x.object);
@@ -62,6 +72,8 @@ function drawstrip(id,leds){
 }
 function writestrip(id,buffer){
     var leds = buffer.length;
+    console.log('leds'+leds)
+    leds=10
     var ctx=document.getElementById(id).getContext("2d");
     var pad = "#000000";
     var out;
@@ -69,6 +81,7 @@ function writestrip(id,buffer){
     {
 
         out = buffer[i].toString(16);
+       console.log(out)
         ctx.fillStyle = pad.substring(0, pad.length - out.length) + out ;// this is super stupid
 
         ctx.fillRect(i*25, 3,20, 20);

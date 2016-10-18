@@ -65,7 +65,7 @@ function initialized(){
     global.server = require('./witzyserver');
     websock = require('./websocket');
     if (settings.options.modules.rgbled){
-        rbg = require('./rbgled');
+        rgb = require('./rgbled');
     }
 
 

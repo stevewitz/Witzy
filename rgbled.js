@@ -2,17 +2,26 @@
  * Created by steve on 9/9/2016. A
  */
 //open spi port
-var SPI = require('pi-spi');
 //var numberLEDS = 50; // set this global in app
 var buffer = {}
 var array = new Uint32Array()
 
-settings.hardware.rgbleb.forEach(function(x,index){
+settings.hardware.rgbled.forEach(function(x,index){
 buffer[x.name]  = new Uint32Array(x.leds);
 
 
     });
+exports.incommand = function(c){
+    switch (c.command){
+        case "stripSetColor":
+            stripSetColor(c.obj,c.value)
+            break;
 
+    }
+
+
+
+}
 
 //fadeSimple(20,25,.1,10);
 //fadeColor(5,10,255,0,200,10);
@@ -103,18 +112,24 @@ function writeSPI(){ //sends entire buffer to led strip
     });
 }
 
-exports.stripSetColor = function(o,value){ // first led is led 1  //
+function stripSetColor (o,value){ // first led is led 1  //
+   console.log(value);
     if (typeof(value) == 'number'){
-        for(var i = (o.startLed); i < (o.endLed); ++i){
-            buffer[o.stripname] = value;
+        for(var i = (o.startLed); i <= (o.endLed); ++i){
+            buffer[o.stripname][i] = value;
         }
 
     }else
     {
 
-        for(var i = (o.startLed); i < (o.endLed); ++i){
-            buffer[o.stripname] = value;
+        for(var i = (o.startLed); i <= (o.endLed); ++i){
+            buffer[o.stripname][i] = value;
         }
     }
+
+    var sendobj = JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname,leds:buffer[o.stripname].length}});
+    websock.send(sendobj,'lightstrip');
 }
+
+
 

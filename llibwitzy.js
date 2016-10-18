@@ -212,7 +212,10 @@ function commandline(s){
             ll.savesettings();
             console.log("Rulzy IP addess saved ("+t[1]+") ")
             break;
+        case "makeleddevice":
+            ll.makeleddevice(t[1],t[2],t[3],t[4]);
 
+                break;
         default:
             console.log('Unknown input:'+s)
 
@@ -236,30 +239,91 @@ exports.serverup = function(){
             value:'online',
             eventdata:{},
             source:witzyname
-        }
+        },
+        things:things
     })
 
-
+console.log (JSON.stringify(things))
 }
+exports.writething = function(obj,savesettings,dontmerge){
+    // This adds or updates an object to the settings
+
+    if (!obj.id){return false;}
+
+    // update whatever webpages with the new data
+    if(typeof(websock) != 'undefined'){
+        websock.send(JSON.stringify({object:"things",data:things}));
+    }
+
+
+    var indexval = -1;
+    things.some(function(e,index){
+        if (e.id == obj.id){
+            indexval = index;
+            return true;
+        }
+    });
+    // merge objects - add new values only
+    if (indexval != -1 && !dontmerge){
+
+        for (var prop in obj){
+            things[indexval][prop] = obj[prop];
+            //   console.log( obj[prop])
+        }
+//        things[indexval] = obj;
+
+    }else if (indexval != -1 && dontmerge){
+        // just skip - already on entry
+        return;
+
+
+    }
+    else// add item
+    {
+        things.push(obj);
+        indexval = things.length-1;
+        console.log('Added NEW Object to things:'+obj.label+"("+obj.name+')');
+        // if (savesettings){
+        //     db.collection('things').insertOne({"id": obj.id},things[indexval], function (err, result) {
+        //
+        //     });
+        //
+        //     }
+    }
+    if (savesettings){
+        // dont need to write settings anymore
+        //this.savesettings();
+        db.collection('things').updateOne({"id": obj.id},things[indexval],{upsert: true}, function (err, result) {
+            console.log(obj.name +' Updated' +err)
+        });
+
+
+
+
+
+    }
+
+};
+
 exports.makeleddevice = function(name,stripname,startled,endled){
+    //makeleddevice seg1 strip1 0 9
     var device ={
         type:"rbgledsegment",
         id: stripname+'-'+name,
         name: name,
+        ipaddress:localaddress+':'+settings.options.webserver.listenport,
+        witzyname:witzyname,
+        parent:'witzy',
         startLed:startled,
         endLed:endled,
         stripname:stripname,
         commands:[
             {name:'stripSetColor',
             sendto:"witzy",
-            ipaddess:localaddress+':'+settings.options.webserver.listenport,
             command:'stripSetColor',
+            arguments:{name:'NUMBER'}
             }
         ]
-
-
-
     }
-
-
+    ll.writething(device,true)
 }

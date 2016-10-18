@@ -17,11 +17,12 @@ exports.start = function() {
         res.send(500, 'Something broke!');
     });
     app.post('/api', function (req, res) {
-
-        console.log(req.body)
-
-
-        res.status(200).end();
+        rgb.incommand(req.body);
+        res.send({
+            ok: "ok"
+        });
+  //      res.body = {ok:'ok'}
+//        res.status(200).end();
 
     });
 
