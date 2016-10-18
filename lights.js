@@ -2,23 +2,29 @@
  * Created by steve on 9/9/2016. A
  */
 //open spi port
-var SPI = require('pi-spi');
-//var numberLEDS = 50; // set this global in app
+
+
+// var SPI = require('pi-spi');
+ var numberLEDS = 10; // set this global in app
 var buffer = new Buffer(3*numberLEDS);
-var array = new Array(3*numberLEDS);
-var spi = SPI.initialize("/dev/spidev0.0");
-spi.clockSpeed(2e6); //2 mHZ
-server = require('./rgbledserver.js');
-server.start(receivedcommand,8201);
+// var array = new Array(3*numberLEDS);
+// var spi = SPI.initialize("/dev/spidev0.0");
+// spi.clockSpeed(2e6); //2 mHZ
+
+
+//server = require('./rgbledserver.js');
+//server.start(receivedcommand,8201);
 
 
 for(var i = 0; i < buffer.length; i+=3){
-    buffer[i]=110;
-    buffer[i+1]=110;
-    buffer[i+2]=0;
+    buffer[i]=10;
+    buffer[i+1]=187;
+    buffer[i+2]=255;
 }
 
-writeSPI();
+ws2812Buffer = convertTo32Array(buffer);
+buffer[1] = 0;
+//writeSPI();
 
 function receivedcommand(o){
     console.log("error here" + o);
@@ -155,4 +161,16 @@ function ledSetColor(number,value){ // first led is led 1  //
         buffer[number +1] = value[1];
         buffer[number +2] = value[0];
     }
+}
+
+
+function convertTo32Array(bgrArray){
+    var integer32 = new Uint32Array(bgrArray.length/3);
+    var j = 0;
+    for(var i = 0; i < bgrArray.length; i += 3){
+            var test = 0x0abbff;
+        integer32[j] = (bgrArray[i] << 16) +  (bgrArray[i+1] << 8) + (bgrArray[i+2]);
+        j+=1;
+    }
+    return integer32;
 }
