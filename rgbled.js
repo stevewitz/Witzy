@@ -28,6 +28,13 @@ settings.hardware.rgbled.forEach(function(x,index){
                     sendto:"witzy",
                     command:'stripSetColor',
                     arguments:{name:'NUMBER'}
+                },
+                {name:'colorFade',
+                    sendto:"witzy",
+                    command:'stripSetColor',
+                    arguments:{name:'JSON',
+                              incolor:0,
+                              timeseconds:0}
                 }
             ]
         }
