@@ -168,7 +168,6 @@ function convertTo32Array(bgrArray){
     var integer32 = new Uint32Array(bgrArray.length/3);
     var j = 0;
     for(var i = 0; i < bgrArray.length; i += 3){
-            var test = 0x0abbff;
         integer32[j] = (bgrArray[i] << 16) +  (bgrArray[i+1] << 8) + (bgrArray[i+2]);
         j+=1;
     }
