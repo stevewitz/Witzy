@@ -77,7 +77,7 @@ if (!settings.rulzy.ipaddress){
     request(request_options,function(error, response, body){
         if (error){
             console.log('Error sending to api server:'+error);
-            process.exit(exitcode);
+            //process.exit(exitcode);
 
 
         }
