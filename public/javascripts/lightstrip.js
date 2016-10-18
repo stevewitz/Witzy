@@ -6,7 +6,6 @@ function websockstart(){
         console.log("websocket connected")
         websocketsend('setwebpage',{pagename:pagename});
 
-        drawstrips();
 
 
     };
@@ -108,3 +107,87 @@ function writestrip(id,buffer){
 //         ctx.fillRect(i*25, 3,20, 20);
 //     }
 // }
+function populatecommandlist(e){
+    // command object
+    co = things[e.value];
+    if (!co.events){co.events ={}}
+    sel = document.getElementById("commandlist")
+    removeOptions(sel)
+
+    if (co.commands){
+
+        for (var i = 0; i < co.commands.length; i++) {
+            var el = document.createElement("option");
+            el.textContent = co.commands[i].name;
+            el.value = i;
+            sel.appendChild(el);
+        }
+
+
+    }
+    // this will fill the viewcommand box
+    commandclicked();
+    // go ahead and show everything
+
+};
+function removeOptions(selectbox)
+{
+    var i;
+    for(i = selectbox.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+}
+function commandclicked(){
+    e = document.getElementById("commandlist");
+    var command = co.commands[e.value];
+    document.getElementById("viewcommand").value = JSON.stringify(command,null,4);
+    var datalist = document.getElementById("commandvalueoptions");
+    if (datalist) {
+        document.getElementById("thingcommand").removeChild(document.getElementById("commandvalueoptions"))
+    }
+    if (command.arguments != null) {
+        document.getElementById("commandvalue").style.visibility = "visible";
+
+        if (command.arguments.name == "LIST") {
+            // clear the list first
+
+            datalist = document.createElement("DATALIST");
+            datalist.setAttribute("id", "commandvalueoptions");
+            document.getElementById("thingcommand").appendChild(datalist);
+
+            command.arguments.values.forEach(function (arg) {
+                var option = document.createElement('option');
+                option.value = arg;
+                datalist.appendChild(option);
+
+            });
+
+        }
+    }else {
+        document.getElementById("commandvalue").style.visibility = "hidden";
+        // takes to args so hide the control
+
+
+    }
+
+
+}
+function buttonruncommand(){
+    // todo add delay field
+    if (document.getElementById("commandvalue").value) {
+        console.log('value sent')
+        websocketsend('lightstrip', {
+            instruction: 'runcommand', obj: co, command: JSON.parse(document.getElementById("viewcommand").value),
+            value: document.getElementById("commandvalue").value, delay: 0});
+    }else {
+        console.log('no value sent')
+        websocketsend('rules',{instruction:'runcommand',obj:co,
+            command:JSON.parse( document.getElementById("viewcommand").value),
+            delay:0});
+
+    }
+
+
+
+}

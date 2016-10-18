@@ -45,7 +45,7 @@ exports.startmongo = function(collectionname,ip,callback) {
                     global.settings ={
                         type:"settings",
                         options:{
-                            modules:{rgbled:false},
+                            modules:{rgbled:true},
                             websocket:{listenport:8300},
                             webserver:{listenport:8201}
                         },
@@ -54,12 +54,16 @@ exports.startmongo = function(collectionname,ip,callback) {
                             rgbled:[
                                 {
                                     name:'strip1',
-                                    leds:10,
-                                    type:"virtual"
+                                    leds:50,
+                                    type:"virtual",
+                                    createdevice :true,
+                                    addtosmartthings:false
                                 },{
                                     name:'strip2',
                                     leds:50,
-                                    type:"virtual"
+                                    type:"virtual",
+                                    createdevice :true,
+                                    addtosmartthings:false
                                 }]
                         }
 
@@ -304,25 +308,4 @@ exports.writething = function(obj,savesettings,dontmerge){
 
 };
 
-exports.makeleddevice = function(name,stripname,startled,endled){
-    //makeleddevice seg1 strip1 0 9
-    var device ={
-        type:"rbgledsegment",
-        id: stripname+'-'+name,
-        name: name,
-        ipaddress:localaddress+':'+settings.options.webserver.listenport,
-        witzyname:witzyname,
-        parent:'witzy',
-        startLed:startled,
-        endLed:endled,
-        stripname:stripname,
-        commands:[
-            {name:'stripSetColor',
-            sendto:"witzy",
-            command:'stripSetColor',
-            arguments:{name:'NUMBER'}
-            }
-        ]
-    }
-    ll.writething(device,true)
-}
+// ha

@@ -12,10 +12,34 @@ var array = new Uint32Array()
 
 settings.hardware.rgbled.forEach(function(x,index){
 buffer[x.name]  = new Uint32Array(x.leds);
+// create or update the devices in things
+    if (x.createdevice){
+        var device ={
+            type:"rbgledsegment",
+            id: witzyname+'-'+x.name,
+            name: x.name,
+            ipaddress:localaddress+':'+settings.options.webserver.listenport,
+            parent:witzyname,
+            parenttype:'witzy',
+            startLed:1,
+            endLed:x.leds,
+            stripname:x.name,
+            commands:[
+                {name:'stripSetColor',
+                    sendto:"witzy",
+                    command:'stripSetColor',
+                    arguments:{name:'NUMBER'}
+                }
+            ]
+        }
+        ll.writething(device,true)
+
+}
 
 
     });
 exports.incommand = function(c){
+    console.log(JSON.stringify(c,null,4))
     switch (c.command){
         case "stripSetColor":
             stripSetColor(c.obj,c.value)
@@ -120,14 +144,14 @@ function stripSetColor (o,value){ // first led is led 1  //
 
     console.log(o.startLed+':'+o.endLed);
     if (typeof(value) == 'number'){
-        for(var i = (o.startLed); i <= (o.endLed); ++i){
+        for(var i = (o.startLed-1); i < (o.endLed); ++i){
             buffer[o.stripname][i] = value;
         }
 
     }else
     {
 
-        for(var i = (o.startLed); i <= (o.endLed); ++i){
+        for(var i = (o.startLed-1); i < (o.endLed); ++i){
             buffer[o.stripname][i] = value;
         }
     }
@@ -136,5 +160,17 @@ function stripSetColor (o,value){ // first led is led 1  //
     websock.send(sendobj,'lightstrip');
 }
 
+exports.inwebsocket = function(data){
+    switch (data.instruction){
+        case "runcommand":
+            rgb.incommand({command:data.command.name,value:data.value,obj:data.obj});
+            break;
 
+        default:
+            console.log('Unknown Instruction:'+data.instruction);
+
+
+    }
+
+}
 

@@ -119,7 +119,10 @@ function wsData(data,id){
     switch(data.type) {
         case "setwebpage":
             websocket[id].pagename = data.data.pagename;
+            break;
 
+        case "lightstrip":
+                rgb.inwebsocket(data.data);
             break;
                 default:
             console.log('unknown datatype '+data.type)

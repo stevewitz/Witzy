@@ -66,6 +66,7 @@ function initialized(){
     websock = require('./websocket');
     if (settings.options.modules.rgbled){
         rgb = require('./rgbled');
+        console.log('RGB Module loaded')
     }
 
 
