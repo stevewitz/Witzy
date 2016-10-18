@@ -7,11 +7,10 @@ console.log = (function () {return function (x) {if (debug) {process.stdout.writ
  */
 //open spi port
 //var numberLEDS = 50; // set this global in app
-var buffer = {}
-var array = new Uint32Array()
+var colorbuffer = {}
 
 settings.hardware.rgbled.forEach(function(x,index){
-buffer[x.name]  = new Uint32Array(x.leds);
+    colorbuffer[x.name]  = new Uint32Array(x.leds);
 // create or update the devices in things
     if (x.createdevice){
         var device ={
@@ -145,14 +144,14 @@ function stripSetColor (o,value){ // first led is led 1  //
     console.log(o.startLed+':'+o.endLed);
     if (typeof(value) == 'number'){
         for(var i = (o.startLed-1); i < (o.endLed); ++i){
-            buffer[o.stripname][i] = value;
+            colorbuffer[o.stripname][i] = value;
         }
 
     }else
     {
 
         for(var i = (o.startLed-1); i < (o.endLed); ++i){
-            buffer[o.stripname][i] = value;
+            colorbuffer[o.stripname][i] = value;
         }
     }
 
@@ -173,7 +172,7 @@ exports.inwebsocket = function(data){
 
 }
 function updatestrip (o){
-    var sendobj = JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname,leds:buffer[o.stripname].length}});
+    var sendobj = JSON.stringify({object:"buffer",data:{buffer: colorbuffer[o.stripname],stripname:o.stripname,leds:colorbuffer[o.stripname].length}});
     websock.send(sendobj,'lightstrip');
     switch (o.type){
         case 'ws2812b':
