@@ -5,8 +5,9 @@ function websockstart(){
     ws.onopen = function(evt){
         console.log("websocket connected")
         websocketsend('setwebpage',{pagename:pagename});
-        drawstrip('strip1',10);
-        drawstrip('strip2',50);
+
+        drawstrips();
+
 
     };
     ws.onmessage = function(evt) {
@@ -26,12 +27,13 @@ function websockstart(){
             case "buffer":
               //  console.log('leds:'+x.data.leds)
                 //for some reason the buff comes over as on object
-                var obuffer = new Uint32Array(x.data.leds);
-                for(var i = 0; i < x.data.leds; ++i){
-                    obuffer[i] = x.data.buffer[i];
-                }
-
-                    writestrip(x.data.stripname,obuffer);
+              //  var obuffer = new Uint32Array(x.data.leds);
+              //   for(var i = 0; i < x.data.leds; ++i){
+              //       obuffer[i] = x.data.buffer[i];
+              //   }
+              //
+              //       writestrip(x.data.stripname,obuffer);
+                writestrip(x.data.stripname,x.data.buffer);
                 break;
                // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
 
@@ -54,36 +56,55 @@ function websocketsend(type,data){
 
 }
 
-function drawstrip(id,leds){
-    var canvas = document.createElement('canvas');
-    canvas.id     = id;
-    canvas.style =    "display: block";
+function drawstrips(){
 
-    canvas.width  = (leds*25)-5;
-    canvas.height = 26;
-    //canvas.style.position = "absolute";
-    canvas.style.border   = "1px solid";
-    document.getElementById('strips').appendChild(canvas); // adds the canvas to #someBox
-    var buf = new Uint32Array(leds)
-   // buf[1]=0xff0000;
-    //buf[0]=0x0000ff;
-    writestrip(id,buf)
+    settings.hardware.rgbled.forEach(function(s){
+        var canvas = document.createElement('canvas');
+        canvas.id     = s.name;
+        canvas.style =    "display: block";
+
+        canvas.width  = (s.leds*25)-5;
+        canvas.height = 26;
+        //canvas.style.position = "absolute";
+        canvas.style.border   = "1px solid";
+        document.getElementById('strips').appendChild(canvas); // adds the canvas to #someBox
+
+
+
+        }
+    )
 
 }
+
 function writestrip(id,buffer){
-    var leds = buffer.length;
-    console.log('leds'+leds)
-   // leds=10
     var ctx=document.getElementById(id).getContext("2d");
     var pad = "#000000";
     var out;
-    for (i = 0; i <leds; i++)
+    var i = 0;
+    while (true)
     {
-
         out = buffer[i].toString(16);
-      // console.log(out)
         ctx.fillStyle = pad.substring(0, pad.length - out.length) + out ;// this is super stupid
-
         ctx.fillRect(i*25, 3,20, 20);
+        ++i;
+        if (buffer[i] == undefined){break;}
     }
 }
+
+// function writestrip(id,buffer){
+//     var leds = buffer.length;
+//     console.log('leds'+leds)
+//    // leds=10
+//     var ctx=document.getElementById(id).getContext("2d");
+//     var pad = "#000000";
+//     var out;
+//     for (i = 0; i <leds; i++)
+//     {
+//
+//         out = buffer[i].toString(16);
+//       // console.log(out)
+//         ctx.fillStyle = pad.substring(0, pad.length - out.length) + out ;// this is super stupid
+//
+//         ctx.fillRect(i*25, 3,20, 20);
+//     }
+// }

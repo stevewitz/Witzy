@@ -24,7 +24,7 @@ LED String Emulator<hr>
 
 
     function load() {
-        options=<%-JSON.stringify(options)%>
+        settings=<%-JSON.stringify(settings)%>
                 wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
         websockstart();
     }
