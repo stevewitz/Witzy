@@ -156,8 +156,7 @@ function stripSetColor (o,value){ // first led is led 1  //
         }
     }
 
-    var sendobj = JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname,leds:buffer[o.stripname].length}});
-    websock.send(sendobj,'lightstrip');
+
 }
 
 exports.inwebsocket = function(data){
@@ -173,7 +172,9 @@ exports.inwebsocket = function(data){
     }
 
 }
-exports.updatestrip = function(o){
+function updatestrip (o){
+    var sendobj = JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname,leds:buffer[o.stripname].length}});
+    websock.send(sendobj,'lightstrip');
     switch (o.type){
         case 'ws2812b':
             var sendbuffer = buffer[o.name];
