@@ -39,7 +39,7 @@ buffer[x.name]  = new Uint32Array(x.leds);
 
     });
 exports.incommand = function(c){
-    console.log(JSON.stringify(c,null,4))
+    //console.log(JSON.stringify(c,null,4))
     switch (c.command){
         case "stripSetColor":
             stripSetColor(c.obj,c.value)
