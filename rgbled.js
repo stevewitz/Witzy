@@ -154,7 +154,7 @@ function stripSetColor (o,value){ // first led is led 1  //
             colorbuffer[o.stripname][i] = value;
         }
     }
-
+    updatestrip(o);
 
 }
 
