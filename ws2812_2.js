@@ -4,7 +4,7 @@
 var ws281x = require('rpi-ws281x-native/lib/ws281x-native');
 
 var NUM_LEDS = parseInt(process.argv[2], 20) || 20,
-    pixelData = new Uint32Array(NUM_LEDS);
+    pixelData = new Array(3*NUM_LEDS);
 
 ws281x.init(NUM_LEDS);
 
@@ -14,8 +14,10 @@ process.on('SIGINT', function () {
     process.nextTick(function () { process.exit(0); });
 });
 
-for(var i = 0; i < NUM_LEDS; i++) {
-    pixelData[i] = 0xffcc22;
+for(var i = 0; i < 3* NUM_LEDS; i+=3) {
+    pixelData[i] = 0xff;
+    pixelData[i+1] = 0xff
+    pixelData[i+2] = 0xff
 }
 ws281x.render(pixelData);
 
