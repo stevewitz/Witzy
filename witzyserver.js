@@ -93,7 +93,7 @@ if (exitcode){global.exitcode = exitcode}
 
         }
         if (exitcode){
-
+            console.log('** exitcode')
             process.exit(exitcode);
 
         }
