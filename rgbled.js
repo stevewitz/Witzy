@@ -11,6 +11,7 @@ var colorbuffer = {}
 
 settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
+
 // create or update the devices in things
     if (x.createdevice){
         var device ={
@@ -33,8 +34,8 @@ settings.hardware.rgbled.forEach(function(x,index){
                     sendto:"witzy",
                     command:'colorFade',
                     arguments:{name:'JSON',
-                              incolor:0,
-                              timeseconds:0}
+                              endColor:0,
+                              fadeTimeSeconds:0}
                 }
             ]
         }
@@ -140,12 +141,20 @@ function fadeColor(startLED, endLed, red, green, blue, fadeTime){ // fades up or
     },intervalTime);
 }
 
-function fadeColor(startLED, endLed, color, fadeTime){ // fades up or down automatically
+function colorFade(o,value){ // fades up or down automatically
     var count = 0;
+    var startLED = o.startLed;
+    var endLed = o.endLed;
+    var fadeTime = value.fadeTimeSeconds;
+    var newColor = parseColorToRGB(value.endColor)
+    red = newColor[0];
+    green = newColor[1];
+    blue = newColor[2];
+
     var intervalTime = parseInt((fadeTime *1000)/255);
-    var stepSizeB = (buffer[((startLED-1)*3)]-  blue)/255;
-    var stepSizeG = (buffer[((startLED-1)*3) + 1]-  green)/255;
-    var stepSizeR = (buffer[((startLED-1)*3) + 2]-  red)/255;
+    var stepSizeB = (colorbuffer[o.stripname][((startLED-1)*3)]-  red)/255;
+    var stepSizeG = (colorbuffer[o.stripname][((startLED-1)*3) + 1]-  green)/255;
+    var stepSizeR = (buffer[((startLED-1)*3) + 2]-  blue)/255;
     copyBuffer(); // send data to non 8 bit array
     var simpleFadeInterval = setInterval(function(){
         count +=1;
@@ -153,13 +162,24 @@ function fadeColor(startLED, endLed, color, fadeTime){ // fades up or down autom
             clearInterval(simpleFadeInterval);
         }
         for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
-            array[i] -= stepSizeB;
+            array[i] -= stepSizeR;
             array[i+1] -= stepSizeG;
-            array[i+2] -= stepSizeR;
+            array[i+2] -= stepSizeB;
         }
         updateBuffer(); //bring back buffer to output
         writeSPI();
     },intervalTime);
+}
+
+function parseColorToRGB(color){
+    var val = new Array(3);
+    var red = (color >>16) & 0xFF;
+    var green = (color >>8) & 0xFF;
+    var blue = color & 0xFF;
+    val[0] = red;
+    val[1] = green;
+    val[2] = blue;
+    return val;
 }
 
 
