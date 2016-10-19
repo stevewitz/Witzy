@@ -5,8 +5,10 @@ var debug = 1;
 var console = {};
 const fs = require('fs');
 
+var os = require('os');
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('magenta','llib     ') + x + '\n');}}})();
 MC = require('mongodb').MongoClient;
+
 
 
 process.stdin.on('readable', () => {
@@ -20,7 +22,7 @@ if (chunk !== null) {
 exports.startmongo = function(collectionname,ip,callback) {
 // starts the mongo collection
 // returns the settings object from the database
-
+    console.log (os.type())
     MC.connect('mongodb://'+ ip+':27017/'+collectionname, function (err, db) {
 
         if (!err) {
@@ -94,35 +96,69 @@ exports.startmongo = function(collectionname,ip,callback) {
 
 
 exports.ansi = function (color,text){
-    var codes = {
 
-        white: 37
-        , black: 30
-        , blue: 34
-        , cyan: 36
-        , green: 32
-        , magenta: 35
-        , red: 31
-        , yellow: 33
-        , grey: 90
-        , brightBlack: 90
-        , brightRed: 91
-        , brightGreen: 92
-        , brightYellow: 93
-        , brightBlue: 94
-        , brightMagenta: 95
-        , brightCyan: 96
-        , brightWhite: 97
-        , bold: 1
-        , italic: 3
-        , underline: 4
-        , inverse: 7
-        , unbold: 22
-        , unitalic: 23
-        , ununderline: 24
-        , uninverse: 27
-    };
+    if(os.type() == "Windows_NT") {
 
+        var codes = {
+
+            white: 37
+            , black: 30
+            , blue: 34
+            , cyan: 36
+            , green: 32
+            , magenta: 35
+            , red: 31
+            , yellow: 33
+            , grey: 90
+            , brightBlack: 90
+            , brightRed: 91
+            , brightGreen: 92
+            , brightYellow: 93
+            , brightBlue: 94
+            , brightMagenta: 95
+            , brightCyan: 96
+            , brightWhite: 97
+            , bold: 1
+            , italic: 3
+            , underline: 4
+            , inverse: 7
+            , unbold: 22
+            , unitalic: 23
+            , ununderline: 24
+            , uninverse: 27
+        };
+    } else
+    {
+        //  switch black and white for pi
+        var codes = {
+
+            white: 30
+            , black: 37
+            , blue: 34
+            , cyan: 36
+            , green: 32
+            , magenta: 35
+            , red: 31
+            , yellow: 33
+            , grey: 90
+            , brightBlack: 90
+            , brightRed: 91
+            , brightGreen: 92
+            , brightYellow: 93
+            , brightBlue: 94
+            , brightMagenta: 95
+            , brightCyan: 96
+            , brightWhite: 97
+            , bold: 1
+            , italic: 3
+            , underline: 4
+            , inverse: 7
+            , unbold: 22
+            , unitalic: 23
+            , ununderline: 24
+            , uninverse: 27
+        };
+    }
     return '\x1b['+codes[color]+'m'+text+'\x1b['+codes['black']+'m\x1b[27m';
 
 }
@@ -200,6 +236,7 @@ function commandline(s){
     s = s.toString();
     t = s.replace(',',' ').match(/\S+/g); // breaks string into array
     switch (t[0]) {
+        case "x":
         case "stop":
         case "exit":
             process.exit(0);
