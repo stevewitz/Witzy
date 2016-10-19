@@ -1,19 +1,23 @@
 var debug = 1;
 var console = {};
-var ws281x = require('rpi-ws281x-native/lib/ws281x-native');
+var os = require('os');
+var colorbuffer = {};
+var rgbBuffer = {};
+
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
 
-
+if(os.type() != "Windows_NT") {
+    var ws281x = require('rpi-ws281x-native/lib/ws281x-native');
+}
 /**
  * Created by steve on 9/9/2016. A
  */
 //open spi port
 //var numberLEDS = 50; // set this global in app
-var colorbuffer = {}
 
 settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
-    rgbBuffer[x.name] = [x.leds*3]; //declare 2 dimension array
+    rgbBuffer[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
 // create or update the devices in things
     if (x.createdevice){
         var device ={
@@ -145,7 +149,7 @@ function fadeColor(startLED, endLed, red, green, blue, fadeTime){ // fades up or
 
 function colorFade(o,value){ // fades up or down automatically
     console.log('value:'+JSON.stringify(value,null,4))
-    return
+  //  return
     // i dont think you can do it this way
     // i think you have to calculate the stepsize for each led
 
@@ -159,13 +163,13 @@ function colorFade(o,value){ // fades up or down automatically
     blue = newColor[2];
 
     var intervalTime = parseInt((fadeTime *1000)/255);
-    var stepSizeB = (rgbBuffer[o.stripname][((startLED-1)*3)]-  red)/255;
+    var stepSizeR = (rgbBuffer[o.stripname][((startLED-1)*3)]-  red)/255;
     var stepSizeG = (rgbBuffer[o.stripname][((startLED-1)*3) + 1]-  green)/255;
-    var stepSizeR = (rgbBuffer[o.stripname][((startLED-1)*3) + 2]-  blue)/255;
+    var stepSizeB = (rgbBuffer[o.stripname][((startLED-1)*3) + 2]-  blue)/255;
 
     var simpleFadeInterval = setInterval(function(){
         count +=1;
-        if(count >  255){
+        if(count >= 255){
             clearInterval(simpleFadeInterval);
         }
         for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
@@ -173,7 +177,7 @@ function colorFade(o,value){ // fades up or down automatically
             rgbBuffer[o.stripname][i+1] -= stepSizeG;
             rgbBuffer[o.stripname][i+2] -= stepSizeB;
         }
-        updates(o, rgbBuffer[o.stripname]); //bring back buffer to output
+        updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
 
     },intervalTime);
 }
@@ -246,8 +250,8 @@ function updatestrip (o, bufferdata){
     colorbuffer[o.stripname]= convertTo32Array(bufferdata); //put thee rgb data back in the colorbuffer
     var sendobj = JSON.stringify({object:"buffer",data:{buffer: colorbuffer[o.stripname],stripname:o.stripname,leds:colorbuffer[o.stripname].length}});
     websock.send(sendobj,'lightstrip');
-    ws281x.init(colorbuffer[o.stripname].length);
-    ws281x.render(colorbuffer[o.stripname]);
-
-
+    if(os.type() != "Windows_NT") {
+        ws281x.init(colorbuffer[o.stripname].length);
+        ws281x.render(colorbuffer[o.stripname]);
+    }
 }
