@@ -34,8 +34,8 @@ settings.hardware.rgbled.forEach(function(x,index){
                     sendto:"witzy",
                     command:'colorFade',
                     arguments:{name:'JSON',
-                              endColor:0,
-                              fadeTimeSeconds:0}
+                              endColor:0xff0000,
+                              fadeTimeSeconds:10}
                 }
             ]
         }
@@ -142,6 +142,11 @@ function fadeColor(startLED, endLed, red, green, blue, fadeTime){ // fades up or
 }
 
 function colorFade(o,value){ // fades up or down automatically
+    console.log('value:'+JSON.stringify(value,null,4))
+    return
+    // i dont think you can do it this way
+    // i think you have to calculate the stepsize for each led
+
     var count = 0;
     var startLED = o.startLed;
     var endLed = o.endLed;

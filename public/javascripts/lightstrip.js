@@ -162,31 +162,70 @@ function commandclicked(){
                 datalist.appendChild(option);
 
             });
-
         }
+            if (command.arguments.name == "JSON"){
+                document.getElementById("commandvalue").style.visibility = "hidden";
+                var h = "";
+                for (var prop in command.arguments) {
+                    if (prop != 'name'){
+                        h=h+prop+'<input id="'+ prop+'" value ='+command.arguments[prop]+'  ></input><br>'
+                    }
+                }
+
+                document.getElementById('JSONinput').innerHTML = h;
+
+            } else{
+                document.getElementById('JSONinput').innerHTML = '';
+
+            }
+
+
     }else {
         document.getElementById("commandvalue").style.visibility = "hidden";
         // takes to args so hide the control
-
-
     }
-
 
 }
 function buttonruncommand(){
     // todo add delay field
-    if (document.getElementById("commandvalue").value) {
-        console.log('value sent')
-        websocketsend('lightstrip', {
-            instruction: 'runcommand', obj: co, command: JSON.parse(document.getElementById("viewcommand").value),
-            value: document.getElementById("commandvalue").value, delay: 0});
-    }else {
-        console.log('no value sent')
-        websocketsend('rules',{instruction:'runcommand',obj:co,
-            command:JSON.parse( document.getElementById("viewcommand").value),
-            delay:0});
+    e = document.getElementById("commandlist");
+    var command = co.commands[e.value];
+    switch (command.arguments.name)
+    {
+        case "JSON":
+            var val = {};
+            for (var prop in command.arguments) {
+                if (prop != 'name') {
+
+                    val[prop] = document.getElementById(prop).value
+                }
+            }
+            console.log(JSON.stringify(val,null,4));
+            websocketsend('lightstrip', {
+                instruction: 'runcommand', obj: co, command: JSON.parse(document.getElementById("viewcommand").value),
+                value: val, delay: 0});
+
+            break;
+        default:
+
+            if (document.getElementById("commandvalue").value) {
+                console.log('value sent')
+                websocketsend('lightstrip', {
+                    instruction: 'runcommand', obj: co, command: JSON.parse(document.getElementById("viewcommand").value),
+                    value: document.getElementById("commandvalue").value, delay: 0});
+            }else {
+                console.log('no value sent')
+                websocketsend('lightstrip',{instruction:'runcommand',obj:co,
+                    command:JSON.parse( document.getElementById("viewcommand").value),
+                    delay:0});
+
+            }
+
+
+
 
     }
+
 
 
 
