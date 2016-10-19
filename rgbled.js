@@ -92,6 +92,23 @@ exports.incommand = function(c){
     }
 }
 
+function stripSetColor (o,value){ // first led is led 1  //
+    console.log(o.startLed+':'+o.endLed);
+    //set rgbbuffer to color from value
+    var startLED = o.startLed;
+    var endLed = o.endLed;
+    var newColor = parseColorToRGB(value)
+    red = newColor[0];
+    green = newColor[1];
+    blue = newColor[2];
+    for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
+        rgbBuffer[o.stripname][i] = red;
+        rgbBuffer[o.stripname][i+1] = green;
+        rgbBuffer[o.stripname][i+2] = blue;
+    }
+    updatestrip(o, rgbBuffer[o.stripname]);
+}
+
 function simpleFade(o, value){// fades up or down. Fade level is between 0 and 1 with 1 being all bright.  50% level is .5
     var count = 0;
     var startLED = o.startLed;
@@ -163,23 +180,6 @@ function writeSPI(){ //sends entire buffer to led strip
     spi.write(buffer,function(e){
         if(e) console.log(e);
     });
-}
-
-function stripSetColor (o,value){ // first led is led 1  //
-    console.log(o.startLed+':'+o.endLed);
-    //set rgbbuffer to color from value
-    var startLED = o.startLed;
-    var endLed = o.endLed;
-    var newColor = parseColorToRGB(value)
-    red = newColor[0];
-    green = newColor[1];
-    blue = newColor[2];
-    for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
-        rgbBuffer[o.stripname][i] = red;
-        rgbBuffer[o.stripname][i+1] = green;
-        rgbBuffer[o.stripname][i+2] = blue;
-    }
-    updatestrip(o, rgbBuffer[o.stripname]);
 }
 
 exports.inwebsocket = function(data){
