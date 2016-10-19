@@ -245,7 +245,6 @@ function updatestrip (o, bufferdata){
     var sendobj = JSON.stringify({object:"buffer",data:{buffer: colorbuffer[o.stripname],stripname:o.stripname,leds:colorbuffer[o.stripname].length}});
     websock.send(sendobj,'lightstrip');
     if(os.type() != "Windows_NT") {
-        console.log("Sending to WS2812 Strip");
         ws281x.init(colorbuffer[o.stripname].length);
         ws281x.render(colorbuffer[o.stripname]);
     }
