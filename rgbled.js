@@ -1,6 +1,8 @@
 var debug = 1;
-var console = {}
+var console = {};
+var ws281x = require('rpi-ws281x-native/lib/ws281x-native');
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
+
 
 /**
  * Created by steve on 9/9/2016. A
@@ -11,7 +13,7 @@ var colorbuffer = {}
 
 settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
-
+    rgbBuffer[x.name] = [x.leds*3]; //declare 2 dimension array
 // create or update the devices in things
     if (x.createdevice){
         var device ={
@@ -157,22 +159,22 @@ function colorFade(o,value){ // fades up or down automatically
     blue = newColor[2];
 
     var intervalTime = parseInt((fadeTime *1000)/255);
-    var stepSizeB = (colorbuffer[o.stripname][((startLED-1)*3)]-  red)/255;
-    var stepSizeG = (colorbuffer[o.stripname][((startLED-1)*3) + 1]-  green)/255;
-    var stepSizeR = (buffer[((startLED-1)*3) + 2]-  blue)/255;
-    copyBuffer(); // send data to non 8 bit array
+    var stepSizeB = (rgbBuffer[o.stripname][((startLED-1)*3)]-  red)/255;
+    var stepSizeG = (rgbBuffer[o.stripname][((startLED-1)*3) + 1]-  green)/255;
+    var stepSizeR = (rgbBuffer[o.stripname][((startLED-1)*3) + 2]-  blue)/255;
+
     var simpleFadeInterval = setInterval(function(){
         count +=1;
         if(count >  255){
             clearInterval(simpleFadeInterval);
         }
         for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
-            array[i] -= stepSizeR;
-            array[i+1] -= stepSizeG;
-            array[i+2] -= stepSizeB;
+            rgbBuffer[o.stripname][i] -= stepSizeR;
+            rgbBuffer[o.stripname][i+1] -= stepSizeG;
+            rgbBuffer[o.stripname][i+2] -= stepSizeB;
         }
-        updateBuffer(); //bring back buffer to output
-        writeSPI();
+        updates(o, rgbBuffer[o.stripname]); //bring back buffer to output
+
     },intervalTime);
 }
 
@@ -210,7 +212,7 @@ function stripSetColor (o,value){ // first led is led 1  //
             colorbuffer[o.stripname][i] = value;
         }
     }
-    updatestrip(o);
+    updatestrip(o, rgbBuffer);
 
 }
 
@@ -227,16 +229,25 @@ exports.inwebsocket = function(data){
     }
 
 }
-function updatestrip (o){
+
+function convertTo32Array(rgbArray){
+    var integer32 = new Uint32Array(rgbArray.length/3);
+    var j = 0;
+    for(var i = 0; i < rgbArray.length; i += 3){
+        integer32[j] = (rgbArray[i] << 16) +  (rgbArray[i+1] << 8) + (rgbArray[i+2]);
+        j+=1;
+    }
+    return integer32;
+
+}
+
+function updatestrip (o, bufferdata){
+
+    colorbuffer[o.stripname]= convertTo32Array(bufferdata); //put thee rgb data back in the colorbuffer
     var sendobj = JSON.stringify({object:"buffer",data:{buffer: colorbuffer[o.stripname],stripname:o.stripname,leds:colorbuffer[o.stripname].length}});
     websock.send(sendobj,'lightstrip');
-    switch (o.type){
-        case 'ws2812b':
-            var sendbuffer = buffer[o.name];
-
-
-    }
-
+    ws281x.init(colorbuffer[o.stripname].length);
+    ws281x.render(colorbuffer[o.stripname]);
 
 
 }
