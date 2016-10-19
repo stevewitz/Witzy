@@ -163,19 +163,16 @@ function colorFade(o,value){ // fades up or down automatically
     blue = newColor[2];
 
     var intervalTime = parseInt((fadeTime *1000)/255);
-    var stepSizeR = (rgbBuffer[o.stripname][((startLED-1)*3)]-  red)/255;
-    var stepSizeG = (rgbBuffer[o.stripname][((startLED-1)*3) + 1]-  green)/255;
-    var stepSizeB = (rgbBuffer[o.stripname][((startLED-1)*3) + 2]-  blue)/255;
 
     var simpleFadeInterval = setInterval(function(){
         count +=1;
-        if(count >= 255){
+        if(count >= 254){
             clearInterval(simpleFadeInterval);
         }
         for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
-            rgbBuffer[o.stripname][i] -= stepSizeR;
-            rgbBuffer[o.stripname][i+1] -= stepSizeG;
-            rgbBuffer[o.stripname][i+2] -= stepSizeB;
+            rgbBuffer[o.stripname][i] = rgbBuffer[o.stripname][i]-((rgbBuffer[o.stripname][i]-red)/(255-count));
+            rgbBuffer[o.stripname][i+1] = rgbBuffer[o.stripname][i+1]-((rgbBuffer[o.stripname][i+1]-green)/(255-count));
+            rgbBuffer[o.stripname][i+2] = rgbBuffer[o.stripname][i+2]-((rgbBuffer[o.stripname][i+2]-blue)/(255-count));
         }
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
 
@@ -192,8 +189,6 @@ function parseColorToRGB(color){
     val[2] = blue;
     return val;
 }
-
-
 
 function writeSPI(){ //sends entire buffer to led strip
     spi.write(buffer,function(e){
@@ -251,6 +246,7 @@ function updatestrip (o, bufferdata){
     var sendobj = JSON.stringify({object:"buffer",data:{buffer: colorbuffer[o.stripname],stripname:o.stripname,leds:colorbuffer[o.stripname].length}});
     websock.send(sendobj,'lightstrip');
     if(os.type() != "Windows_NT") {
+        console.log("Sending to WS2812 Strip");
         ws281x.init(colorbuffer[o.stripname].length);
         ws281x.render(colorbuffer[o.stripname]);
     }
