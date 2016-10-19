@@ -51,6 +51,16 @@ settings.hardware.rgbled.forEach(function(x,index){
                     arguments:{name:'JSON',
                         fadeLevel:0.5,
                         fadeTimeSeconds:10}
+                },
+                {name:'Blackout',
+                    sendto:"witzy",
+                    command:'Blackout',
+                    arguments:{name:'NUMBER'}
+                },
+                {name:'AllOn',
+                    sendto:"witzy",
+                    command:'AllOn',
+                    arguments:{name:'NUMBER'}
                 }
             ]
         }
@@ -64,36 +74,38 @@ exports.incommand = function(c){
     //console.log(JSON.stringify(c,null,4))
     switch (c.command){
         case "stripSetColor":
-            stripSetColor(c.obj,c.value)
+            stripSetColor(c.obj,c.value);
             break;
         case "colorFade":
-            colorFade(c.obj,c.value)
+            colorFade(c.obj,c.value);
             break;
         case "simpleFade":
-            simpleFade(c.obj,c.value)
+            simpleFade(c.obj,c.value);
+            break;
+        case "Blackout":
+            stripSetColor(c.obj,0);
+            break;
+        case "AllOn":
+            stripSetColor(c.obj,0xFFFFFF);
             break;
 
-
     }
-
-
-
 }
 
 //fadeSimple(20,25,.1,10);
 //fadeColor(5,10,255,0,200,10);
 
-function copyBuffer(){
-    for(var i = 0; i< buffer.length; i++){
-        array[i] = buffer[i];
-    }
-}
+// function copyBuffer(){
+//     for(var i = 0; i< buffer.length; i++){
+//         array[i] = buffer[i];
+//     }
+// }
 
-function updateBuffer(){
-    for(var i = 0; i< buffer.length; i++){
-        buffer[i] = array[i];
-    }
-}
+// function updateBuffer(){
+//     for(var i = 0; i< buffer.length; i++){
+//         buffer[i] = array[i];
+//     }
+// }
 
 function setBlackout(){ // all lights immediately off
     for(var i = 0; i < buffer.length; i+=3) {
