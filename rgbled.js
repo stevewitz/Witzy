@@ -113,30 +113,6 @@ function setAllOn(){ //all lights immediately on white max bright
     writeSPI();
 }
 
-function fadeSimple(startLED, endLed, fadeLevel, fadeTime){// fades up or down. Fade level is between 0 and 1 with 1 being all bright.  50% level is .5
-    var count = 0;
-    var intervalTime = parseInt((fadeTime *1000)/255);
-    var stepSizeB = (buffer[((startLED-1)*3)]-  buffer[((startLED-1)*3)]*(fadeLevel))/255;
-    var stepSizeG = (buffer[((startLED-1)*3) + 1]-  buffer[((startLED-1)*3) + 1]*(fadeLevel))/255;
-    var stepSizeR = (buffer[((startLED-1)*3) + 2]-  buffer[((startLED-1)*3) + 2]*(fadeLevel))/255;
-    copyBuffer(); // send data to non 8 bit array
-    var simpleFadeInterval = setInterval(function(){
-        count +=1;
-        if(count >  255){
-            clearInterval(simpleFadeInterval);
-        }
-        for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
-            array[i] -= stepSizeB;
-            array[i+1] -= stepSizeG;
-            array[i+2] -= stepSizeR;
-        }
-
-        updateBuffer(); //bring back buffer to output
-        writeSPI();
-       // console.log(count +    " "+ buffer[15] +    " "+ buffer[16]+    " "+ buffer[17] + " " + array[15]);
-    },intervalTime);
-}
-
 function simpleFade(o, value){// fades up or down. Fade level is between 0 and 1 with 1 being all bright.  50% level is .5
     var count = 0;
     var startLED = o.startLed;
