@@ -35,7 +35,6 @@ function convertTo32Array(rgbArray){
     var integer32 = new Uint32Array(rgbArray.length/3);
     var j = 0;
     for(var i = 0; i < rgbArray.length; i += 3){
-        var test = 0x0abbff;
         integer32[j] = (rgbArray[i] << 16) +  (rgbArray[i+1] << 8) + (rgbArray[i+2]);
         j+=1;
     }
