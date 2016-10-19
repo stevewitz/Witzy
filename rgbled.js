@@ -92,39 +92,6 @@ exports.incommand = function(c){
     }
 }
 
-//fadeSimple(20,25,.1,10);
-//fadeColor(5,10,255,0,200,10);
-
-// function copyBuffer(){
-//     for(var i = 0; i< buffer.length; i++){
-//         array[i] = buffer[i];
-//     }
-// }
-
-// function updateBuffer(){
-//     for(var i = 0; i< buffer.length; i++){
-//         buffer[i] = array[i];
-//     }
-// }
-
-function setBlackout(){ // all lights immediately off
-    for(var i = 0; i < buffer.length; i+=3) {
-        buffer[i] = 0;
-        buffer[i + 1] = 0;
-        buffer[i + 2] = 0;
-    }
-    writeSPI();
-}
-
-function setAllOn(){ //all lights immediately on white max bright
-    for(var i = 0; i < buffer.length; i+=3) {
-        buffer[i] = 255;
-        buffer[i + 1] = 255;
-        buffer[i + 2] = 255;
-    }
-    writeSPI();
-}
-
 function simpleFade(o, value){// fades up or down. Fade level is between 0 and 1 with 1 being all bright.  50% level is .5
     var count = 0;
     var startLED = o.startLed;
@@ -148,6 +115,7 @@ function simpleFade(o, value){// fades up or down. Fade level is between 0 and 1
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
     },intervalTime);
 }
+
 function colorFade(o,value){ // fades up or down automatically
     console.log('value:'+JSON.stringify(value,null,4))
   //  return
