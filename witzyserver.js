@@ -61,7 +61,8 @@ exports.start = function() {
 exports.send = function(data,exitcode){
     //this will send data back to the witzy.api
     // use for buttons - status updats - etc
-if (!settings.rulzy.ipaddress){
+if (exitcode){global.exitcode = exitcode}
+    if (!settings.rulzy.ipaddress){
     console.log(ll.ansi('inverse','WARNING:')+" no ipaddress set for mongo.");
     console.log(ll.ansi('red','Type "rulzy <RULZY ipaddress:port>"<enter> in the terminal window to set address'));
     return;
@@ -75,17 +76,24 @@ if (!settings.rulzy.ipaddress){
         json: data
     };
     request(request_options,function(error, response, body){
+        console.log('exit code'+exitcode)
+
         if (error){
             console.log('Error sending to api server:'+error);
             //process.exit(exitcode);
-            return;
+            if (exitcode){
 
+                process.exit(exitcode);
+
+            }
+            return;
         }
         if(response.statusCode != '200'){
             console.log('Error sending to api server:'+JSON.stringify(response,null,4));
 
         }
         if (exitcode){
+
             process.exit(exitcode);
 
         }

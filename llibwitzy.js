@@ -95,6 +95,7 @@ exports.startmongo = function(collectionname,ip,callback) {
 
 exports.ansi = function (color,text){
     var codes = {
+
         white: 37
         , black: 30
         , blue: 34
@@ -151,8 +152,8 @@ exports.cleanup = function(callback) {
                 source:witzyname
             }
         },2);
-        console.log('Ctrl-C...');
 
+        console.log('Ctrl-C...');
     });
 
     //catch uncaught exceptions, trace, then exit normally
@@ -170,8 +171,8 @@ exports.cleanup = function(callback) {
         }
         },1);
 
-
-        //  process.exit(1);
+            // moved exit to server.send
+          //process.exit(1);
     });
 };
 
