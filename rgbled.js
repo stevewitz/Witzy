@@ -3,6 +3,7 @@ var console = {};
 var os = require('os');
 var colorbuffer = {};
 var rgbBuffer = {};
+var rgbBufferTemp = {};
 
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
 
@@ -18,6 +19,7 @@ if(os.type() != "Windows_NT") {
 settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
     rgbBuffer[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
+    rgbBufferTemp[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
 // create or update the devices in things
     if (x.createdevice){
         var device ={
@@ -42,6 +44,13 @@ settings.hardware.rgbled.forEach(function(x,index){
                     arguments:{name:'JSON',
                               endColor:0xff0000,
                               fadeTimeSeconds:10}
+                },
+                {name:'simpleFade',
+                    sendto:"witzy",
+                    command:'simpleFade',
+                    arguments:{name:'JSON',
+                        fadeLevel:0.5,
+                        fadeTimeSeconds:10}
                 }
             ]
         }
@@ -60,6 +69,10 @@ exports.incommand = function(c){
         case "colorFade":
             colorFade(c.obj,c.value)
             break;
+        case "simpleFade":
+            simpleFade(c.obj,c.value)
+            break;
+
 
     }
 
@@ -124,27 +137,27 @@ function fadeSimple(startLED, endLed, fadeLevel, fadeTime){// fades up or down. 
     },intervalTime);
 }
 
-function simpleFade(startLED, endLed, fadeLevel, fadeTime){// fades up or down. Fade level is between 0 and 1 with 1 being all bright.  50% level is .5
+function simpleFade(o, value){// fades up or down. Fade level is between 0 and 1 with 1 being all bright.  50% level is .5
     var count = 0;
+    var startLED = o.startLed;
+    var endLed = o.endLed;
+    var fadeTime = value.fadeTimeSeconds;
+    var fadeLevel = value.fadeLevel;
     var intervalTime = parseInt((fadeTime *1000)/255);
-    var stepSizeB = (buffer[((startLED-1)*3)]-  buffer[((startLED-1)*3)]*(fadeLevel))/255;
-    var stepSizeG = (buffer[((startLED-1)*3) + 1]-  buffer[((startLED-1)*3) + 1]*(fadeLevel))/255;
-    var stepSizeR = (buffer[((startLED-1)*3) + 2]-  buffer[((startLED-1)*3) + 2]*(fadeLevel))/255;
-    copyBuffer(); // send data to non 8 bit array
+
+    for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
+        rgbBufferTemp[o.stripname][i] = rgbBuffer[o.stripname][i]*parseFloat(fadeLevel); //store final fade values
+    }
+
     var simpleFadeInterval = setInterval(function(){
         count +=1;
-        if(count >  255){
+        if(count >=  254){
             clearInterval(simpleFadeInterval);
         }
-        for(var i = (startLED-1)*3; i < (endLed)*3; i+=3){
-            array[i] -= stepSizeB;
-            array[i+1] -= stepSizeG;
-            array[i+2] -= stepSizeR;
+        for(var i = (startLED-1)*3; i < (endLed)*3; i++){
+            rgbBuffer[o.stripname][i] = rgbBuffer[o.stripname][i]-((rgbBuffer[o.stripname][i]-rgbBufferTemp[o.stripname][i])/(255-count));
         }
-
-        updateBuffer(); //bring back buffer to output
-        writeSPI();
-        // console.log(count +    " "+ buffer[15] +    " "+ buffer[16]+    " "+ buffer[17] + " " + array[15]);
+        updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
     },intervalTime);
 }
 function colorFade(o,value){ // fades up or down automatically
