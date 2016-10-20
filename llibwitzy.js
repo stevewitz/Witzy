@@ -258,6 +258,9 @@ function commandline(s){
             ll.makeleddevice(t[1],t[2],t[3],t[4]);
 
                 break;
+        case "break":
+            x=llkkk  // intentional error
+            break;
         default:
             console.log('Unknown input:'+s)
 

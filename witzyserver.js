@@ -79,7 +79,7 @@ if (exitcode){global.exitcode = exitcode}
         console.log('exit code'+exitcode)
 
         if (error){
-            console.log('Error sending to api server:'+error);
+            console.log('Error sending to api server:'+JSON.stringify(request_options,null,4));
             //process.exit(exitcode);
             if (exitcode){
 
