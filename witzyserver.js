@@ -69,7 +69,7 @@ if (exitcode){global.exitcode = exitcode}
 }
 
 
-
+console.log(data)
     var request_options = {
         uri:'http://'+settings.rulzy.ipaddress+'/api/witzy',
         method:"POST",
