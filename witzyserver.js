@@ -89,7 +89,7 @@ if (exitcode){global.exitcode = exitcode}
             return;
         }
         if(response.statusCode != '200'){
-            console.log('Error sending to api server:'+JSON.stringify(response,null,4));
+            console.log('Error sending to api server:'+JSON.stringify(request_options,null,4));
 
         }
         if (exitcode){
