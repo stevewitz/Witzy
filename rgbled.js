@@ -54,8 +54,8 @@ settings.hardware.rgbled.forEach(function(x,index){
                 },
                 {name:'Blackout',
                     sendto:"witzy",
-                    command:'Blackout',
-                    arguments:{name:'NUMBER'}
+                    command:'Blackout'
+
                 },
                 {name:'AllOn',
                     sendto:"witzy",

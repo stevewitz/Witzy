@@ -190,7 +190,12 @@ function buttonruncommand(){
     // todo add delay field
     e = document.getElementById("commandlist");
     var command = co.commands[e.value];
-    switch (command.arguments.name)
+    var datatype;
+
+    if (command.arguments){datatype = command.arguments.name} else
+    {datatype = 'none'}
+    // this needs to be cleaned up
+    switch (datatype)
     {
         case "JSON":
             var val = {};
@@ -215,8 +220,8 @@ function buttonruncommand(){
                     value: document.getElementById("commandvalue").value, delay: 0});
             }else {
                 console.log('no value sent')
-                websocketsend('lightstrip',{instruction:'runcommand',obj:co,
-                    command:JSON.parse( document.getElementById("viewcommand").value),
+                websocketsend('lightstrip',{
+                    instruction:'runcommand',obj:co, command:JSON.parse( document.getElementById("viewcommand").value),
                     delay:0});
 
             }
