@@ -180,6 +180,7 @@ function colorFade(o,value){ // fades up or down automatically
     },intervalTime);
 }
 
+
 function bubbleWalk(o,value){
     var newColor = parseColorToRGB(value.color);
     var counter = 0;
@@ -187,7 +188,7 @@ function bubbleWalk(o,value){
     green = newColor[1];
     blue = newColor[2];
     var middle = 0;
-    
+
     clearInterval(walkInterval);
     intervalMS = parseFloat(value.intervalMS);
     var numLEDS = parseInt(value.numLEDs);
