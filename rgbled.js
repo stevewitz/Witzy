@@ -27,7 +27,6 @@ var x = settings.hardware.rgbled[0];
     if(os.type() != "Windows_NT") {
         ws281x.init(x.leds);
     }
-
 // create or update the devices in things
     if (x.createdevice){
         var device ={
