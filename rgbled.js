@@ -292,6 +292,7 @@ function convertTo32Array(rgbArray){
 
 }
 
+
 function updatestrip (o, bufferdata){
 
     colorbuffer[o.stripname]= convertTo32Array(bufferdata); //put thee rgb data back in the colorbuffer
