@@ -180,36 +180,50 @@ function colorFade(o,value){ // fades up or down automatically
 
 function bubbleWalk(o,value){
     var newColor = parseColorToRGB(value.color);
+    var counter = 0;
     red = newColor[0];
     green = newColor[1];
     blue = newColor[2];
     var middle = 0;
     clearInterval(walkInterval);
    intervalMS = parseFloat(value.intervalMS);
-    var numLEDS = value.numLEDs;
+    var numLEDS = parseInt(value.numLEDs);
     if(numLEDS % 2 == 0){ //make suer num leds is an odd number so there is a middle value
         numLEDS +=1;
     }
+    for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
+        rgbBufferTemp[o.stripname][i] = rgbBuffer[o.stripname][i] ; //grab current strip values
+    }
+
     num = parseFloat(numLEDS) + 1;
     middle = (num/2) ;
+    counter = middle;
+    middle = middle-1;
     walkArray = new Array(numLEDS*3).fill(0);
-    percent = 2/numLEDS;
+    percent = 1- (2/numLEDS);
     walkArray[middle*3] = red;
     walkArray[(middle*3)+1]= green;
     walkArray[(middle*3)+2] = blue;
-    walkArray[(middle+1)*3] = red*(1-percent);
-    walkArray[((middle+1)*3)+1]= green*(1-percent);
-    walkArray[((middle+1)*3)+2] = blue*(1-percent);
-    walkArray[(middle-1)*3] = red*(1-percent);
-    walkArray[((middle-1)*3)+1]= green*(1-percent);
-    walkArray[((middle-1)*3)+2] = blue*(1-percent);
+    while(counter >0){
+        counter = counter -1 ;
+        walkArray[(middle+counter)*3] = red*Math.pow(percent,counter);//keep multiplying fade level
+        walkArray[(middle+counter)*3+1]= green*Math.pow(percent,counter);
+        walkArray[(middle+counter)*3+2] = blue*Math.pow(percent,counter);
+        walkArray[(middle-counter)*3] = red*Math.pow(percent,counter);//keep multiplying fade level
+        walkArray[(middle-counter)*3+1]= green*Math.pow(percent,counter);
+        walkArray[(middle-counter)*3+2] = blue*Math.pow(percent,counter);
+    }
+
+
     count = (o.startLed-1)*3;
     walkInterval = setInterval(function(){
         count +=3;
         if(count > (((o.endLed)*3)-walkArray.length)){
             count = (o.startLed-1)*3;
         }
-        rgbBuffer[o.stripname].fill(0);//set black
+        for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
+            rgbBuffer[o.stripname][i] = rgbBufferTemp[o.stripname][i] ; //update to orgional strip values
+        }
 
         for(var i = 0; i < walkArray.length; i++){
             rgbBuffer[o.stripname][count+i] = walkArray[i];
