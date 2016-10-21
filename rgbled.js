@@ -6,7 +6,7 @@ var rgbBuffer = {};
 var rgbBufferTemp = {};
 var walkInterval=0;
 var intervalMS = 100;
-
+var directionRight = 'true';
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
 
 if(os.type() != "Windows_NT") {
@@ -69,8 +69,10 @@ settings.hardware.rgbled.forEach(function(x,index){
                     command:'bubbleWalk',
                     arguments:{name:'JSON',
                         numLEDs:5,
+                        directionRight:'true',
                         intervalMS:100,
                         color:0xff0000}
+
                 }
             ]
         }
@@ -186,8 +188,10 @@ function bubbleWalk(o,value){
     blue = newColor[2];
     var middle = 0;
     clearInterval(walkInterval);
-   intervalMS = parseFloat(value.intervalMS);
+    intervalMS = parseFloat(value.intervalMS);
     var numLEDS = parseInt(value.numLEDs);
+    directionRight = value.directionRight;
+
     if(numLEDS % 2 == 0){ //make suer num leds is an odd number so there is a middle value
         numLEDS +=1;
     }
@@ -214,12 +218,24 @@ function bubbleWalk(o,value){
         walkArray[(middle-counter)*3+2] = blue*Math.pow(percent,counter);
     }
 
-
-    count = (o.startLed-1)*3;
+    if(directionRight =='true') {
+        count = (o.startLed - 1) * 3;
+    }
+    else{
+        count =(o.endLed) * 3 -walkArray.length;
+    }
     walkInterval = setInterval(function(){
-        count +=3;
-        if(count > (((o.endLed)*3)-walkArray.length)){
-            count = (o.startLed-1)*3;
+        if(directionRight =='true') {
+            count += 3;
+            if (count > (((o.endLed) * 3) - walkArray.length)) {
+                count = (o.startLed - 1) * 3;
+            }
+        }
+        else{
+            count -= 3;
+            if (count < (o.startLed-1) * 3) {
+                count = (o.endLed) * 3 -walkArray.length;
+            }
         }
         for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
             rgbBuffer[o.stripname][i] = rgbBufferTemp[o.stripname][i] ; //update to orgional strip values
