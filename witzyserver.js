@@ -69,7 +69,6 @@ if (exitcode){global.exitcode = exitcode}
 }
 
 
-
     var request_options = {
         uri:'http://'+settings.rulzy.ipaddress+'/api/witzy',
         method:"POST",
@@ -79,7 +78,7 @@ if (exitcode){global.exitcode = exitcode}
         console.log('exit code'+exitcode)
 
         if (error){
-            console.log('Error sending to api server:'+error);
+            console.log('Error sending to api server:'+JSON.stringify(request_options,null,4));
             //process.exit(exitcode);
             if (exitcode){
 
@@ -89,7 +88,7 @@ if (exitcode){global.exitcode = exitcode}
             return;
         }
         if(response.statusCode != '200'){
-            console.log('Error sending to api server:'+JSON.stringify(response,null,4));
+            console.log('Error sending to api server status code:'+response.statusCode);
 
         }
         if (exitcode){
