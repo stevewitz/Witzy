@@ -246,7 +246,6 @@ function bubbleWalk(o,value){
         }
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
     },intervalMS);
-
 }
 
 function parseColorToRGB(color){
