@@ -142,50 +142,112 @@ function commandclicked(){
     e = document.getElementById("commandlist");
     var command = co.commands[e.value];
     document.getElementById("viewcommand").value = JSON.stringify(command,null,4);
+    // erase the datalist - so we can rebuild it if we need it
     var datalist = document.getElementById("commandvalueoptions");
     if (datalist) {
         document.getElementById("thingcommand").removeChild(document.getElementById("commandvalueoptions"))
     }
-    if (command.arguments != null) {
-        document.getElementById("commandvalue").style.visibility = "visible";
+    // also clear out the JSONinput div
+    document.getElementById('JSONinput').innerHTML = '';
 
-        if (command.arguments.name == "LIST") {
-            // clear the list first
+    if (command && command.arguments != null) {
+        // has args lets see what type
+        switch (command.arguments.name){
+            case "LIST":
+                // make the datalist so the value box shows the options
+                datalist = document.createElement("DATALIST");
+                datalist.setAttribute("id", "commandvalueoptions");
+                document.getElementById("thingcommand").appendChild(datalist);
+                command.arguments.values.forEach(function (arg) {
+                    var option = document.createElement('option');
+                    option.value = arg;
+                    datalist.appendChild(option);
 
-            datalist = document.createElement("DATALIST");
-            datalist.setAttribute("id", "commandvalueoptions");
-            document.getElementById("thingcommand").appendChild(datalist);
-
-            command.arguments.values.forEach(function (arg) {
-                var option = document.createElement('option');
-                option.value = arg;
-                datalist.appendChild(option);
-
-            });
-        }
-            if (command.arguments.name == "JSON"){
-                document.getElementById("commandvalue").style.visibility = "hidden";
+                });
+                document.getElementById("VALUEinput").style.visibility = "visible";
+                break;
+            case "JSON":
+                document.getElementById("VALUEinput").style.visibility = "hidden";
                 var h = "";
                 for (var prop in command.arguments) {
+
                     if (prop != 'name'){
-                        h=h+prop+'<input id="'+ prop+'" value ='+command.arguments[prop]+'  ></input><br>'
+                        if (typeof(command.arguments[prop]) == 'object'){
+                            h=h+prop+'<'+command.arguments[prop].type+' id="'+ prop+'" value ='+command.arguments[prop].defaultvalue+'  ></'+command.arguments[prop].type+'><br>'
+
+                        }else
+                        {
+                            h=h+prop+'<input id="'+ prop+'" value ='+command.arguments[prop]+'  ></input><br>'
+                        }
+
                     }
                 }
 
                 document.getElementById('JSONinput').innerHTML = h;
+                break;
+            default:
+                // some other args - NUMBER or new - show the input bow
+                document.getElementById("VALUEinput").style.visibility = "visible";
 
-            } else{
-                document.getElementById('JSONinput').innerHTML = '';
 
-            }
+        }
+
 
 
     }else {
-        document.getElementById("commandvalue").style.visibility = "hidden";
-        // takes to args so hide the control
+        // takes no args so hide the control
+        document.getElementById("VALUEinput").style.visibility = "hidden";
     }
 
 }
+// function commandclicked(){
+//     e = document.getElementById("commandlist");
+//     var command = co.commands[e.value];
+//     document.getElementById("viewcommand").value = JSON.stringify(command,null,4);
+//     var datalist = document.getElementById("commandvalueoptions");
+//     if (datalist) {
+//         document.getElementById("thingcommand").removeChild(document.getElementById("commandvalueoptions"))
+//     }
+//     if (command.arguments != null) {
+//         document.getElementById("commandvalue").style.visibility = "visible";
+//
+//         if (command.arguments.name == "LIST") {
+//             // clear the list first
+//
+//             datalist = document.createElement("DATALIST");
+//             datalist.setAttribute("id", "commandvalueoptions");
+//             document.getElementById("thingcommand").appendChild(datalist);
+//
+//             command.arguments.values.forEach(function (arg) {
+//                 var option = document.createElement('option');
+//                 option.value = arg;
+//                 datalist.appendChild(option);
+//
+//             });
+//         }
+//             if (command.arguments.name == "JSON"){
+//                 document.getElementById("commandvalue").style.visibility = "hidden";
+//                 var h = "";
+//                 for (var prop in command.arguments) {
+//                     if (prop != 'name'){
+//                         h=h+prop+'<input id="'+ prop+'" value ='+command.arguments[prop]+'  ></input><br>'
+//                     }
+//                 }
+//
+//                 document.getElementById('JSONinput').innerHTML = h;
+//
+//             } else{
+//                 document.getElementById('JSONinput').innerHTML = '';
+//
+//             }
+//
+//
+//     }else {
+//         document.getElementById("commandvalue").style.visibility = "hidden";
+//         // takes to args so hide the control
+//     }
+//
+// }
 function buttonruncommand(){
     // todo add delay field
     e = document.getElementById("commandlist");

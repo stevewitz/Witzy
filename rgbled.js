@@ -18,7 +18,8 @@ if(os.type() != "Windows_NT") {
 //open spi port
 //var numberLEDS = 50; // set this global in app
 
-settings.hardware.rgbled.forEach(function(x,index){
+var x = settings.hardware.rgbled[0];
+    //settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
     rgbBuffer[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
     rgbBufferTemp[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
@@ -86,7 +87,7 @@ settings.hardware.rgbled.forEach(function(x,index){
 }
 
 
-    });
+    //});
 exports.incommand = function(c){
     //console.log(JSON.stringify(c,null,4))
     clearInterval(walkInterval);// stop any walk timers that may be set
