@@ -4,6 +4,8 @@ var os = require('os');
 var colorbuffer = {};
 var rgbBuffer = {};
 var rgbBufferTemp = {};
+var walkInterval=0;
+var intervalMS = 100;
 
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
 
@@ -61,6 +63,14 @@ settings.hardware.rgbled.forEach(function(x,index){
                     sendto:"witzy",
                     command:'AllOn',
                     arguments:{name:'NUMBER'}
+                },
+                {name:'bubbleWalk',
+                    sendto:"witzy",
+                    command:'bubbleWalk',
+                    arguments:{name:'JSON',
+                        numLEDs:5,
+                        intervalMS:100,
+                        color:0xff0000}
                 }
             ]
         }
@@ -72,6 +82,7 @@ settings.hardware.rgbled.forEach(function(x,index){
     });
 exports.incommand = function(c){
     //console.log(JSON.stringify(c,null,4))
+    clearInterval(walkInterval);// stop any walk timers that may be set
     switch (c.command){
         case "stripSetColor":
             stripSetColor(c.obj,c.value);
@@ -88,7 +99,9 @@ exports.incommand = function(c){
         case "AllOn":
             stripSetColor(c.obj,0xFFFFFF);
             break;
-
+        case "bubbleWalk":
+            bubbleWalk(c.obj,c.value);
+            break;
     }
 }
 
@@ -163,6 +176,47 @@ function colorFade(o,value){ // fades up or down automatically
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
 
     },intervalTime);
+}
+
+function bubbleWalk(o,value){
+    var newColor = parseColorToRGB(value.color);
+    red = newColor[0];
+    green = newColor[1];
+    blue = newColor[2];
+    var middle = 0;
+    clearInterval(walkInterval);
+   intervalMS = parseFloat(value.intervalMS);
+    var numLEDS = value.numLEDs;
+    if(numLEDS % 2 == 0){ //make suer num leds is an odd number so there is a middle value
+        numLEDS +=1;
+    }
+    num = parseFloat(numLEDS) + 1;
+    middle = (num/2) ;
+    walkArray = new Array(numLEDS*3).fill(0);
+    percent = 2/numLEDS;
+    walkArray[middle*3] = red;
+    walkArray[(middle*3)+1]= green;
+    walkArray[(middle*3)+2] = blue;
+    walkArray[(middle+1)*3] = red*(1-percent);
+    walkArray[((middle+1)*3)+1]= green*(1-percent);
+    walkArray[((middle+1)*3)+2] = blue*(1-percent);
+    walkArray[(middle-1)*3] = red*(1-percent);
+    walkArray[((middle-1)*3)+1]= green*(1-percent);
+    walkArray[((middle-1)*3)+2] = blue*(1-percent);
+    count = (o.startLed-1)*3;
+    walkInterval = setInterval(function(){
+        count +=3;
+        if(count > (((o.endLed)*3)-walkArray.length)){
+            count = (o.startLed-1)*3;
+        }
+        rgbBuffer[o.stripname].fill(0);//set black
+
+        for(var i = 0; i < walkArray.length; i++){
+            rgbBuffer[o.stripname][count+i] = walkArray[i];
+        }
+        updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
+    },intervalMS);
+
 }
 
 function parseColorToRGB(color){
