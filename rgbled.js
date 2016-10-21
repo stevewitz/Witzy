@@ -18,7 +18,7 @@ if(os.type() != "Windows_NT") {
 //open spi port
 //var numberLEDS = 50; // set this global in app
 
-var x = settings.hardware.rgbled;
+var x = settings.hardware.rgbled[0];
     //settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
     rgbBuffer[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
