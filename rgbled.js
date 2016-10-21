@@ -187,6 +187,7 @@ function bubbleWalk(o,value){
     green = newColor[1];
     blue = newColor[2];
     var middle = 0;
+    
     clearInterval(walkInterval);
     intervalMS = parseFloat(value.intervalMS);
     var numLEDS = parseInt(value.numLEDs);
