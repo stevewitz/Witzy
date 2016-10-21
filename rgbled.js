@@ -22,7 +22,10 @@ settings.hardware.rgbled.forEach(function(x,index){
     colorbuffer[x.name]  = new Uint32Array(x.leds);
     rgbBuffer[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
     rgbBufferTemp[x.name] = new Array(x.leds*3).fill(0); //declare array and initialize it
-    ws281x.init(colorbuffer[o.stripname].length);
+
+    if(os.type() != "Windows_NT") {
+        ws281x.init(colorbuffer[o.stripname].length);
+    }
 // create or update the devices in things
     if (x.createdevice){
         var device ={
