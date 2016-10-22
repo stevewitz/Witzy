@@ -77,8 +77,16 @@ var x = settings.hardware.rgbled[0];
                         directionRight:'true',
                         intervalMS:100,
                         color:0xff0000}
-
+                },
+                {name:'twoWayWalk',
+                    sendto:"witzy",
+                    command:'twoWayWalk',
+                    arguments:{name:'JSON',
+                        numLEDs:5,
+                        intervalMS:100,
+                        color:0xff0000}
                 }
+
             ]
         }
         ll.writething(device,true)
@@ -108,6 +116,9 @@ exports.incommand = function(c){
             break;
         case "bubbleWalk":
             bubbleWalk(c.obj,c.value);
+            break;
+        case "twoWayWalk":
+            twoWayWalk(c.obj,c.value);
             break;
     }
 }
@@ -244,6 +255,7 @@ function bubbleWalk(o,value){
                 count = (o.endLed) * 3 -walkArray.length;
             }
         }
+
         for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
             rgbBuffer[o.stripname][i] = rgbBufferTemp[o.stripname][i] ; //update to orgional strip values
         }
@@ -251,6 +263,73 @@ function bubbleWalk(o,value){
         for(var i = 0; i < walkArray.length; i++){
             rgbBuffer[o.stripname][count+i] = walkArray[i];
         }
+        updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
+    },intervalMS);
+}
+
+function twoWayWalk(o,value){
+    var newColor = parseColorToRGB(value.color);
+    var counter = 0;
+    red = newColor[0];
+    green = newColor[1];
+    blue = newColor[2];
+    var middle = 0;
+
+    clearInterval(walkInterval);
+    intervalMS = parseFloat(value.intervalMS);
+    var numLEDS = parseInt(value.numLEDs);
+
+
+    if(numLEDS % 2 == 0){ //make suer num leds is an odd number so there is a middle value
+        numLEDS +=1;
+    }
+    for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
+        rgbBufferTemp[o.stripname][i] = rgbBuffer[o.stripname][i] ; //grab current strip values
+    }
+
+    num = parseFloat(numLEDS) + 1;
+    middle = (num/2) ;
+    counter = middle;
+    middle = middle-1;
+    walkArray = new Array(numLEDS*3).fill(0);
+    percent = 1- (2/numLEDS);
+    walkArray[middle*3] = red;
+    walkArray[(middle*3)+1]= green;
+    walkArray[(middle*3)+2] = blue;
+    while(counter >0){
+        counter = counter -1 ;
+        walkArray[(middle+counter)*3] = red*Math.pow(percent,counter);//keep multiplying fade level
+        walkArray[(middle+counter)*3+1]= green*Math.pow(percent,counter);
+        walkArray[(middle+counter)*3+2] = blue*Math.pow(percent,counter);
+        walkArray[(middle-counter)*3] = red*Math.pow(percent,counter);//keep multiplying fade level
+        walkArray[(middle-counter)*3+1]= green*Math.pow(percent,counter);
+        walkArray[(middle-counter)*3+2] = blue*Math.pow(percent,counter);
+    }
+
+    countup = (o.startLed - 1) * 3;
+    countdn =(o.endLed) * 3 -walkArray.length;
+
+    walkInterval = setInterval(function(){
+        for(var i = (o.startLed-1)*3; i < (o.endLed)*3; i++){
+            rgbBuffer[o.stripname][i] = rgbBufferTemp[o.stripname][i] ; //update to orgional strip values
+        }
+
+        countup += 3;
+        if (countup > (((o.endLed) * 3) - walkArray.length)) { // at end so reset countup and countdn
+            countup = (o.startLed - 1) * 3;
+            countdn = (o.endLed) * 3 -walkArray.length;
+        }
+
+        for(var i = 0; i < walkArray.length; i++){
+            rgbBuffer[o.stripname][countup+i] = walkArray[i];
+        }
+
+        countdn -= 3;
+
+        for(var i = 0; i < walkArray.length; i++){
+            rgbBuffer[o.stripname][countdn+i] = walkArray[i];
+        }
+
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
     },intervalMS);
 }
