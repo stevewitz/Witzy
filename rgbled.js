@@ -85,6 +85,13 @@ var x = settings.hardware.rgbled[0];
                         numLEDs:5,
                         intervalMS:100,
                         color:0xff0000}
+                },
+                {name:'rainbow',
+                    sendto:"witzy",
+                    command:'rainbow',
+                    arguments:{name:'JSON',
+                        numEachColor:1}
+
                 }
 
             ]
@@ -119,6 +126,9 @@ exports.incommand = function(c){
             break;
         case "twoWayWalk":
             twoWayWalk(c.obj,c.value);
+            break;
+        case "rainbow":
+            rainbow(c.obj,c.value);
             break;
     }
 }
@@ -332,6 +342,42 @@ function twoWayWalk(o,value){
 
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
     },intervalMS);
+}
+
+function rainbow(o,value){
+    var numEachColor = value.numEachColor;
+    for(var i = o.startLed-1; i < o.endLed*3; i+=7*3*numEachColor) {//operate on the
+        for (var j = 0; j < numEachColor; j++) {
+            rgbBuffer[o.stripname][i + 0 +(j*3)] = 0xFF;//red
+            rgbBuffer[o.stripname][i + 1 +(j*3)] = 0x00;//red
+            rgbBuffer[o.stripname][i + 2 +(j*3)] = 0x00;//red
+
+            rgbBuffer[o.stripname][i + 3 +(j*3)] = 0xFF;//red
+            rgbBuffer[o.stripname][i + 4 +(j*3)] = 0x7F;//red
+            rgbBuffer[o.stripname][i + 5 +(j*3)] = 0x00;//red
+
+            rgbBuffer[o.stripname][i + 6 +(j*3)] = 0xFF;//red
+            rgbBuffer[o.stripname][i + 7 +(j*3)] = 0xFF;//red
+            rgbBuffer[o.stripname][i + 8 +(j*3)] = 0x00;//red
+
+            rgbBuffer[o.stripname][i + 9 +(j*3)] = 0x00;//red
+            rgbBuffer[o.stripname][i + 10 +(j*3)] = 0xFF;//red
+            rgbBuffer[o.stripname][i + 11 +(j*3)] = 0x00;//red
+
+            rgbBuffer[o.stripname][i + 12 +(j*3)] = 0x00;//red
+            rgbBuffer[o.stripname][i + 13 +(j*3)] = 0x00;//red
+            rgbBuffer[o.stripname][i + 14 +(j*3)] = 0xFF;//red
+
+            rgbBuffer[o.stripname][i + 15 +(j*3)] = 0x4b;//red
+            rgbBuffer[o.stripname][i + 16 +(j*3)] = 0x00;//red
+            rgbBuffer[o.stripname][i + 17 +(j*3)] = 0x82;//red
+
+            rgbBuffer[o.stripname][i + 18 +(j*3)] = 0x94;//red
+            rgbBuffer[o.stripname][i + 19 +(j*3)] = 0x00;//red
+            rgbBuffer[o.stripname][i + 20 +(j*3)] = 0xd3;//red
+        }
+    }
+    updatestrip(o, rgbBuffer[o.stripname]);
 }
 
 function parseColorToRGB(color){
