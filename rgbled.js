@@ -347,7 +347,12 @@ function twoWayWalk(o,value){
 function rainbow(o,value){
     var numEachColor = value.numEachColor;
     for(var i = o.startLed-1; i < o.endLed*3; i+=7*3*numEachColor) {//operate on the
+
         for (var j = 0; j < numEachColor; j++) {
+            if( (i + 20 +(j*3))>o.endLed *3){
+                break;
+
+            }
             rgbBuffer[o.stripname][i + 0 +(j*3)] = 0xFF;//red
             rgbBuffer[o.stripname][i + 1 +(j*3)] = 0x00;//red
             rgbBuffer[o.stripname][i + 2 +(j*3)] = 0x00;//red
