@@ -348,9 +348,9 @@ function rainbow(o,value){
     var numEachColor = parseInt(value.numEachColor);
     var rainbowArray = [0xFF, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0xFF, 0xFF, 0x00,0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x4b, 0x00, 0x82, 0x94, 0x00, 0xd3]; //rainbow colors
     var numToIncrement = 0
-    for(var i = o.startLed-1; i < o.endLed*3; i+=rainbowArray.length*numEachColor) {//operate on the
+ mainLoop:   for(var i = o.startLed-1; i < o.endLed*3; i+=rainbowArray.length*numEachColor) {//operate on the
         if( (i + 20 +j)>o.endLed *3){
-            break;
+          //  break;
         }
         for (var j = 0; j < rainbowArray.length; j+=3) {
             var countloops = 0;
@@ -361,6 +361,9 @@ function rainbow(o,value){
                 rgbBuffer[o.stripname][numToIncrement+2] = rainbowArray[j+2];
                 countloops ++;
                 numToIncrement +=3;
+                if(numToIncrement >= o.endled*3) {
+                    break mainLoop;
+                }
             }
         }
     }
