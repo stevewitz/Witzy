@@ -345,41 +345,21 @@ function twoWayWalk(o,value){
 }
 
 function rainbow(o,value){
-    var numEachColor = value.numEachColor;
-    for(var i = o.startLed-1; i < o.endLed*3; i+=7*3*numEachColor) {//operate on the
+    var numEachColor = parseInt(value.numEachColor);
+    var rainbowArray = [0xFF, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0xFF, 0xFF, 0x00,0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x4b, 0x00, 0x82, 0x94, 0x00, 0xd3]; //rainbow colors
+    var numToIncrement = 0
+    for(var i = o.startLed-1; i < o.endLed*3; i+=rainbowArray.length*numEachColor) {//operate on the
 
-        for (var j = 0; j < numEachColor; j++) {
-            if( (i + 20 +(j*3))>o.endLed *3){
-                break;
+        for (var j = 0; j < rainbowArray.length; j+=3) {
+            var countloops = 0;
+            while(countloops < numEachColor) {
 
+                rgbBuffer[o.stripname][numToIncrement] = rainbowArray[j];
+                rgbBuffer[o.stripname][numToIncrement +1] = rainbowArray[j+1];
+                rgbBuffer[o.stripname][numToIncrement+2] = rainbowArray[j+2];
+                countloops ++;
+                numToIncrement +=3;
             }
-            rgbBuffer[o.stripname][i + 0 +(j*3)] = 0xFF;//red
-            rgbBuffer[o.stripname][i + 1 +(j*3)] = 0x00;//red
-            rgbBuffer[o.stripname][i + 2 +(j*3)] = 0x00;//red
-
-            rgbBuffer[o.stripname][i + 3 +(j*3)] = 0xFF;//red
-            rgbBuffer[o.stripname][i + 4 +(j*3)] = 0x7F;//red
-            rgbBuffer[o.stripname][i + 5 +(j*3)] = 0x00;//red
-
-            rgbBuffer[o.stripname][i + 6 +(j*3)] = 0xFF;//red
-            rgbBuffer[o.stripname][i + 7 +(j*3)] = 0xFF;//red
-            rgbBuffer[o.stripname][i + 8 +(j*3)] = 0x00;//red
-
-            rgbBuffer[o.stripname][i + 9 +(j*3)] = 0x00;//red
-            rgbBuffer[o.stripname][i + 10 +(j*3)] = 0xFF;//red
-            rgbBuffer[o.stripname][i + 11 +(j*3)] = 0x00;//red
-
-            rgbBuffer[o.stripname][i + 12 +(j*3)] = 0x00;//red
-            rgbBuffer[o.stripname][i + 13 +(j*3)] = 0x00;//red
-            rgbBuffer[o.stripname][i + 14 +(j*3)] = 0xFF;//red
-
-            rgbBuffer[o.stripname][i + 15 +(j*3)] = 0x4b;//red
-            rgbBuffer[o.stripname][i + 16 +(j*3)] = 0x00;//red
-            rgbBuffer[o.stripname][i + 17 +(j*3)] = 0x82;//red
-
-            rgbBuffer[o.stripname][i + 18 +(j*3)] = 0x94;//red
-            rgbBuffer[o.stripname][i + 19 +(j*3)] = 0x00;//red
-            rgbBuffer[o.stripname][i + 20 +(j*3)] = 0xd3;//red
         }
     }
     updatestrip(o, rgbBuffer[o.stripname]);
