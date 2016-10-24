@@ -355,7 +355,7 @@ function rainbow(o,value){
         for (var j = 0; j < rainbowArray.length; j+=3) {
             var countloops = 0;
             while(countloops < numEachColor) {
-                if(numToIncrement +3 >= o.endled*3) {
+                if(numToIncrement +3 > o.endLed*3) {
                     break mainLoop;
                 }
                 rgbBuffer[o.stripname][numToIncrement] = rainbowArray[j];
