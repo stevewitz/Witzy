@@ -92,6 +92,16 @@ var x = settings.hardware.rgbled[0];
                     arguments:{name:'JSON',
                         numEachColor:1}
 
+                },
+                {name:'oneLed',
+                    sendto:"witzy",
+                    command:'oneLed',
+                    arguments:{name:'JSON',
+                        ledNum:1,
+                        ledColor:0xFFFFFF,
+                        repeatInterval:5
+                }
+
                 }
 
             ]
@@ -129,6 +139,9 @@ exports.incommand = function(c){
             break;
         case "rainbow":
             rainbow(c.obj,c.value);
+            break;
+        case "oneLed":
+            oneLed(c.obj,c.value);
             break;
     }
 }
@@ -365,6 +378,20 @@ function rainbow(o,value){
                 numToIncrement +=3;
 
             }
+        }
+    }
+    updatestrip(o, rgbBuffer[o.stripname]);
+}
+
+function oneLed(o,value){
+    var colors = parseColorToRGB(value.ledColor);
+    ledNum = parseInt(value.ledNum) -1;
+    for(var i = ledNum*3; i < o.endLed*3 - 3; i+=parseInt(value.repeatInterval*3)) {
+        rgbBuffer[o.stripname][i] = colors[0];
+        rgbBuffer[o.stripname][i + 1] = colors[1];
+        rgbBuffer[o.stripname][i + 2] = colors[2];
+        if (parseInt(value.repeatInterval) == 0) {
+            break;
         }
     }
     updatestrip(o, rgbBuffer[o.stripname]);
