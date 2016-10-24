@@ -355,15 +355,15 @@ function rainbow(o,value){
         for (var j = 0; j < rainbowArray.length; j+=3) {
             var countloops = 0;
             while(countloops < numEachColor) {
-
+                if(numToIncrement +3 >= o.endled*3) {
+                    break mainLoop;
+                }
                 rgbBuffer[o.stripname][numToIncrement] = rainbowArray[j];
                 rgbBuffer[o.stripname][numToIncrement +1] = rainbowArray[j+1];
                 rgbBuffer[o.stripname][numToIncrement+2] = rainbowArray[j+2];
                 countloops ++;
                 numToIncrement +=3;
-                if(numToIncrement >= o.endled*3) {
-                    break mainLoop;
-                }
+
             }
         }
     }
