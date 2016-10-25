@@ -434,17 +434,23 @@ function shiftRight(o,value){
     numToShift = parseInt(value.numberToShift);
     intervalMS = value.intervalMS;
     walkInterval = setInterval(function(){
-        var a = rgbBuffer.length;
-       rgbBuffer = arrayRotate(rgbBuffer,numToShift);
-
+        var a = rgbBuffer[o.stripname].length;
+       rgbBuffer[o.stripname] = arrayRotate(rgbBuffer[o.stripname],-numToShift*3);
         updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
     },intervalMS);
 }
 
 function shiftLeft(o,value){
-
-
+    numToShift = parseInt(value.numberToShift);
+    intervalMS = value.intervalMS;
+    walkInterval = setInterval(function(){
+        var a = rgbBuffer[o.stripname].length;
+        rgbBuffer[o.stripname] = arrayRotate(rgbBuffer[o.stripname],+numToShift*3);
+        updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
+    },intervalMS);
 }
+
+
 
 function arrayRotate(arr, count) {
     count -= arr.length * Math.floor(count / arr.length)
