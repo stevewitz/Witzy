@@ -7,6 +7,9 @@ var rgbBufferTemp = {};
 var walkInterval=0;
 var intervalMS = 100;
 var directionRight = 'true';
+var numToShift = 1;
+
+
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','rgb ') + x + '\n');}}})();
 
 if(os.type() != "Windows_NT") {
@@ -93,14 +96,38 @@ var x = settings.hardware.rgbled[0];
                         numEachColor:1}
 
                 },
-                {name:'oneLed',
-                    sendto:"witzy",
-                    command:'oneLed',
-                    arguments:{name:'JSON',
-                        ledNum:1,
-                        ledColor:0xFFFFFF,
-                        repeatInterval:5
-                }
+                {
+                    name: 'oneLed',
+                    sendto: "witzy",
+                    command: 'oneLed',
+                    arguments: {
+                        name: 'JSON',
+                        ledNum: 1,
+                        ledColor: 0xFFFFFF,
+                        repeatInterval: 5
+                    }
+
+                },
+                {
+                    name: 'shiftRight',
+                    sendto: "witzy",
+                    command: 'shiftRight',
+                    arguments: {
+                        name: 'JSON',
+                        numberToShift: 1,
+                        intervalMS:100
+                    }
+
+                },
+                {
+                    name: 'shiftLeft',
+                    sendto: "witzy",
+                    command: 'shiftLeft',
+                    arguments: {
+                        name: 'JSON',
+                        numberToShift: 1,
+                        intervalMS:100
+                    }
 
                 }
 
@@ -142,6 +169,12 @@ exports.incommand = function(c){
             break;
         case "oneLed":
             oneLed(c.obj,c.value);
+            break;
+        case "shiftRight":
+            shiftRight(c.obj,c.value);
+            break;
+        case "shiftLeft":
+            shiftLeft(c.obj,c.value);
             break;
     }
 }
@@ -396,6 +429,29 @@ function oneLed(o,value){
     }
     updatestrip(o, rgbBuffer[o.stripname]);
 }
+
+function shiftRight(o,value){
+    numToShift = parseInt(value.numberToShift);
+    intervalMS = value.intervalMS;
+    walkInterval = setInterval(function(){
+        var a = rgbBuffer.length;
+       rgbBuffer = arrayRotate(rgbBuffer,numToShift);
+
+        updatestrip(o, rgbBuffer[o.stripname]); //bring back buffer to output
+    },intervalMS);
+}
+
+function shiftLeft(o,value){
+
+
+}
+
+function arrayRotate(arr, count) {
+    count -= arr.length * Math.floor(count / arr.length)
+    arr.push.apply(arr, arr.splice(0, count))
+    return arr
+}
+
 
 function parseColorToRGB(color){
     var val = new Array(3);
