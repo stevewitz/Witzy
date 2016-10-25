@@ -136,6 +136,7 @@ var x = settings.hardware.rgbled[0];
                     command: 'colorGradient',
                     arguments: {
                         name: 'JSON',
+                        startColor:0x0000ff,
                         endColor:0xff0000
                     }
 
@@ -464,17 +465,23 @@ function shiftLeft(o,value){
 }
 
 function colorGradient(o,value) {
-    var newColor = parseColorToRGB(value.endColor)
+    var origColor = parseColorToRGB(value.startColor);
+    var origred = origColor[0];
+    var origgreen = origColor[1];
+    var origblue = origColor[2];
+    
+    var newColor = parseColorToRGB(value.endColor);
     red = newColor[0];
     green = newColor[1];
     blue = newColor[2];
+    
     var numberOfLedsInStrip = o.endLed - (o.startLed-1);
-    var redDelta = red/(numberOfLedsInStrip+25);
-    var greenDelta = green/(numberOfLedsInStrip+25);
-    var blueDelta = blue/(numberOfLedsInStrip+25);
-    rgbBuffer[o.stripname][o.startLed-1] = red;
-    rgbBuffer[o.stripname][o.startLed-1 +1] = green;
-    rgbBuffer[o.stripname][o.startLed-1 +2] = blue;
+    var redDelta = (origred-red)/(numberOfLedsInStrip);
+    var greenDelta = (origgreen-green)/(numberOfLedsInStrip);
+    var blueDelta = (origblue-blue)/(numberOfLedsInStrip);
+    rgbBuffer[o.stripname][o.startLed-1] = origred;
+    rgbBuffer[o.stripname][o.startLed-1 +1] = origgreen;
+    rgbBuffer[o.stripname][o.startLed-1 +2] = origblue;
 
     for(var i = o.startLed-1; i < (o.endLed-1)*3; i+=3){
 
