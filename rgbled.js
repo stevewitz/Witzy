@@ -129,6 +129,16 @@ var x = settings.hardware.rgbled[0];
                         intervalMS:100
                     }
 
+                },
+                {
+                    name: 'colorGradient',
+                    sendto: "witzy",
+                    command: 'colorGradient',
+                    arguments: {
+                        name: 'JSON',
+                        endColor:0xff0000
+                    }
+
                 }
 
             ]
@@ -175,6 +185,9 @@ exports.incommand = function(c){
             break;
         case "shiftLeft":
             shiftLeft(c.obj,c.value);
+            break;
+        case "colorGradient":
+            colorGradient(c.obj,c.value);
             break;
     }
 }
@@ -450,6 +463,27 @@ function shiftLeft(o,value){
     },intervalMS);
 }
 
+function colorGradient(o,value) {
+    var newColor = parseColorToRGB(value.endColor)
+    red = newColor[0];
+    green = newColor[1];
+    blue = newColor[2];
+    var numberOfLedsInStrip = o.endLed - (o.startLed-1);
+    var redDelta = red/(numberOfLedsInStrip+25);
+    var greenDelta = green/(numberOfLedsInStrip+25);
+    var blueDelta = blue/(numberOfLedsInStrip+25);
+    rgbBuffer[o.stripname][o.startLed-1] = red;
+    rgbBuffer[o.stripname][o.startLed-1 +1] = green;
+    rgbBuffer[o.stripname][o.startLed-1 +2] = blue;
+
+    for(var i = o.startLed-1; i < (o.endLed-1)*3; i+=3){
+
+        rgbBuffer[o.stripname][i+3]= rgbBuffer[o.stripname][i]-redDelta;
+        rgbBuffer[o.stripname][i+1+3]= rgbBuffer[o.stripname][i+1]-greenDelta;
+        rgbBuffer[o.stripname][i+2+3]= rgbBuffer[o.stripname][i+2]-blueDelta;
+    }
+    updatestrip(o, rgbBuffer[o.stripname]);
+}
 
 
 function arrayRotate(arr, count) {
