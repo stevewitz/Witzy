@@ -52,7 +52,7 @@ var x = settings.hardware.rgbled[0];
                     sendto:"witzy",
                     command:'colorFade',
                     arguments:{name:'JSON',
-                        html:{type:'textarea rows=7 cols=50',endColor:''},
+                        endColor:{type:'color',endColor:'0xff00ff'},
                             //  endColor:0xff0000,
                               fadeTimeSeconds:10}
                 },
