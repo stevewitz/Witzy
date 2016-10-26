@@ -264,7 +264,7 @@ function buttonruncommand(){
             for (var prop in command.arguments) {
                 if (prop != 'name') {
 
-                    val[prop] = document.getElementById(prop).value
+                    val[prop] = document.getElementById(prop).value.replace("#","0x");
                 }
             }
             console.log(JSON.stringify(val,null,4));

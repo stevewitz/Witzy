@@ -52,7 +52,7 @@ var x = settings.hardware.rgbled[0];
                     sendto:"witzy",
                     command:'colorFade',
                     arguments:{name:'JSON',
-                        endColor:{type:'input color',defaultvalue:'0xff00ff'},
+                        endColor:{type:'input type = color',defaultvalue:'0xff00ff'},
                             //  endColor:0xff0000,
                               fadeTimeSeconds:10}
                 },
