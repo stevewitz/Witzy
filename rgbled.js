@@ -46,7 +46,8 @@ var x = settings.hardware.rgbled[0];
                 {name:'stripSetColor',
                     sendto:"witzy",
                     command:'stripSetColor',
-                    arguments:{name:'NUMBER'}
+                    arguments:{name:'JSON',
+                        color:{type:'input type = color',defaultvalue:'0xff00ff'},}
                 },
                 {name:'colorFade',
                     sendto:"witzy",
@@ -80,7 +81,7 @@ var x = settings.hardware.rgbled[0];
                         numLEDs:5,
                         directionRight:'true',
                         intervalMS:100,
-                        color:0xff0000}
+                        color:{type:'input type = color',defaultvalue:'0xff00ff'},}
                 },
                 {name:'twoWayWalk',
                     sendto:"witzy",
@@ -88,7 +89,7 @@ var x = settings.hardware.rgbled[0];
                     arguments:{name:'JSON',
                         numLEDs:5,
                         intervalMS:100,
-                        color:0xff0000}
+                        color:{type:'input type = color',defaultvalue:'0xff00ff'},}
                 },
                 {name:'rainbow',
                     sendto:"witzy",
@@ -104,7 +105,7 @@ var x = settings.hardware.rgbled[0];
                     arguments: {
                         name: 'JSON',
                         ledNum: 1,
-                        ledColor: 0xFFFFFF,
+                        ledColor:{type:'input type = color',defaultvalue:'0xff00ff'},
                         repeatInterval: 5
                     }
 
@@ -137,8 +138,8 @@ var x = settings.hardware.rgbled[0];
                     command: 'colorGradient',
                     arguments: {
                         name: 'JSON',
-                        startColor:0x0000ff,
-                        endColor:0xff0000
+                        startColor:{type:'input type = color',defaultvalue:'0xff00ff'},
+                        endColor:{type:'input type = color',defaultvalue:'0xff00ff'}
                     }
 
                 }
@@ -199,7 +200,7 @@ function stripSetColor (o,value){ // first led is led 1  //
     //set rgbbuffer to color from value
     var startLED = o.startLed;
     var endLed = o.endLed;
-    var newColor = parseColorToRGB(value)
+    var newColor = parseColorToRGB(value.color)
     red = newColor[0];
     green = newColor[1];
     blue = newColor[2];
