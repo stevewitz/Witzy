@@ -177,7 +177,7 @@ function commandclicked(){
 
                         }else
                         {
-                            h=h+prop+'<input id="'+ prop+'" value ='+command.arguments[prop]+'  ></input><br>'
+                            h=h+prop+'<input  id="'+ prop+'" value ='+command.arguments[prop]+'  ></input><br>'
                         }
 
                     }
