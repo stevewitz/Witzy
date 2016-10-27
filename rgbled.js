@@ -47,13 +47,13 @@ var x = settings.hardware.rgbled[0];
                     sendto:"witzy",
                     command:'stripSetColor',
                     arguments:{name:'JSON',
-                        color:{type:'input type = color',defaultvalue:'0xff00ff'},}
+                        color:{type:'input type = color',defaultvalue:'#ff00ff'},}
                 },
                 {name:'colorFade',
                     sendto:"witzy",
                     command:'colorFade',
                     arguments:{name:'JSON',
-                        endColor:{type:'input type = color',defaultvalue:'0xff00ff'},
+                        endColor:{type:'input type = color',defaultvalue:'#ff00ff'},
                             //  endColor:0xff0000,
                               fadeTimeSeconds:10}
                 },
@@ -81,7 +81,7 @@ var x = settings.hardware.rgbled[0];
                         numLEDs:5,
                         directionRight:'true',
                         intervalMS:100,
-                        color:{type:'input type = color',defaultvalue:'0xff00ff'},}
+                        color:{type:'input type = color',defaultvalue:'#ff00ff'},}
                 },
                 {name:'twoWayWalk',
                     sendto:"witzy",
@@ -89,7 +89,7 @@ var x = settings.hardware.rgbled[0];
                     arguments:{name:'JSON',
                         numLEDs:5,
                         intervalMS:100,
-                        color:{type:'input type = color',defaultvalue:'0xff00ff'},}
+                        color:{type:'input type = color',defaultvalue:'#ff00ff'},}
                 },
                 {name:'rainbow',
                     sendto:"witzy",
@@ -105,7 +105,7 @@ var x = settings.hardware.rgbled[0];
                     arguments: {
                         name: 'JSON',
                         ledNum: 1,
-                        ledColor:{type:'input type = color',defaultvalue:'0xff00ff'},
+                        ledColor:{type:'input type = color',defaultvalue:'#ff00ff'},
                         repeatInterval: 5
                     }
 
@@ -138,8 +138,8 @@ var x = settings.hardware.rgbled[0];
                     command: 'colorGradient',
                     arguments: {
                         name: 'JSON',
-                        startColor:{type:'input type = color',defaultvalue:'0xff00ff'},
-                        endColor:{type:'input type = color',defaultvalue:'0xff00ff'}
+                        startColor:{type:'input type = color',defaultvalue:'#ff00ff'},
+                        endColor:{type:'input type = color',defaultvalue:'#ffff00'}
                     }
 
                 }
