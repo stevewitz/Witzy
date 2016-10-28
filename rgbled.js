@@ -31,6 +31,12 @@ var x = settings.hardware.rgbled[0];
         ws281x.init(x.leds);
     }
 // create or update the devices in things
+ /*
+    CHECKBOX arg example:(JSON)
+  autoplay:{type:'input type = checkbox checked="true" value="checkbox"'},
+
+
+  */
     if (x.createdevice){
         var device ={
             type:"rbgledsegment",
