@@ -173,7 +173,8 @@ function commandclicked(){
 
                     if (prop != 'name'){
                         if (typeof(command.arguments[prop]) == 'object'){
-                            h=h+prop+'<'+command.arguments[prop].type+' id="'+ prop+'" value ='+command.arguments[prop].defaultvalue+'  ></'+command.arguments[prop].type+'><br>'
+                            h=h+prop+'<'+command.arguments[prop].type+' id="'+ prop+'" value ='+command.arguments[prop].defaultvalue+'  >'
+                                +command.arguments[prop].defaulttxt+'</'+command.arguments[prop].type+'><br>'
 
                         }else
                         {
