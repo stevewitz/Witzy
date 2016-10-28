@@ -77,19 +77,23 @@ var x = settings.hardware.rgbled[0];
                 {name:'bubbleWalk',
                     sendto:"witzy",
                     command:'bubbleWalk',
-                    arguments:{name:'JSON',
+                    arguments:{
+                        name:'JSON',
                         numLEDs:5,
                         directionRight:'true',
                         intervalMS:100,
-                        color:{type:'input type = color',defaultvalue:'#ff00ff'},}
+                        color:{type:'input type = color',defaultvalue:'#ff00ff'}
+                            }
                 },
                 {name:'twoWayWalk',
                     sendto:"witzy",
                     command:'twoWayWalk',
-                    arguments:{name:'JSON',
+                    arguments:{
+                        name:'JSON',
                         numLEDs:5,
                         intervalMS:100,
-                        color:{type:'input type = color',defaultvalue:'#ff00ff'},}
+                        color:{type:'input type = color',defaultvalue:'#ff00ff'}
+                             }
                 },
                 {name:'rainbow',
                     sendto:"witzy",

@@ -265,6 +265,10 @@ function buttonruncommand(){
                 if (prop != 'name') {
 
                     val[prop] = document.getElementById(prop).value.replace("#","0x");
+                    if (val[prop] == 'checkbox'){
+                        val[prop] = document.getElementById(prop).checked;
+
+                    }
                 }
             }
             console.log(JSON.stringify(val,null,4));
