@@ -152,6 +152,15 @@ var x = settings.hardware.rgbled[0];
                         endColor:{type:'input type = color',defaultvalue:'#ffff00'}
                     }
 
+                },
+                {
+                    name: 'warning',
+                    sendto: "witzy",
+                    command: 'warning',
+                    arguments: {
+                        name: 'JSON',
+                        intervalMS:500
+                    }
                 }
 
             ]
@@ -201,6 +210,9 @@ exports.incommand = function(c){
             break;
         case "colorGradient":
             colorGradient(c.obj,c.value);
+            break;
+        case "warning":
+            warning(c.obj,c.value);
             break;
     }
 }
@@ -504,12 +516,51 @@ function colorGradient(o,value) {
     updatestrip(o, rgbBuffer[o.stripname]);
 }
 
+function warning(o,value){
+    var intervalMS = value.intervalMS;
+    var startLED = o.startLed -1;
+    var endLed = o.endLed;
+    walkInterval = setInterval(function(){
+        for(var i = startLED; i < endLed*3; i++){//set all leds to white
+            rgbBuffer[o.stripname][i] = 0xFF;
+        }
+        updatestrip(o, rgbBuffer[o.stripname]);
+
+        setTimeout(function(){
+            for(var i = startLED; i < endLed*3; i++){//set all leds off
+                rgbBuffer[o.stripname][i] = 0x00;
+            }
+            updatestrip(o, rgbBuffer[o.stripname]);
+
+        },intervalMS);
+
+        setTimeout(function(){
+            for(var i = startLED; i < endLed*3; i+=3){//set all leds to red
+                rgbBuffer[o.stripname][i] = 0xFF;
+            }
+            updatestrip(o, rgbBuffer[o.stripname]);
+
+        },intervalMS*2);
+
+        setTimeout(function(){
+            for(var i = startLED; i < endLed*3; i++){//set all leds off
+                rgbBuffer[o.stripname][i] = 0x00;
+            }
+            updatestrip(o, rgbBuffer[o.stripname]);
+
+        },intervalMS*3);
+
+    },intervalMS*4);
+
+}
 
 function arrayRotate(arr, count) {
     count -= arr.length * Math.floor(count / arr.length)
     arr.push.apply(arr, arr.splice(0, count))
     return arr
 }
+
+
 
 
 function parseColorToRGB(color){
