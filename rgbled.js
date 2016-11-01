@@ -159,7 +159,7 @@ var x = settings.hardware.rgbled[0];
                     command: 'warning',
                     arguments: {
                         name: 'JSON',
-                        intervalMS:500
+                        intervalMS:200
                     }
                 }
 
