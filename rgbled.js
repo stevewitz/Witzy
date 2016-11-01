@@ -222,7 +222,13 @@ function stripSetColor (o,value){ // first led is led 1  //
     //set rgbbuffer to color from value
     var startLED = o.startLed;
     var endLed = o.endLed;
-    var newColor = parseColorToRGB(value.color)
+    if(value.color){
+        var newColor = parseColorToRGB(value.color)
+    }
+    else{
+        var newColor = parseColorToRGB(value);
+    }
+
     red = newColor[0];
     green = newColor[1];
     blue = newColor[2];
