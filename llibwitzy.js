@@ -230,7 +230,7 @@ exports.savesettings = function(){
 function commandline(s){
 
     s = s.toString();
-    t = s.replace(',',' ').match(/\S+/g); // breaks string into array
+    t = s.replace(/,/g,' ').match(/\S+/g); // breaks string into array
     if (!t || !t[0]){return}
 
     switch (t[0]) {
