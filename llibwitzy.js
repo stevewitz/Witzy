@@ -240,9 +240,10 @@ function commandline(s){
             process.exit(0);
             break;
         case "setup":
-            fs.writeFile('setup.txt', t[1]+','+t[2], (err) => {
+            fs.writeFile('setup.txt', t[1]+','+t[2]+','+t[3], (err) => {
                 if (err) throw err;
                 console.log('server named:'+t[2])
+                console.log('Rulzy Server Ip&port:'+t[3])
                 console.log("Mongo IP addess saved ("+t[1]+") please restart")
                 process.exit(0);
             })
