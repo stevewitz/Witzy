@@ -47,12 +47,13 @@ exports.startmongo = function(collectionname,ip,callback) {
                     global.settings ={
                         type:"settings",
                         options:{
-                            modules:{rgbled:true,
-                            swinverter:false},
+                            modules:{
+                                rgbled:false,
+                                swinverter:false},
                             websocket:{listenport:8300},
                             webserver:{listenport:8201}
                         },
-                        rulzy:{},
+                        rulzy:{ipaddress:ipaddress},
                         hardware:{
                             rgbled:[
                                 {
