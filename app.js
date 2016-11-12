@@ -8,13 +8,14 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
 
     if (err){
         console.log(ll.ansi('inverse','WARNING:')+" no ipaddress set for mongo.");
-        console.log(ll.ansi('red','Type "setup <Rulzy ipaddress>,<Witzy server name>"<enter> in the terminal window to set address'));
+        console.log(ll.ansi('red','Type "setup <mongo ipaddress>,<Witzy server name>,<Rulzy ipaddress:port>"<enter> in the terminal window to set address'));
     }else{
         var t = filetxt.replace(',',' ').match(/\S+/g); // breaks string into array
-        if (t[0] && t[1]){
+        if (t[0] && t[1] && t[2]){
 
-            global.rulzyip = t[0];
+            global.mongo = t[0]
             global.witzyname = t[1];
+            global.rulzyip = t[2];
             console.log("Rulzy IP:",rulzyip);
             console.log("Witzy server name:",witzyname)
 
@@ -34,7 +35,7 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
             } else{
                 global.localaddress = add;
                 console.log('Local ip:'+localaddress);
-                ll.startmongo('witzy-'+witzyname,rulzyip,initialized)
+                ll.startmongo('witzy-'+witzyname,mongo,initialized)
 
 
 

@@ -47,7 +47,8 @@ exports.startmongo = function(collectionname,ip,callback) {
                     global.settings ={
                         type:"settings",
                         options:{
-                            modules:{rgbled:true},
+                            modules:{rgbled:true,
+                            swinverter:false},
                             websocket:{listenport:8300},
                             webserver:{listenport:8201}
                         },
@@ -56,12 +57,6 @@ exports.startmongo = function(collectionname,ip,callback) {
                             rgbled:[
                                 {
                                     name:'strip1',
-                                    leds:50,
-                                    type:"virtual",
-                                    createdevice :true,
-                                    addtosmartthings:false
-                                },{
-                                    name:'strip2',
                                     leds:50,
                                     type:"virtual",
                                     createdevice :true,
