@@ -53,7 +53,7 @@ exports.startmongo = function(collectionname,ip,callback) {
                             websocket:{listenport:8300},
                             webserver:{listenport:8201}
                         },
-                        rulzy:{ipaddress:ipaddress},
+                        rulzy:{ipaddress:rulzyip},
                         hardware:{
                             rgbled:[
                                 {
