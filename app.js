@@ -10,7 +10,7 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
         console.log(ll.ansi('inverse','WARNING:')+" no ipaddress set for mongo.");
         console.log(ll.ansi('red','Type "setup <mongo ipaddress>,<Witzy server name>,<Rulzy ipaddress:port>"<enter> in the terminal window to set address'));
     }else{
-        var t = filetxt.replace(',',' ').match(/\S+/g); // breaks string into array
+        var t = filetxt.replace(/,/g,' ').match(/\S+/g); // breaks string into array
         if (t[0] && t[1] && t[2]){
 
             global.mongo = t[0]
