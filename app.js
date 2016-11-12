@@ -28,22 +28,61 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
         }
 
 
-        require('dns').lookup(require('os').hostname(), function (err, add) {
-            if (err) {
-                console.log('Local ip address lookup failed. \nError: ' + err,data)
+        /******
+         *
+         *
+         */
+// this will likely break with multiple ipv4 addpresses
+        var os = require('os');
+        var ifaces = os.networkInterfaces();
 
-            } else{
-                global.localaddress = add;
+        Object.keys(ifaces).forEach(function (ifname) {
+            var alias = 0;
+
+            ifaces[ifname].forEach(function (iface) {
+                if ('IPv4' !== iface.family || iface.internal !== false) {
+                    // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+                    return;
+                }
+
+                global.localaddress = iface.address;
                 console.log('Local ip:'+localaddress);
                 ll.startmongo('witzy-'+witzyname,mongo,initialized)
+                console.log(ifname, iface.address);
+                return;
 
 
-
-
-            }
-
-
+                // if (alias >= 1) {
+                //     // this single interface has multiple ipv4 addresses
+                //     console.log(ifname + ':' + alias, iface.address);
+                // } else {
+                //     // this interface has only one ipv4 adress
+                //     console.log(ifname, iface.address);
+                // }
+                ++alias;
+            });
         });
+
+
+        /////////////////
+
+        //
+        // require('dns').lookup(require('os').hostname(), function (err, add) {
+        //     if (err) {
+        //         console.log('Local ip address lookup failed. \nError: ' + err,data)
+        //
+        //     } else{
+        //         global.localaddress = add;
+        //         console.log('Local ip:'+localaddress);
+        //         ll.startmongo('witzy-'+witzyname,mongo,initialized)
+        //
+        //
+        //
+        //
+        //     }
+        //
+        //
+        // });
 
     }
 
