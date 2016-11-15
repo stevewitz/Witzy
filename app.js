@@ -97,9 +97,10 @@ function initialized(){
         rgb = require('./rgbled');
         console.log('RGB Module loaded')
     }
-    if (settings.options.modules.swinverter)
+    if (settings.options.modules.swinverter){
         sw = require('./traceinverter')
         console.log('Trace SW5548 Inverter loaded')
+    }
 
 
     server.start()
@@ -110,7 +111,7 @@ function initialized(){
 
 
 
-numberLEDS = 50; // set this global here
+//numberLEDS = 50; // set this global here
 
 // captures errors and ctrl-c's
 //process.stdin.resume();
