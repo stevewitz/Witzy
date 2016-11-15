@@ -75,7 +75,10 @@ if (exitcode){global.exitcode = exitcode}
         json: data
     };
     request(request_options,function(error, response, body){
-        console.log('exit code'+exitcode)
+        if(exitcode){
+            console.log('exit code'+exitcode)
+        }
+
 
         if (error){
             console.log('Error sending to api server:'+JSON.stringify(request_options,null,4));

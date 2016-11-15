@@ -6,12 +6,12 @@ exports.start = function(scb){
 
 }
 console.log('wroking?');
-process.stdin.on('readable', () => {
-    var chunk = process.stdin.read();
-    if (chunk !== null) {
-        commandline(chunk);
-    }
-});
+// process.stdin.on('readable', () => {
+//     var chunk = process.stdin.read();
+//     if (chunk !== null) {
+//         commandline(chunk);
+//     }
+// });
 var sbuffer = '';
 var menu = 0;
 var submenu = 0;

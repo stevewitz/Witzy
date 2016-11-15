@@ -261,6 +261,57 @@ function commandline(s){
         case "break":
             x=llkkk  // intentional error
             break;
+// sw trace commands following
+        case "r":
+            sw.write('r');
+            break;
+        case "s":
+            sw.write('\x13');
+            break;
+
+        case "l":
+            sw.write('l');
+            break;
+        case "v":
+            sw.write('v');
+        case "u":
+            sw.write('u');
+            break;
+        case "d":
+            sw.write('d');
+            break;
+        case "/":
+            sw.write('/');
+            break;
+        case "-":
+            sw.write('-');
+            break;
+
+        case "=":
+        case "+":
+            sw.write('=');
+            break;
+        case "go":
+            targetmenu = t[1]
+            if (t[2] == null) {
+                targetsubmenu = 0}
+            else
+            {
+                targetsubmenu = t[2];
+            }
+            if (t[3] != null){
+                console.log('t3'+t[3])
+                targetvalue = t[3];
+            }
+
+            console.log('seeking '+targetmenu+','+targetsubmenu);
+
+           sw.write('u');
+
+
+            callback = testcallback
+            break;
+
         default:
             console.log('Unknown input:'+s)
 
