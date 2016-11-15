@@ -97,7 +97,9 @@ function initialized(){
         rgb = require('./rgbled');
         console.log('RGB Module loaded')
     }
-
+    if (settings.options.modules.swinverter)
+        sw = require('./traceinverter')
+        console.log('Trace SW5548 Inverter loaded')
 
 
     server.start()
