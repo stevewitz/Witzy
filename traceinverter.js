@@ -183,14 +183,13 @@ function openSerialPort(portname,scb)
                                                 targetvalue = null
 
                                             } else if (targetvalue == data){
-                                                console.log('At target value');
+                                                console.log('At target value')
+                                                targetvalue = null
                                                 callback({menu:menu,
                                                     submenu:submenu,
                                                     value:data,
                                                     display:display})
 
-                                            }
-                                                targetvalue = null
                                             } else
                                             {
                                                 if (oktosend){
@@ -226,13 +225,12 @@ function openSerialPort(portname,scb)
                                                 //if (targetvalue){
                                                 if (targetvalue == data){
                                                     console.log('At target value')
-                                                    targetvalue = null;
+                                                    targetvalue = null
                                                     callback({menu:menu,
                                                         submenu:submenu,
                                                         value:data,
                                                         display:display})
 
-                                                }
                                                 } else
                                                 {
                                                     // and we are not at the valid target value
@@ -277,7 +275,7 @@ function openSerialPort(portname,scb)
                                                             value:data,
                                                             display:display})
 
-                                                    }
+
                                                     } else
                                                     {
                                                         // and we are not at the valid target value
