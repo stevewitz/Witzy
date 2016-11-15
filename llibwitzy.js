@@ -308,7 +308,6 @@ function commandline(s){
             }
 
             console.log('seeking '+targetmenu+','+targetsubmenu);
-
             sw.getInverterValue(targetmenu, targetsubmenu,sw.testcallback)
 
 
