@@ -233,7 +233,9 @@ function commandline(s){
     s = s.toString();
     t = s.replace(/,/g,' ').match(/\S+/g); // breaks string into array
     if (!t || !t[0]){return}
-
+    var targetmenu;
+    var targetsubmenu
+    var targetvalue
     switch (t[0]) {
         case "x":
         case "stop":
@@ -291,7 +293,8 @@ function commandline(s){
         case "+":
             sw.write('=');
             break;
-        case "go":
+        case "get":
+
             targetmenu = t[1]
             if (t[2] == null) {
                 targetsubmenu = 0}
@@ -306,10 +309,9 @@ function commandline(s){
 
             console.log('seeking '+targetmenu+','+targetsubmenu);
 
-           sw.write('u');
+            sw.getInverterValue(targetmenu, targetsubmenu,sw.testcallback)
 
 
-            callback = sw.testcallback
             break;
 
         default:
