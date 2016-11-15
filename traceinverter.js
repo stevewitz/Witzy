@@ -183,7 +183,13 @@ function openSerialPort(portname,scb)
                                                 targetvalue = null
 
                                             } else if (targetvalue == data){
-                                                console.log('At target value')
+                                                console.log('At target value');
+                                                callback({menu:menu,
+                                                    submenu:submenu,
+                                                    value:data,
+                                                    display:display})
+
+                                            }
                                                 targetvalue = null
                                             } else
                                             {
@@ -220,7 +226,13 @@ function openSerialPort(portname,scb)
                                                 //if (targetvalue){
                                                 if (targetvalue == data){
                                                     console.log('At target value')
-                                                    targetvalue = null
+                                                    targetvalue = null;
+                                                    callback({menu:menu,
+                                                        submenu:submenu,
+                                                        value:data,
+                                                        display:display})
+
+                                                }
                                                 } else
                                                 {
                                                     // and we are not at the valid target value
@@ -260,6 +272,12 @@ function openSerialPort(portname,scb)
                                                     if (targetvalue == Number(data)){
                                                         console.log('At target value')
                                                         targetvalue = null
+                                                        callback({menu:menu,
+                                                            submenu:submenu,
+                                                            value:data,
+                                                            display:display})
+
+                                                    }
                                                     } else
                                                     {
                                                         // and we are not at the valid target value
@@ -348,6 +366,30 @@ exports.write = function(data) {
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
+    callback = cb;
+    progresscallback = progresscb;
+    if (menu == targetmenu){
+        if (submenu == targetsubmenu){
+            getdata = true;
+
+        } else
+        {
+            serialPort.write('u'); // find out where we are so we get an event
+        }
+
+    } else
+    {
+        serialPort.write('u'); // find out where we are so we get an event
+
+    }
+
+
+
+}
+exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb,progresscb){
+    targetmenu = reqmenu;
+    targetsubmenu = reqsubmenu;
+    targetvalue = reqvalue;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){

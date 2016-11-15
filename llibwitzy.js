@@ -293,6 +293,7 @@ function commandline(s){
         case "+":
             sw.write('=');
             break;
+        case "go":
         case "get":
 
             targetmenu = t[1]
@@ -309,6 +310,25 @@ function commandline(s){
 
             console.log('seeking '+targetmenu+','+targetsubmenu);
             sw.getInverterValue(targetmenu, targetsubmenu,sw.testcallback)
+
+
+            break;
+        case "set":
+
+            targetmenu = t[1]
+            if (t[2] == null) {
+                targetsubmenu = 0}
+            else
+            {
+                targetsubmenu = t[2];
+            }
+            if (t[3] != null){
+                console.log('t3'+t[3])
+                targetvalue = t[3];
+            }
+
+            console.log('seeking '+targetmenu+','+targetsubmenu);
+            sw.setInverterValue(targetmenu, targetsubmenu,targetvalue,sw.testcallback)
 
 
             break;
