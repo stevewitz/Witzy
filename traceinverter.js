@@ -344,77 +344,7 @@ exports.write = function(data) {
 
     });
 };
-function commandline(s){
-    s = s.toString();
-    t = s.replace(/,/g,' ').match(/\S+/g); // breaks string into array
-    // console.log(t.length)
-    // for (i = 0; i < t.length; i++){
-    //     console.log(i,t[i])
-    //
-    // }
-    switch (t[0]) {
-        case "stop":
-        case "exit":
-            process.exit(0);
-            break;
-        case "r":
-            serialPort.write('r');
-            break;
-        case "s":
-            serialPort.write('\x13');
-            break;
 
-        case "l":
-            serialPort.write('l');
-            break;
-        case "v":
-            serialPort.write('v');
-            break;
-
-        case "u":
-            serialPort.write('u');
-            break;
-        case "d":
-            serialPort.write('d');
-            break;
-        case "/":
-            serialPort.write('/');
-            break;
-        case "-":
-            serialPort.write('-');
-            break;
-
-        case "=":
-        case "+":
-            serialPort.write('=');
-            break;
-        case "go":
-            targetmenu = t[1]
-            if (t[2] == null) {
-                targetsubmenu = 0}
-            else
-            {
-                targetsubmenu = t[2];
-            }
-            if (t[3] != null){
-                console.log('t3'+t[3])
-                targetvalue = t[3];
-            }
-
-            console.log('seeking '+targetmenu+','+targetsubmenu);
-
-            serialPort.write('u');
-
-
-            callback = testcallback
-            break;
-        default:
-
-            console.log('Unknown input:'+s)
-
-    }
-
-}
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
@@ -438,12 +368,13 @@ exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
 
 
 }
-function testcallback(d){
+exports.testcallback = function (d){
     console.log(JSON.stringify(d,null,4))
 
-}
-var menusys ={};
+};
 
+
+var menusys ={};
 menusys['  Set Inverter     OFF SRCH ON  CHG'] = {
     menu:1,
     sub:1,

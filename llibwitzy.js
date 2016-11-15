@@ -309,7 +309,7 @@ function commandline(s){
            sw.write('u');
 
 
-            callback = testcallback
+            callback = sw.testcallback
             break;
 
         default:
