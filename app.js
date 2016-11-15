@@ -48,7 +48,7 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
                 global.localaddress = iface.address;
                 console.log('Local ip:'+localaddress);
                 ll.startmongo('witzy-'+witzyname,mongo,initialized)
-                console.log(ifname, iface.address);
+//                console.log(ifname, iface.address);
                 return;
 
 
@@ -97,7 +97,7 @@ function initialized(){
         console.log('RGB Module loaded')
     }
     if (settings.options.modules.swinverter){
-        sw = require('./traceinverter')
+       // sw = require('./traceinverter')
         console.log('Trace SW5548 Inverter loaded')
     }
 
