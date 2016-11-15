@@ -63,7 +63,6 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
             });
         });
 
-
         /////////////////
 
         //
