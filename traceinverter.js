@@ -25,7 +25,6 @@ var getdata = false;
 var callback ;
 var progresscallback;
 var oktosend = false;
-var serialPort;
 
 function openSerialPort(portname,scb)
 {
