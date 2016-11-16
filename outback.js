@@ -27,7 +27,7 @@ setInterval(function(){
 
 
     }
-},10000)
+},60000);
 
 
 var com = require('serialport');
