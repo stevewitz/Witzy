@@ -372,7 +372,7 @@ function openSerialPort(portname,scb)
 exports.write = function(data) {
     serialPort.write(data,function(err, results)
     {
-
+        if (err){console.log('sw comm write error:'+err)}else{console.log('sw write:'+data)}
     });
 };
 
