@@ -83,10 +83,10 @@ function initialized(){
 
         sw.start(function(){
             console.log('Trace SW5548 Inverter loaded');
-            // ob.start(function(){
-            //     console.log('Outback Charge Controller Monitor Loaded')
-            // })
-            // //trace.getInverterValue(4,2,testcallback)
+            ob.start(function(){
+                console.log('Outback Charge Controller Monitor Loaded')
+            })
+            //trace.getInverterValue(4,2,testcallback)
         })
     }
 
