@@ -5,6 +5,11 @@ var thisthing = {
     ipaddress:localaddress+':'+settings.options.webserver.listenport,
     parent:witzyname,
     parenttype:'witzy',
+    events:[
+        {name:'targetValueGet',values:'STRING',
+            description:'Received a value (based on menu and submenu)'},
+        {name:'targetValueSet',values:'Set',description:'A target value was reached'}
+    ]
     // commands:[
     //     {name:'stripSetColor',
     //         sendto:"witzy",
@@ -198,6 +203,39 @@ function openSerialPort(portname,scb)
 
                                             } else if (targetvalue == data){
                                                 console.log('At target value')
+
+                                                if (targetvalue){
+
+                                                        server.send({event:{
+                                                            id:thisthing.id,
+                                                            event:'targetValueSet',
+                                                            value:data,
+                                                            eventdata:{menu:menu,
+                                                                submenu:submenu,
+                                                                value:data,
+                                                                display:display
+                                                            },
+                                                            source:thisthing.id
+
+                                                        }});
+
+                                                } else
+                                                {
+                                                    server.send({event:{
+                                                        id:thisthing.id,
+                                                        event:'targetValueGet',
+                                                        value:data,
+                                                        eventdata:{menu:menu,
+                                                            submenu:submenu,
+                                                            value:data,
+                                                            display:display
+                                                        },
+                                                        source:thisthing.id
+
+                                                    }});
+                                                }
+
+
                                                 targetvalue = null
                                                 callback({menu:menu,
                                                     submenu:submenu,

@@ -23,7 +23,7 @@ setInterval(function(){
             eventdata:oneMinuteAvg,
             source:thisthing.id
 
-        }})
+        }});
         console.log(JSON.stringify(oneMinuteAvg,null,4));
     }
 },60000);
