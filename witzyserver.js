@@ -106,7 +106,7 @@ if (exitcode){global.exitcode = exitcode}
             process.exit(exitcode);
 
         }
-        console.log('command sent to witzy api');
+      //  console.log('command sent to witzy api');
     });
 
 
