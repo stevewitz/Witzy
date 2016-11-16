@@ -195,6 +195,9 @@ function openSerialPort(portname,scb)
                             switch (o.datatype){
                                 case "list":
                                     if (o.values[data]){  // the data we recieved is in the list
+                                        // good data
+
+
                                         // maybe we should adjust the data here
                                         if (targetvalue && o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
                                             if (!o.values[targetvalue]){ // and it is valid
@@ -204,36 +207,7 @@ function openSerialPort(portname,scb)
                                             } else if (targetvalue == data){
                                                 console.log('At target value')
 
-                                                if (targetvalue){
 
-                                                        server.send({event:{
-                                                            id:thisthing.id,
-                                                            event:'targetValueSet',
-                                                            value:data,
-                                                            eventdata:{menu:menu,
-                                                                submenu:submenu,
-                                                                value:data,
-                                                                display:display
-                                                            },
-                                                            source:thisthing.id
-
-                                                        }});
-
-                                                } else
-                                                {
-                                                    server.send({event:{
-                                                        id:thisthing.id,
-                                                        event:'targetValueGet',
-                                                        value:data,
-                                                        eventdata:{menu:menu,
-                                                            submenu:submenu,
-                                                            value:data,
-                                                            display:display
-                                                        },
-                                                        source:thisthing.id
-
-                                                    }});
-                                                }
 
 
                                                 targetvalue = null
@@ -366,8 +340,22 @@ function openSerialPort(portname,scb)
 
                         }
 
-                        if (getdata && callback){
+                        if (getdata && callback && data != ''){
                             getdata = false;
+
+                                server.send({event:{
+                                    id:thisthing.id,
+                                    event:'targetValueGet',
+                                    value:data,
+                                    eventdata:{menu:menu,
+                                        submenu:submenu,
+                                        value:data,
+                                        display:display
+                                    },
+                                    source:thisthing.id
+
+                                }});
+
                             callback({menu:menu,
                                 submenu:submenu,
                                 value:data,
