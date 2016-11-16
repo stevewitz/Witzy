@@ -80,11 +80,12 @@ function initialized(){
     if (settings.options.modules.swinverter){
         sw = require('./traceinverter');
         var ob = require('./outback');
-        ob.start(function(){
-            console.log('Outback Charge Controller Monitor Loaded')
-        })
+
         sw.start(function(){
-            console.log('Trace SW5548 Inverter loaded')
+            console.log('Trace SW5548 Inverter loaded');
+            ob.start(function(){
+                console.log('Outback Charge Controller Monitor Loaded')
+            })
             //trace.getInverterValue(4,2,testcallback)
         })
     }
