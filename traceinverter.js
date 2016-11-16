@@ -24,7 +24,6 @@ exports.start = function(scb){
     openSerialPort('/dev/ttyUSB0',scb);
 
 }
-console.log('wroking?');
 
 var sbuffer = '';
 var menu = 0;
@@ -39,6 +38,7 @@ var getdata = false;
 var callback ;
 var progresscallback;
 var oktosend = false;
+var serialPort;
 
 function openSerialPort(portname,scb)
 {
@@ -70,7 +70,7 @@ function openSerialPort(portname,scb)
         if (t){
             clearTimeout(t);
         }
-//console.log(data)
+console.log(data)
 
         sbuffer += data;
         if (sbuffer.indexOf('\r')  != -1){
