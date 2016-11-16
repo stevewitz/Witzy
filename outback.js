@@ -20,7 +20,7 @@ exports.start = function(scb){
 
 }
 console.log('wroking?');
-var b = {};
+var b = {chargeMode:'unknown'};
 
 var avg = [];
 function openSerialPort(portname,scb)
@@ -131,11 +131,10 @@ function openSerialPort(portname,scb)
                 id:thisthing.id,
                 event:'chargeTypeChange',
                 value:b.chargeMode,
-                eventdata:{o},
+                eventdata:o,
                 source:thisthing.id
 
             }})
-            // todo send event chargemode changed
 
         }
 
@@ -145,7 +144,7 @@ function openSerialPort(portname,scb)
 
         if (o.address == "B"){
             // lets do the avgerage stuff
-            console.log(o)
+           // console.log(o)
             avg.unshift(o); // add the rec to the top of the array
             if (avg.length > 60){
                 avg.pop(); // take the last record away
@@ -170,7 +169,7 @@ function openSerialPort(portname,scb)
            a.dailyKWH = o.dailyKWH;
            a.auxMode = o.auxMode;
            a.chargeMode = o.chargeMode ;
-           console.log(JSON.stringify(a,null,4));
+          // console.log(JSON.stringify(a,null,4));
 
 
 
