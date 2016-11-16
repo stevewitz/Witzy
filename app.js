@@ -63,25 +63,6 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
             });
         });
 
-        /////////////////
-
-        //
-        // require('dns').lookup(require('os').hostname(), function (err, add) {
-        //     if (err) {
-        //         console.log('Local ip address lookup failed. \nError: ' + err,data)
-        //
-        //     } else{
-        //         global.localaddress = add;
-        //         console.log('Local ip:'+localaddress);
-        //         ll.startmongo('witzy-'+witzyname,mongo,initialized)
-        //
-        //
-        //
-        //
-        //     }
-        //
-        //
-        // });
 
     }
 
@@ -98,12 +79,13 @@ function initialized(){
     }
     if (settings.options.modules.swinverter){
         sw = require('./traceinverter');
+        var ob = require('./outback');
+        ob.start(function(){
+            console.log('Outback Charge Controller Monitor Loaded')
+        })
         sw.start(function(){
             console.log('Trace SW5548 Inverter loaded')
-
             //trace.getInverterValue(4,2,testcallback)
-
-
         })
     }
 

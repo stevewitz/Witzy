@@ -1,3 +1,22 @@
+var thisthing = {
+    type:"solar",
+    id: witzyname+'-sw5548',
+    name: 'sw5548 Battery Inverter',
+    ipaddress:localaddress+':'+settings.options.webserver.listenport,
+    parent:witzyname,
+    parenttype:'witzy',
+    // commands:[
+    //     {name:'stripSetColor',
+    //         sendto:"witzy",
+    //         device:'sw5548',
+    //         command:'stripSetColor',
+    //         arguments:{name:'JSON',
+    //             color:{type:'input type = color',defaultvalue:'#ff00ff'},}
+    //     }]
+
+}
+ll.writething(thisthing,true);
+
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
@@ -6,12 +25,7 @@ exports.start = function(scb){
 
 }
 console.log('wroking?');
-// process.stdin.on('readable', () => {
-//     var chunk = process.stdin.read();
-//     if (chunk !== null) {
-//         commandline(chunk);
-//     }
-// });
+
 var sbuffer = '';
 var menu = 0;
 var submenu = 0;
@@ -353,6 +367,7 @@ function openSerialPort(portname,scb)
 
     });
 };
+
 
 exports.write = function(data) {
     serialPort.write(data,function(err, results)
