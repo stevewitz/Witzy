@@ -6,11 +6,29 @@ var thisthing = {
     parent:witzyname,
     parenttype:'witzy',
     events:[
-        {name:'chargeTypeChange',values:'STRING'}
+        {name:'chargeTypeChange',values:'STRING',
+            description:'Charger changes modes:Silent(Off),Bulk(Common if inverter using power),Float (Battery Full),Absorb,EQ'},
+        {name:'mxData',values:'Number',description:'Changing Watts and all details'}
     ]
 
 }
 ll.writething(thisthing,true);
+
+setInterval(function(){
+    if (oneMinuteAvg.pvVoltage > 16){
+        server.send({event:{
+            id:thisthing.id,
+            event:'mxData',
+            value:oneMinuteAvg.chargerCurrent*oneMinuteAvg.batteryVoltage,
+            eventdata:oneMinuteAvg,
+            source:thisthing.id
+
+        }})
+
+
+    }
+},10000)
+
 
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
@@ -23,6 +41,7 @@ console.log('wroking?');
 var b = {chargeMode:'unknown'};
 
 var avg = [];
+var oneMinuteAvg;
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
@@ -170,9 +189,7 @@ function openSerialPort(portname,scb)
            a.auxMode = o.auxMode;
            a.chargeMode = o.chargeMode ;
           // console.log(JSON.stringify(a,null,4));
-
-
-
+            oneMinuteAvg = a;
         }
 
     })
