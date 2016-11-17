@@ -164,8 +164,9 @@ function wsData(data,id){
             console.log('unknown datatype '+data.type)
         case 'trace':
             if (data.data.instruction == 'sendkey'){
-                console.log('key:'+data.data.key)
 
+                console.log('key:'+data.data.key)
+                trace.sendkey(data.data.key)
             }
             break;
     }
