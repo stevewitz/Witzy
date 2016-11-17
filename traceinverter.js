@@ -388,6 +388,7 @@ function openSerialPort(portname,scb)
                                 for (var i = 0; i < sample.length; i++) {
                                 total += sample[i];
                                 }
+                                console.log('total:'+total)
                                 data = total/sample.length;
                                 samples = 1;
                                 sample = [];
@@ -461,7 +462,7 @@ exports.write = function(data) {
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
-    samples = 10;
+    samples = 25;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){
