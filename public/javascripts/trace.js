@@ -10,7 +10,6 @@ function websockstart(){
 
     };
     ws.onmessage = function(evt) {
-       console.log('websocket messge')
         var x = JSON.parse(evt.data);
         switch(x.object){
 
