@@ -76,7 +76,7 @@ function openSerialPort(portname,scb)
         if (t){
             clearTimeout(t);
         }
-console.log(data)
+//console.log(data)
 
         sbuffer += data;
         if (sbuffer.indexOf('\r')  != -1){
@@ -189,7 +189,7 @@ console.log(data)
 
                     data = data.replace(/ /g,''); // get rid of spaces
 
-
+                    console.log('data:'+data)
 
                     if (data.length >0){
 
