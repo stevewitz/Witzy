@@ -118,7 +118,7 @@ function openSerialPort(portname,scb)
                 if (menusys[display]){
                     // found the data in the menusys object
                     oktosend = true; // holy crap - so we have to wait until our change gets acked with a new screen dump before the value changes and we can chaange again
-                    menusys[display].data = '';
+                    menusys[display].data = null;
 
                     // fix for duplicate items
 
