@@ -36,7 +36,7 @@ exports.start = function() {
 
     });
     app.get('/trace', function (req, res) {
-        res.render('trace.ejs');
+        res.render('trace.ejs',{things:things,settings:global.settings,wsport:settings.options.websocket.listenport});
     })
     app.get('/api', function (req, res) {
         res.render('api.ejs');
