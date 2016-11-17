@@ -382,7 +382,7 @@ function openSerialPort(portname,scb)
 
                             samples -= 1;
                             sample.push(Number(data));
-                            console.log('samples remaining:'+samples)
+                            console.log('samples remaining:'+samples+' - '+data)
                             if (samples < 1){
                                 var total = 0;
                                 for (var i = 0; i < sample.length; i++) {
@@ -462,7 +462,7 @@ exports.write = function(data) {
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
-    samples = 25;
+    samples = 50;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){
