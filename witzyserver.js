@@ -35,7 +35,9 @@ exports.start = function() {
 //        res.status(200).end();
 
     });
-
+    app.get('/trace', function (req, res) {
+        res.render('trace.ejs');
+    })
     app.get('/api', function (req, res) {
         res.render('api.ejs');
     })

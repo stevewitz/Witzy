@@ -1,0 +1,36 @@
+<html>
+<script src="/javascripts/reconnectingWebsocket.js"> </script>
+<script src="/javascripts/trace.js"> </script>
+
+<% if (global.settings.options.webserver.defaultcssfile) {%>
+<LINK href="<%=global.settings.options.webserver.defaultcssfile%>" rel="stylesheet" type="text/css">
+<%}%>
+
+<head>
+
+
+</head>
+<body onload="load()">
+
+<h2>Trace SW5548 Inverter</h2>
+<div id = 'strips' >
+</div>
+
+
+</body>
+</html>
+<script>
+
+
+
+    function load() {
+        settings=<%-JSON.stringify(settings)%>
+        things=<%-JSON.stringify(things)%>
+        wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
+        drawstrips();
+        populatecommandlist(document.getElementById('selectedthingcommand'))
+        websockstart();
+    }
+
+
+</script>
