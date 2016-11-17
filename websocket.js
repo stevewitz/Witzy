@@ -50,6 +50,7 @@ var request = require('request');
             {
                 console.log('Websocket Connected Id:'+i+" LocalAddress:"+websocket[i]._socket.remoteAddress);
             }
+        websocket[i].pagename = '';
         }
         /************************************************/
         var thisId= i;
