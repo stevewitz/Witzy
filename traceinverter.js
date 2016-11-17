@@ -381,7 +381,7 @@ function openSerialPort(portname,scb)
                         if (getdata  && data != null){
 
                             samples -= 1;
-                            sample.push(data);
+                            sample.push(Number(data));
                             console.log('samples remaining:'+samples)
                             if (samples < 1){
                                 var total = 0;
