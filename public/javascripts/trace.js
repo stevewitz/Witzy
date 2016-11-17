@@ -21,15 +21,12 @@ function websockstart(){
             //  location.reload();
                 break;
               // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
-            case "displayvalue":
-                document.getElementById('displayvalue').innerHTML=x.data.text1;
-                console.log(JSON.stringify(x));
-                console.log(x.data.text1)
-                break;
             case "displaytext":
+                document.getElementById('displayvalue').innerHTML=x.data.text1;
+                break;
+            case "displayvalue":
                 document.getElementById('displaytext').innerHTML=x.data.value;
-                console.log(JSON.stringify(x));
-                console.log(x.data.value)
+
                 break;
             default:
                 alert(x.object);
