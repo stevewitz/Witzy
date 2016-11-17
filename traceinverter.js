@@ -400,11 +400,9 @@ function openSerialPort(portname,scb)
                                 display:display})
 
                         }
-                      console.log(o.data+'-'+data)
                         if (o.data != data){
                             console.log(display+'*Data:'+data)
                             o.data = data;
-                            console.log('o.data:'+o.data)
                             websock.send(JSON.stringify({object:"displayvalue",data:{value:data}}),'trace');
 
                         }
