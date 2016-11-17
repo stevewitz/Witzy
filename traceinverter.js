@@ -45,10 +45,7 @@ var progresscallback;
 var oktosend = false;
 var serialPort;
 
-exports.sendkey = function(key){
-    server.send(key);
 
-}
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
@@ -169,7 +166,6 @@ function openSerialPort(portname,scb)
                     } else if (menu < targetmenu)
                     {
                         console.log('going left');
-                        serialPort.write('l')
 
                     } else if (menu > targetmenu)
                     {
