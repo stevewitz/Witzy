@@ -498,7 +498,7 @@ exports.goInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
 
 
 }
-exports.getInverterValue = function(reqmenu,reqsubmenu,reqsample,cb,progresscb){
+exports.getInverterValue = function(reqmenu,reqsubmenu,reqsamples,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
     samples = reqsamples;
