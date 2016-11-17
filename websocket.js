@@ -166,7 +166,7 @@ function wsData(data,id){
             if (data.data.instruction == 'sendkey'){
 
                 console.log('key:'+data.data.key)
-                trace.sendkey(data.data.key)
+                sw.sendkey(data.data.key)
             }
             break;
     }
