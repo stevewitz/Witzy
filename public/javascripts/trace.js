@@ -29,7 +29,8 @@ function websockstart(){
 
                 break;
             case "displayleds":
-                console.log(x.data.value)
+                console.log('leds:'+JSON.stringify(x))
+                break;
             default:
                 alert(x.object);
 
