@@ -76,7 +76,7 @@ function openSerialPort(portname,scb)
         if (t){
             clearTimeout(t);
         }
-//console.log(data)
+console.log(data)
 
         sbuffer += data;
         if (sbuffer.indexOf('\r')  != -1){
@@ -306,7 +306,7 @@ function openSerialPort(portname,scb)
                                         }
 
                                     }else{
-                                        console.log('invalid data value:'+savedata+'**'+data);
+                                        console.log('invalid data value:'+savedata);
                                         data = ''
                                     }
                                     break;
