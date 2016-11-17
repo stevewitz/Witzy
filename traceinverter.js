@@ -255,7 +255,7 @@ function openSerialPort(portname,scb)
                                 case 'time10':
                                     var savedata = data;
                                     data = validatetime10(data);
-                                    if (data != false){
+                                    if (data != null){
                                         // good data
                                         if (targetvalue && o.canedit){
                                             targetvalue=validatetime10(targetvalue)
@@ -1233,7 +1233,7 @@ function validatetime10(x){
     }
 
     if (x.length != 5 ){
-        return false
+        return null
 
     }
     x=x.replace(':',' ').match(/\S+/g)
@@ -1241,5 +1241,5 @@ function validatetime10(x){
         return Number(x[0]+x[1]);
     }else
     {
-        return false;
+        return null;
     }}
