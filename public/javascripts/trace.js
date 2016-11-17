@@ -22,7 +22,7 @@ function websockstart(){
                 break;
               // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
             case "displaytext":
-                console.log(x.line1);
+                console.log(x.data.line1);
                 break;
             default:
                 alert(x.object);
