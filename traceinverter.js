@@ -255,7 +255,7 @@ function openSerialPort(portname,scb)
                                 case 'time10':
                                     var savedata = data;
                                     data = validatetime10(data);
-                                    if (data){
+                                    if (data != false){
                                         // good data
                                         if (targetvalue && o.canedit){
                                             targetvalue=validatetime10(targetvalue)
