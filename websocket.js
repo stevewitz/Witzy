@@ -119,6 +119,7 @@ function wsData(data,id){
     switch(data.type) {
         case "setwebpage":
             websocket[id].pagename = data.data.pagename;
+            console.log('Web page set for :'+id+' - '+websocket[id].pagename)
             break;
 
         case "lightstrip":
