@@ -44,8 +44,8 @@ var callback ;
 var progresscallback;
 var oktosend = false;
 var serialPort;
-
-
+var samples = 1;
+var sample =[];
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
@@ -378,9 +378,21 @@ function openSerialPort(portname,scb)
 
                         }
 
-                        if (getdata && callback && data != null){
-                            getdata = false;
+                        if (getdata  && data != null){
 
+                            samples -= 1;
+                            sample.push(data);
+                            console.log('samples remaining:'+samples)
+                            if (samples < 1){
+                                var total = 0;
+                                for (var i = 0; i < sample.length; i++) {
+                                total += sample[i];
+                                }
+                                data = total/sample.length;
+                                samples = 1;
+                                sample = [];
+
+                                getdata = false;
                                 server.send({event:{
                                     id:thisthing.id,
                                     event:'targetValueGet',
@@ -393,11 +405,15 @@ function openSerialPort(portname,scb)
                                     source:thisthing.id
 
                                 }});
+                                if (callback){
+                                    callback({menu:menu,
+                                        submenu:submenu,
+                                        value:data,
+                                        display:display})
 
-                            callback({menu:menu,
-                                submenu:submenu,
-                                value:data,
-                                display:display})
+                                }
+                            }
+
 
                         }
                         if (o.data != data){
@@ -445,6 +461,7 @@ exports.write = function(data) {
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
+    samples = 10;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){
@@ -471,6 +488,8 @@ exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb,progresscb){
     targetvalue = reqvalue;
     callback = cb;
     progresscallback = progresscb;
+    samples = 1;
+
     if (menu == targetmenu){
         if (submenu == targetsubmenu){
             getdata = true;
