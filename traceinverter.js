@@ -198,6 +198,8 @@ function openSerialPort(portname,scb)
                         if (o.datatype){
                             switch (o.datatype){
                                 case "list":
+                                       data = data.replace(/ /g,''); // get rid of spaces
+
                                     if (o.values[data]){  // the data we recieved is in the list
                                         // good data
 
