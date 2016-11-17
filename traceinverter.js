@@ -418,7 +418,7 @@ function openSerialPort(portname,scb)
 
                         }
                         if (o.data != data){
-                            console.log(display+'*Data:'+data)
+                         //   console.log(display+'*Data:'+data)
                             o.data = data;
                             websock.send(JSON.stringify({object:"displayvalue",data:{value:data}}),'trace');
 
@@ -462,7 +462,7 @@ exports.write = function(data) {
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
-    samples = 500;
+    samples = 250;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){
