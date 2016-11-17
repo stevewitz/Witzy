@@ -15,7 +15,7 @@ var thisthing = {
 ll.writething(thisthing,true);
 
 setInterval(function(){
-    if (oneMinuteAvg.pvVoltage > 16){
+    if (oneMinuteAvg && oneMinuteAvg.pvVoltage > 16){
         server.send({event:{
             id:thisthing.id,
             event:'mxData',
