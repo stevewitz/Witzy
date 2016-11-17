@@ -27,8 +27,6 @@
         settings=<%-JSON.stringify(settings)%>
         things=<%-JSON.stringify(things)%>
         wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
-        drawstrips();
-        populatecommandlist(document.getElementById('selectedthingcommand'))
         websockstart();
     }
 
