@@ -22,12 +22,14 @@ function websockstart(){
                 break;
               // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
             case "displaytext":
-                document.getElementById('displayvalue').innerHTML=x.data.text1;
+                document.getElementById('displaytext').innerHTML=x.data.text1;
                 break;
             case "displayvalue":
-                document.getElementById('displaytext').innerHTML=x.data.value;
+                document.getElementById('displayvalue').innerHTML=x.data.value;
 
                 break;
+            case "displayleds":
+                console.log(x.data.value)
             default:
                 alert(x.object);
 
@@ -48,3 +50,7 @@ function websocketsend(type,data){
 }
 
 
+function sendkey(key){
+    websocketsend('trace', {
+        instruction: 'sendkey',key:key});
+}

@@ -162,6 +162,12 @@ function wsData(data,id){
             break;
                 default:
             console.log('unknown datatype '+data.type)
+        case 'trace':
+            if (instruction == 'sendkey'){
+                console.log('key:'+key)
+
+            }
+            break;
     }
 
 }

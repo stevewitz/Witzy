@@ -85,6 +85,8 @@ function openSerialPort(portname,scb)
 
                 if (sbuffer.indexOf('\r\n\r\n') != -1){
                     console.log('leds:'+sbuffer)
+                    websock.send(JSON.stringify({object:"displayleds",data:{value:sbuffer}}),'trace');
+
                 } else
                 {
                     // junk
@@ -401,7 +403,6 @@ function openSerialPort(portname,scb)
                         if (o.data != data){
                             console.log(display+'*Data:'+data)
                             o.data = data;
-                            websock.send(JSON.stringify({object:"displayvalue",data:{value:data}}),'trace');
 
                         }
 
