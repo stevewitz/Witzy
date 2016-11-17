@@ -183,11 +183,12 @@ function openSerialPort(portname,scb)
             // lets parse what is in here - values or yes/no's etc
             var o = menusys[display];
             if (o && o.hasdata ){
-                if (sbuffer.length >= o.charlen){ // have all the data in the buffer
-                    data = sbuffer.substr(0, o.charlen)
+                if (sbuffer.length >= o.charlen+sbuffer(indexOf(' '))){ // have all the data in the buffer
+                    // make sure the first char is a space
+                    data = sbuffer.substr(sbuffer(indexOf(' ')), o.charlen)
                     sbuffer = sbuffer.substr(o.charlen+1)
-
-                    data = data.replace(/ /g,''); // get rid of spaces
+                    //data = checkdata(menu,submenu,data);
+                 //   data = data.replace(/ /g,''); // get rid of spaces
 
                     //console.log('data:'+data)
 
@@ -313,8 +314,9 @@ function openSerialPort(portname,scb)
                                 case 'range':
                                     var savedata = data;
 
-                                    if ((data*10)%(o.step*10) == 0 && data >= o.low && data <=o.high){
-                                        // good data
+                                    //if ((data*10)%(o.step*10) == 0 && data >= o.low && data <=o.high){
+                                    if ( data >= o.low && data <=o.high){
+                                    // good data
                                         if (targetvalue && o.canedit){
                                             if (o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
                                                 if ((targetvalue*10)%(o.step*10) == 0 && targetvalue >= o.low && targetvalue <= o.high  ){
@@ -573,7 +575,9 @@ menusys['  Inverter/charger amps AC         ']= {
     menu:4,
     sub:1,
     hasdata:true,
-    charlen:4
+    charlen:4,
+
+
 };
 menusys['  Input            amps AC         ']= {
     menu:4,
