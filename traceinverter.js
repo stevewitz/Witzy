@@ -199,7 +199,6 @@ function openSerialPort(portname,scb)
                             switch (o.datatype){
                                 case "list":
 
-                                    console.log('*'+data+'*')
                                        data = data.replace(/ /g,''); // get rid of spaces
 
                                     if (o.values[data]){  // the data we recieved is in the list
@@ -208,6 +207,7 @@ function openSerialPort(portname,scb)
 
                                         // maybe we should adjust the data here
                                         if (targetvalue && o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
+                                            samples = 1
                                             if (!o.values[targetvalue]){ // and it is valid
                                                 console.log("TARGET VALUE invalid:"+targetvalue)
                                                 targetvalue = null
@@ -388,7 +388,7 @@ function openSerialPort(portname,scb)
 
                             samples -= 1;
                             sample.push(Number(data));
-                            console.log('samples remaining:'+samples+' - '+data)
+
                             if (samples < 1){
                                 var total = 0;
                                 for (var i = 0; i < sample.length; i++) {
@@ -419,6 +419,9 @@ function openSerialPort(portname,scb)
                                         display:display})
 
                                 }
+                            } else
+                            {
+                                console.log('samples remaining:'+samples+' - '+data)
                             }
 
 
