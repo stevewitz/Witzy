@@ -207,7 +207,6 @@ function openSerialPort(portname,scb)
 
                                         // maybe we should adjust the data here
                                         if (targetvalue && o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
-                                            samples = 1
                                             if (!o.values[targetvalue]){ // and it is valid
                                                 console.log("TARGET VALUE invalid:"+targetvalue)
                                                 targetvalue = null
@@ -391,7 +390,7 @@ function openSerialPort(portname,scb)
 
                         }
 
-                        if (getdata  && data != null){
+                        if (getdata  && data != null && isNaN(Number(data)) == false){
 
                             samples -= 1;
                             sample.push(Number(data));
@@ -475,10 +474,34 @@ exports.write = function(data) {
     });
 };
 
-exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
+exports.goInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
-    samples = 250;
+    samples = 1;
+    callback = cb;
+    progresscallback = progresscb;
+    if (menu == targetmenu){
+        if (submenu == targetsubmenu){
+            getdata = true;
+
+        } else
+        {
+            serialPort.write('u'); // find out where we are so we get an event
+        }
+
+    } else
+    {
+        serialPort.write('u'); // find out where we are so we get an event
+
+    }
+
+
+
+}
+exports.getInverterValue = function(reqmenu,reqsubmenu,reqsample,cb,progresscb){
+    targetmenu = reqmenu;
+    targetsubmenu = reqsubmenu;
+    samples = reqsamples;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){
