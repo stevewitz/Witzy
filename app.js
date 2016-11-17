@@ -81,7 +81,7 @@ function initialized(){
         trace = require('./traceinverter');
         var ob = require('./outback');
 
-        sw.start(function(){
+        trace.start(function(){
             console.log('Trace SW5548 Inverter loaded');
             ob.start(function(){
                 console.log('Outback Charge Controller Monitor Loaded')
