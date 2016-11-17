@@ -23,11 +23,13 @@ function websockstart(){
               // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
             case "displayvalue":
                 document.getElementById('displayvalue').innerHTML=x.data.text1;
-
+                console.log(JSON.stringify(x.data));
+                console.log(x.data.text1)
                 break;
             case "displaytext":
                 document.getElementById('displaytext').innerHTML=x.data.value;
                 console.log(JSON.stringify(x.data));
+                console.log(x.data.value)
                 break;
             default:
                 alert(x.object);
