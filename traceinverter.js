@@ -253,7 +253,11 @@ function openSerialPort(portname,scb)
                                         console.log('valid data')
                                     }else
                                     {
-                                        console.log('invalid data value:'+data);
+                                        if (data.length > 0){
+                                            console.log('invalid data value:'+data);
+                                        }
+
+
                                         data = null
                                     }
                                     break;
@@ -374,7 +378,10 @@ function openSerialPort(portname,scb)
                                         }
 
                                     }else{
-                                        console.log('invalid data value:'+savedata);
+                                        if (data.length > 0){
+                                            console.log('invalid data value:'+savedata);
+                                        }
+
                                         data = null
                                     }
                                     break;
