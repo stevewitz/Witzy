@@ -306,7 +306,7 @@ function openSerialPort(portname,scb)
                                         }
 
                                     }else{
-                                        console.log('invalid data value:'+savedata);
+                                        console.log('invalid data value:'+savedata+'**'+data);
                                         data = ''
                                     }
                                     break;
