@@ -400,6 +400,7 @@ function openSerialPort(portname,scb)
                                 display:display})
 
                         }
+                      console.log(o.data,data)
                         if (o.data != data){
                             console.log(display+'*Data:'+data)
                             o.data = data;
