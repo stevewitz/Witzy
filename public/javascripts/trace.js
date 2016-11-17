@@ -21,8 +21,9 @@ function websockstart(){
             //  location.reload();
                 break;
               // websock.send(JSON.stringify({object:"buffer",data:{buffer: buffer[o.stripname],stripname:o.stripname}}),'lightstrip');
+            case "displayvalue":
             case "displaytext":
-                console.log(x.data.line1);
+                console.log(JSON.stringify(x.data));
                 break;
             default:
                 alert(x.object);

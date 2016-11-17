@@ -132,6 +132,7 @@ function openSerialPort(portname,scb)
                 clearTimeout(t);
                 // ok - we know where we are check if its where we want to be
                 console.log('menu:'+menu+':'+submenu+ '  --  '+targetmenu+':'+targetsubmenu);
+                websock.send(JSON.stringify({object:"displaytext",data:{menu:menu,submenu:submenu,text1:display}}),'trace');
 
                 if (targetmenu > 0){
                     if (menu == targetmenu){
@@ -400,7 +401,7 @@ function openSerialPort(portname,scb)
                         if (o.data != data){
                             console.log(display+'*Data:'+data)
                             o.data = data;
-                            websock.send(JSON.stringify({object:"displaytext",data:{text1:data}}),'trace');
+                            websock.send(JSON.stringify({object:"displayvalue",data:{value:data}}),'trace');
 
                         }
 
