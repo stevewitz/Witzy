@@ -183,9 +183,9 @@ function openSerialPort(portname,scb)
             // lets parse what is in here - values or yes/no's etc
             var o = menusys[display];
             if (o && o.hasdata ){
-                if (sbuffer.length >= o.charlen+sbuffer(indexOf(' '))){ // have all the data in the buffer
+                if (sbuffer.length >= o.charlen+sbuffer.indexOf(' ')){ // have all the data in the buffer
                     // make sure the first char is a space
-                    data = sbuffer.substr(sbuffer(indexOf(' ')), o.charlen)
+                    data = sbuffer.substr(sbuffer.indexOf(' '), o.charlen)
                     sbuffer = sbuffer.substr(o.charlen+1)
                     //data = checkdata(menu,submenu,data);
                  //   data = data.replace(/ /g,''); // get rid of spaces
