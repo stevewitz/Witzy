@@ -78,41 +78,75 @@ var request = require('request');
     });
 
 
-    exports.send = function(data,id)
-    {
-        if (id && id.length > 2) {
-           for (var i = 0; i < 10; i++) {
-                if (websocket[id] && websocket[id].pagename == id) {
-                    id = i;
-                    break;
-                }
+exports.send = function(data,id,binary)
+{
+    // id passed as a webpage name - only send it to those webpages
+    if (id && id.length > 2) {
+        //   console.log('send to NAME:'+id)
+        for (var i = 0; i < 10; i++) {
+            if (websocket[i] && websocket[i].pagename == id) {
+                websocket[i].send(data);
             }
         }
-
-
-            if (id && id > -1 && websocket[id])
+    }else
+    {
+        if (id && id > -1 && websocket[id])
+        // an id was passed - just send it to that websocket
         {
-            websocket[id].send(data);
+            //console.log('send to ONE:'+id)
+            websocket[id].send(data,binary);
         } else
         {
-//            console.log('keys'+ Object.keys(websocket));
-//            console.log('len'+websocket.length);
-            //Object.keys(websocket).length -
+            //  console.log('send to ALL:'+id)
+
+            // no id passed - send it to all connected websockets
             //someday fix this so it tracks the number of connections
             for (var i=0; i < 10; i++)
             {
                 if (websocket[i])
                 {
-                    websocket[i].send(data);
+                    websocket[i].send(data,binary);
                     //console.info("websocket sending to client "+i);
                 }
-
-
             }
-
         }
-
-    };
+    }
+};
+//     exports.send = function(data,id)
+//     {
+//         if (id && id.length > 2) {
+//            for (var i = 0; i < 10; i++) {
+//                 if (websocket[id] && websocket[id].pagename == id) {
+//                     id = i;
+//                     break;
+//                 }
+//             }
+//         }
+//
+//
+//             if (id && id > -1 && websocket[id])
+//         {
+//             websocket[id].send(data);
+//         } else
+//         {
+// //            console.log('keys'+ Object.keys(websocket));
+// //            console.log('len'+websocket.length);
+//             //Object.keys(websocket).length -
+//             //someday fix this so it tracks the number of connections
+//             for (var i=0; i < 10; i++)
+//             {
+//                 if (websocket[i])
+//                 {
+//                     websocket[i].send(data);
+//                     //console.info("websocket sending to client "+i);
+//                 }
+//
+//
+//             }
+//
+//         }
+//
+//     };
 /**
  * Created by todd on 3/14/2016.
  */
