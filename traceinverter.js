@@ -189,7 +189,7 @@ function openSerialPort(portname,scb)
 
                     data = data.replace(/ /g,''); // get rid of spaces
 
-                    console.log('data:'+data)
+                    //console.log('data:'+data)
 
                     if (data.length >0){
 
@@ -249,7 +249,7 @@ function openSerialPort(portname,scb)
                                     }else
                                     {
                                         console.log('invalid data value:'+data);
-                                        data = ''
+                                        data = null
                                     }
                                     break;
                                 case 'time10':
@@ -257,7 +257,7 @@ function openSerialPort(portname,scb)
                                     data = validatetime10(data);
                                     if (data != null){
                                         // good data
-                                        if (targetvalue && o.canedit){
+                                       if (targetvalue && o.canedit){
                                             targetvalue=validatetime10(targetvalue)
                                             if (targetvalue && o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
                                                 //if (targetvalue){
@@ -307,7 +307,7 @@ function openSerialPort(portname,scb)
 
                                     }else{
                                         console.log('invalid data value:'+savedata);
-                                        data = ''
+                                        data = null
                                     }
                                     break;
                                 case 'range':
@@ -369,7 +369,7 @@ function openSerialPort(portname,scb)
 
                                     }else{
                                         console.log('invalid data value:'+savedata);
-                                        data = ''
+                                        data = null
                                     }
                                     break;
 
@@ -378,7 +378,7 @@ function openSerialPort(portname,scb)
 
                         }
 
-                        if (getdata && callback && data != ''){
+                        if (getdata && callback && data != null){
                             getdata = false;
 
                                 server.send({event:{
