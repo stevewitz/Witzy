@@ -462,7 +462,7 @@ exports.write = function(data) {
 exports.getInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
-    samples = 50;
+    samples = 500;
     callback = cb;
     progresscallback = progresscb;
     if (menu == targetmenu){
