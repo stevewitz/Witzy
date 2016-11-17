@@ -78,7 +78,7 @@ function initialized(){
         console.log('RGB Module loaded')
     }
     if (settings.options.modules.swinverter){
-        sw = require('./traceinverter');
+        trace = require('./traceinverter');
         var ob = require('./outback');
 
         sw.start(function(){
