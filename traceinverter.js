@@ -22,7 +22,9 @@ var thisthing = {
 
 }
 ll.writething(thisthing,true);
-
+setInterval(function(){
+  exports.sampleMenu4();
+},60000);
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
@@ -405,18 +407,22 @@ function openSerialPort(portname,scb)
                                 sample = [];
 
                                 getdata = false;
-                                server.send({event:{
-                                    id:thisthing.id,
-                                    event:'targetValueGet',
-                                    value:data,
-                                    eventdata:{menu:menu,
-                                        submenu:submenu,
-                                        value:data,
-                                        display:display
-                                    },
-                                    source:thisthing.id
+                                if (menu != 4){
 
-                                }});
+                                    server.send({event:{
+                                        id:thisthing.id,
+                                        event:'targetValueGet',
+                                        value:data,
+                                        eventdata:{menu:menu,
+                                            submenu:submenu,
+                                            value:data,
+                                            display:display
+                                        },
+                                        source:thisthing.id
+
+                                    }});
+
+                                }
                                 if (callback){
                                     callback({menu:menu,
                                         submenu:submenu,
