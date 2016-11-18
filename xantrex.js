@@ -115,7 +115,7 @@ function getInfo(x,callback){
 }
 exports.getAll = function(callback){
 var o = {};
-    console.time("getAll");
+    //console.time("getAll");
     getInfo('inv?',function(x) {
         o.online = (x == 'ON') ? true:false;
         getInfo('measin?', function (x) {
@@ -123,7 +123,7 @@ var o = {};
             o.currentIn = x.substring(x.indexOf(' ') + 3, x.lastIndexOf(' '));
             o.powerIn = x.substring(x.lastIndexOf(' ') + 3);
             getInfo('measout?', function (x) {
-                console.log(x);
+                // messy parsing
                 o.voltOut = x.substr(2, x.indexOf(' ') - 2);
                 x = x.substr(x.indexOf(' ') + 1);
                 o.currentOut = x.substr(2, x.indexOf(' ') - 2);
@@ -144,7 +144,7 @@ var o = {};
                                 getInfo('kwhtoday?', function (x) {
                                     o.khwtoday = x;
                                     o.efficiency = o.powerOut / o.powerIn;
-                                    console.timeEnd("getAll");
+                                   // console.timeEnd("getAll");
 
                                     cb = null;
                                     if (callback){

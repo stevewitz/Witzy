@@ -404,6 +404,7 @@ function openSerialPort(portname,scb)
                                 }
                                 console.log('total:'+total)
                                 data = total/sample.length;
+                                var samplelength = sample.length;
                                 samples = 1;
                                 sample = [];
 
@@ -423,6 +424,9 @@ function openSerialPort(portname,scb)
 
                                     }});
 
+                                }else
+                                {
+                                    console.log('\r Menu'+menu+':'+submenu+' sampled('+samplelength+') '+data)
                                 }
                                 if (callback){
                                     callback({menu:menu,
@@ -433,7 +437,8 @@ function openSerialPort(portname,scb)
                                 }
                             } else
                             {
-                                console.log('samples remaining:'+samples+' - '+data)
+                                process.stdout.write('-');
+
                             }
 
 

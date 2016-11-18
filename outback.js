@@ -190,7 +190,7 @@ function openSerialPort(portname,scb)
           // console.log(JSON.stringify(a,null,4));
             oneMinuteAvg = a;
         }
-
+        process.stdout.write('O');
     })
 
 
