@@ -171,6 +171,7 @@ function openSerialPort(portname,scb)
                     } else if (menu < targetmenu)
                     {
                         console.log('going left');
+                        serialPort.write('l')
 
                     } else if (menu > targetmenu)
                     {
