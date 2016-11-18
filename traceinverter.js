@@ -8,7 +8,8 @@ var thisthing = {
     events:[
         {name:'targetValueGet',values:'STRING',
             description:'Received a value (based on menu and submenu)'},
-        {name:'targetValueSet',values:'Set',description:'A target value was reached'}
+        {name:'targetValueSet',values:'Set',description:'A target value was reached'},
+        {name:'swData',values:'Number',description:'Output Watts and all details'}
     ]
     // commands:[
     //     {name:'stripSetColor',
@@ -116,19 +117,14 @@ function openSerialPort(portname,scb)
                 }
 
                 if (menusys[display]){
-
                     // found the data in the menusys object
                     oktosend = true; // holy crap - so we have to wait until our change gets acked with a new screen dump before the value changes and we can chaange again
                     menusys[display].data = null;
 
                     // fix for duplicate items
-
                     if (menu == 2 &&  menusys[display].menu == 5){
-
                         display = '2'+display;
                     }
-
-
                     menu = menusys[display].menu;
                     submenu = menusys[display].sub;
                 } else
@@ -160,11 +156,7 @@ function openSerialPort(portname,scb)
                         {
                             console.log('going down');
                             serialPort.write('d')
-
                         }
-
-
-
                     } else if (targetmenu >= 9 && menu < 9){
                         console.log('entering setup mode');
                         serialPort.write('\x13');
@@ -177,13 +169,8 @@ function openSerialPort(portname,scb)
                     {
                         console.log('going right');
                         serialPort.write('r')
-
                     }
-
-
-
                 }
-
             }
         } else {
             // lets parse what is in here - values or yes/no's etc
@@ -596,6 +583,14 @@ exports.getInverterValue(4,1,25,function(x){
                                     o.inputWatts = o.inputAmps*o.gridVolts;
                                     o.outputWatts = o.outputAmps*o.inverterVolts;
                                     console.log(JSON.stringify(o,null,4))
+                                    server.send({event:{
+                                        id:thisthing.id,
+                                        event:'swData',
+                                        value:o.outputWatts,
+                                        eventdata:o,
+                                        source:thisthing.id
+
+                                    }});
 
                                 })
 
