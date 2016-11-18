@@ -93,8 +93,7 @@ function openSerialPort(portname,scb)
 
             cb(data)
         }
-
-        console.log(data);
+//        console.log(data);
     });
 
 
