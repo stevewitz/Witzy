@@ -102,7 +102,7 @@ function openSerialPort(portname,scb)
             if (sbuffer.length >= startchar+37){
                 //console.log('full message?')
                 display = sbuffer.substr(startchar+2,35);
-                console.log(display+'*');
+                //console.log(display+'*');
                 if (sbuffer.substr(startchar+35,2) > 0){
                     // we are in a main menu
                     menu = Number(sbuffer.substr(startchar+35,2));
@@ -116,6 +116,7 @@ function openSerialPort(portname,scb)
                 }
 
                 if (menusys[display]){
+
                     // found the data in the menusys object
                     oktosend = true; // holy crap - so we have to wait until our change gets acked with a new screen dump before the value changes and we can chaange again
                     menusys[display].data = null;
@@ -130,6 +131,10 @@ function openSerialPort(portname,scb)
 
                     menu = menusys[display].menu;
                     submenu = menusys[display].sub;
+                } else
+                {
+                    console.log(display+'*');
+
                 }
 
                 clearTimeout(t);
@@ -249,7 +254,9 @@ function openSerialPort(portname,scb)
                                                 }
                                             }
                                         }
-                                        console.log('valid data')
+                                        //console.log('valid data')
+                                        // valid data
+                                        console.log(display+':'+data)
                                     }else
                                     {
                                         if (data.length > 0){
@@ -265,6 +272,8 @@ function openSerialPort(portname,scb)
                                     data = validatetime10(data);
                                     if (data != null){
                                         // good data
+                                        // valid data
+                                        console.log(display+':'+data)
                                        if (targetvalue && o.canedit){
                                             targetvalue=validatetime10(targetvalue)
                                             if (targetvalue && o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
@@ -324,6 +333,8 @@ function openSerialPort(portname,scb)
                                     //if ((data*10)%(o.step*10) == 0 && data >= o.low && data <=o.high){
                                     if ( data >= o.low && data <=o.high){
                                     // good data
+                                        // valid data
+                                        console.log(display+':'+data)
                                         if (targetvalue && o.canedit){
                                             if (o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
                                                 if ((targetvalue*10)%(o.step*10) == 0 && targetvalue >= o.low && targetvalue <= o.high  ){
