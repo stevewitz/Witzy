@@ -479,6 +479,14 @@ function openSerialPort(portname,scb)
 
 
 exports.write = function(data) {
+     targetmenu = 0;
+     targetsubmenu = 0;
+     targetvalue = null;
+     getdata = false;
+     callback = null ;
+     oktosend = false;
+     samples = 1;
+     sample =[];
     serialPort.write(data,function(err, results)
     {
         if (err){console.log('sw comm write error:'+err)}//else{console.log('sw write:'+data)}
