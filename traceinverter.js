@@ -589,7 +589,6 @@ exports.getInverterValue(4,1,25,function(x){
                                         value:o.outputWatts,
                                         eventdata:o,
                                         source:thisthing.id
-
                                     }});
 
                                 })
