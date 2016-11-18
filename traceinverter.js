@@ -553,16 +553,39 @@ exports.testcallback = function (d){
 
 };
 exports.sampleMenu4 = function(){
-var o={}
+var o={};
 exports.getInverterValue(4,1,25,function(x){
     o.chargerAmps = x.value;
     exports.getInverterValue(4,2,25,function(x){
        o.inputAmps = x.value
-        console.log(JSON.stringify(o,null,4))
+        exports.getInverterValue(4,3,25,function(x){
+            o.loadAmps = x.value;
+            exports.getInverterValue(4,4,25,function(x){
+                o.batteryVolts = x.value;
+                exports.getInverterValue(4,5,5,function(x){
+                    o.batteryVoltsTempComp = x.value;
+                    exports.getInverterValue(4,6,5,function(x){
+                        o.inverterVolts = x.value;
+                        exports.getInverterValue(4,7,5,function(x){
+                            o.gridVolts = x.value;
+                            exports.getInverterValue(4,8,5,function(x){
+                                o.generatorVolts = x.value;
+                                exports.getInverterValue(4,9,5,function(x){
+                                    o.freq = x.value;
+                                })
+
+                            })
+
+                        })
+                    })
+                })
+            })
+        })
     })
 
 })
 
+    console.log(JSON.stringify(o,null,4))
 
 }
 
