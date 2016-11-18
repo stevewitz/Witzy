@@ -583,6 +583,9 @@ exports.getInverterValue(4,1,25,function(x){
                                 o.generatorVolts = x.value;
                                 exports.getInverterValue(4,9,5,function(x){
                                     o.freq = x.value;
+                                    o.chargerWatts = o.chargerCurrent*o.batteryVolts;
+                                    o.inputWatts = o.inputAmps*o.gridVolts;
+                                    o.outputWatts = o.outputWatts*o.inverterVolts;
                                     console.log(JSON.stringify(o,null,4))
 
                                 })
