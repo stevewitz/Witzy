@@ -589,6 +589,8 @@ exports.getInverterValue(4,1,25,function(x){
                                     o.inputWatts = o.inputAmps*o.gridVolts;
                                     o.outputWatts = o.outputAmps*o.inverterVolts;
                                     console.log(JSON.stringify(o,null,4))
+                                    serialPort.write('r')
+
                                     server.send({event:{
                                         id:thisthing.id,
                                         event:'swData',
