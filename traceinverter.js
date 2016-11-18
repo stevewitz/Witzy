@@ -570,7 +570,7 @@ exports.getInverterValue(4,1,25,function(x){
     exports.getInverterValue(4,2,25,function(x){
        o.inputAmps = x.value
         exports.getInverterValue(4,3,25,function(x){
-            o.loadAmps = x.value;
+            o.outputAmps = x.value;
             exports.getInverterValue(4,4,25,function(x){
                 o.batteryVolts = x.value;
                 exports.getInverterValue(4,5,5,function(x){
@@ -585,7 +585,7 @@ exports.getInverterValue(4,1,25,function(x){
                                     o.freq = x.value;
                                     o.chargerWatts = o.chargerAmps*o.batteryVolts;
                                     o.inputWatts = o.inputAmps*o.gridVolts;
-                                    o.outputWatts = o.outputWatts*o.inverterVolts;
+                                    o.outputWatts = o.outputAmps*o.inverterVolts;
                                     console.log(JSON.stringify(o,null,4))
 
                                 })
