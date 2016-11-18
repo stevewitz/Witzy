@@ -23,7 +23,8 @@ var thisthing = {
 }
 ll.writething(thisthing,true);
 setInterval(function(){
-  exports.sampleMenu4();
+  if (!targetmenu && !targetsubmenu && !targetvalue)
+    exports.sampleMenu4();
 },60000);
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
