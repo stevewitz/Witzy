@@ -567,9 +567,9 @@ exports.sampleMenu4 = function(){
 var o={};
 exports.getInverterValue(4,1,25,function(x){
     o.chargerAmps = x.value;
-    exports.getInverterValue(4,2,25,function(x){
+    exports.getInverterValue(4,2,100,function(x){
        o.inputAmps = x.value
-        exports.getInverterValue(4,3,25,function(x){
+        exports.getInverterValue(4,3,100,function(x){
             o.outputAmps = x.value;
             exports.getInverterValue(4,4,25,function(x){
                 o.batteryVolts = x.value;
