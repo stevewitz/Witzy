@@ -85,6 +85,13 @@ function initialized(){
             console.log('Trace SW5548 Inverter loaded');
             ob.start(function(){
                 console.log('Outback Charge Controller Monitor Loaded')
+                var xa = require('./xantrex');
+                xa.start(function(){
+                    console.log('Xantrex grid-tie Inverter Controller Loaded')
+
+                    // xa.getAll();
+                });
+
             })
             //trace.getInverterValue(4,2,testcallback)
         })
