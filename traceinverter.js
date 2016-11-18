@@ -577,13 +577,13 @@ exports.getInverterValue(4,1,25,function(x){
                 o.batteryVolts = x.value;
                 exports.getInverterValue(4,5,5,function(x){
                     o.batteryVoltsTempComp = x.value;
-                    exports.getInverterValue(4,6,5,function(x){
+                    exports.getInverterValue(4,6,2,function(x){
                         o.inverterVolts = x.value;
-                        exports.getInverterValue(4,7,5,function(x){
+                        exports.getInverterValue(4,7,2,function(x){
                             o.gridVolts = x.value;
-                            exports.getInverterValue(4,8,5,function(x){
+                            exports.getInverterValue(4,8,1,function(x){
                                 o.generatorVolts = x.value;
-                                exports.getInverterValue(4,9,5,function(x){
+                                exports.getInverterValue(4,9,2,function(x){
                                     o.freq = x.value;
                                     o.chargerWatts = o.chargerAmps*o.batteryVolts;
                                     o.inputWatts = o.inputAmps*o.gridVolts;
