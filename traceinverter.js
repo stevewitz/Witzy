@@ -552,7 +552,19 @@ exports.testcallback = function (d){
     console.log(JSON.stringify(d,null,4))
 
 };
+exports.sampleMenu4 = function(){
+var o={}
+exports.getInverterValue(4,1,25,function(x){
+    o.chargerAmps = x.value;
+    exports.getInverterValue(4,2,25,function(x){
+       o.inputAmps = x.value
+        console.log(JSON.stringify(o,null,4))
+    })
 
+})
+
+
+}
 
 var menusys ={};
 menusys['  Set Inverter     OFF SRCH ON  CHG'] = {

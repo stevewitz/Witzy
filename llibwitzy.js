@@ -352,7 +352,8 @@ function commandline(s){
 
 
             break;
-
+        case 'menu4':
+            sw.sampleMenu4();
         default:
             console.log('Unknown input:'+s)
 
