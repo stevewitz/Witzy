@@ -497,7 +497,7 @@ exports.goInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
 
         } else
         {
-            serialPort.write('u'); // find out where we are so we get an event
+            serialPort.write('d'); // find out where we are so we get an event
         }
 
     } else
@@ -521,7 +521,7 @@ exports.getInverterValue = function(reqmenu,reqsubmenu,reqsamples,cb,progresscb)
 
         } else
         {
-            serialPort.write('u'); // find out where we are so we get an event
+            serialPort.write('d'); // find out where we are so we get an event
         }
 
     } else
@@ -547,7 +547,7 @@ exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb,progresscb){
 
         } else
         {
-            serialPort.write('u'); // find out where we are so we get an event
+            serialPort.write('d'); // find out where we are so we get an event
         }
 
     } else
@@ -567,9 +567,9 @@ exports.sampleMenu4 = function(){
 var o={};
 exports.getInverterValue(4,1,25,function(x){
     o.chargerAmps = x.value;
-    exports.getInverterValue(4,2,100,function(x){
+    exports.getInverterValue(4,2,50,function(x){
        o.inputAmps = x.value
-        exports.getInverterValue(4,3,100,function(x){
+        exports.getInverterValue(4,3,50,function(x){
             o.outputAmps = x.value;
             exports.getInverterValue(4,4,25,function(x){
                 o.batteryVolts = x.value;
