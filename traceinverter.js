@@ -572,6 +572,8 @@ exports.getInverterValue(4,1,25,function(x){
                                 o.generatorVolts = x.value;
                                 exports.getInverterValue(4,9,5,function(x){
                                     o.freq = x.value;
+                                    console.log(JSON.stringify(o,null,4))
+
                                 })
 
                             })
@@ -585,7 +587,6 @@ exports.getInverterValue(4,1,25,function(x){
 
 })
 
-    console.log(JSON.stringify(o,null,4))
 
 }
 
