@@ -156,10 +156,13 @@ function openSerialPort(portname,scb)
                     if (leds.generatorPowerSyncing != temp ){
                         leds.generatorPowerSyncing = temp;
                         server.send({event:{id:thisthing.id,event:'generatorPowerSyncing',value:temp,eventdata:{leds},source:thisthing.id}});
-                        if (temp == true && leds.generatorPower == true){
+                        if (temp == true){
                             // turn thisone off - cannot both be on
+                            if (leds.generatorPower == true){
+                                server.send({event:{id:thisthing.id,event:'generatorPower',value:false,eventdata:{leds},source:thisthing.id}});
+                            }
                             leds.generatorPower = false
-                            server.send({event:{id:thisthing.id,event:'generatorPower',value:false,eventdata:{leds},source:thisthing.id}});
+
                         } else
                         {
                             var temp = true;
@@ -174,10 +177,12 @@ function openSerialPort(portname,scb)
                     if (leds.utilityPowerSyncing != temp ){
                         leds.utilityPowerSyncing = temp;
                         server.send({event:{id:thisthing.id,event:'utilityPowerSyncing',value:temp,eventdata:{leds},source:thisthing.id}});
-                        if (temp == true && leds.utilityPower == true){
+                        if (temp == true){
                             // turn thisone off - cannot both be on
+                            if (leds.utilityPower == true){
+                                server.send({event:{id:thisthing.id,event:'utilityPower',value:false,eventdata:{leds},source:thisthing.id}});
+                            }
                             leds.utilityPower = false
-                            server.send({event:{id:thisthing.id,event:'utilityPower',value:false,eventdata:{leds},source:thisthing.id}});
                         } else
                         {
                             var temp = true;
