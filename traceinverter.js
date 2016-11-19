@@ -27,7 +27,7 @@ setInterval(function(){
         serialPort.write('/');
     }
 
-},6500)
+},3000)
 setInterval(function(){
   if (!targetmenu && !targetsubmenu && !targetvalue)
     exports.sampleMenu4();
@@ -68,7 +68,7 @@ var leds = {
     utilityPowerSyncing:false,
     generatorPowerSyncing:false,
     frequencyError:false,
-}
+};
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
@@ -110,7 +110,14 @@ function openSerialPort(portname,scb)
                 if (sbuffer.indexOf('\r\n\r\n') != -1){
                     sbuffer = sbuffer.replace('\r\n\r\n','');
                     sbuffer = sbuffer.replace('UNIT1','')
-                    console.log('leds:'+sbuffer)
+                    var flashing = sbuffer.substr(0,sbuffer.indexOf('  '));
+                    var onleds = sbuffer.substr(sbuffer.indexOf('  ')+2);
+                    console.log('Flashing:flashing)
+
+
+
+
+                    console.log('leds:'+onleds)
                     websock.send(JSON.stringify({object:"displayleds",data:{value:sbuffer}}),'trace');
 
                 } else
