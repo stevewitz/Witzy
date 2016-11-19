@@ -31,7 +31,7 @@ setInterval(function(){
 setInterval(function(){
   if (!targetmenu && !targetsubmenu && !targetvalue)
     exports.sampleMenu4();
-},60000);
+},120000);
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
@@ -95,7 +95,9 @@ function openSerialPort(portname,scb)
                 console.log('Timeout:');
 
                 if (sbuffer.indexOf('\r\n\r\n') != -1){
-                    console.log('leds:'+sbuffer.substr(9))
+                    sbuffer.replace('\r\n\r\n','');
+                    sbuffer.replace('UNIT1','')
+                    console.log('leds:'+sbuffer)
                     websock.send(JSON.stringify({object:"displayleds",data:{value:sbuffer}}),'trace');
 
                 } else
@@ -579,23 +581,23 @@ exports.testcallback = function (d){
 };
 exports.sampleMenu4 = function(){
 var o={};
-exports.getInverterValue(4,1,25,function(x){
+exports.getInverterValue(4,1,10,function(x){
     o.chargerAmps = x.value;
-    exports.getInverterValue(4,2,50,function(x){
+    exports.getInverterValue(4,2,25,function(x){
        o.inputAmps = x.value
-        exports.getInverterValue(4,3,50,function(x){
+        exports.getInverterValue(4,3,25,function(x){
             o.outputAmps = x.value;
-            exports.getInverterValue(4,4,25,function(x){
+            exports.getInverterValue(4,4,10,function(x){
                 o.batteryVolts = x.value;
-                exports.getInverterValue(4,5,5,function(x){
+                exports.getInverterValue(4,5,1,function(x){
                     o.batteryVoltsTempComp = x.value;
-                    exports.getInverterValue(4,6,2,function(x){
+                    exports.getInverterValue(4,6,1,function(x){
                         o.inverterVolts = x.value;
-                        exports.getInverterValue(4,7,2,function(x){
+                        exports.getInverterValue(4,7,1,function(x){
                             o.gridVolts = x.value;
                             exports.getInverterValue(4,8,1,function(x){
                                 o.generatorVolts = x.value;
-                                exports.getInverterValue(4,9,2,function(x){
+                                exports.getInverterValue(4,9,1,function(x){
                                     o.freq = x.value;
                                     o.chargerWatts = o.chargerAmps*o.batteryVolts;
                                     o.inputWatts = o.inputAmps*o.gridVolts;
