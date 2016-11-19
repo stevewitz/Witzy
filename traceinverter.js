@@ -67,7 +67,6 @@ var leds = {
     overcurrent:null,
     utilityPowerSyncing:null,
     generatorPowerSyncing:null,
-    frequencyError:null,
 };
 function openSerialPort(portname,scb)
 {
@@ -115,34 +114,41 @@ function openSerialPort(portname,scb)
                     console.log('Flashing:'+flashing)
                     // this is going to be ugly - best guess at led states
                     var temp = true;
-                    if (onleds.indexOf('BK') == 0){temp = false;}
+                    if (onleds.indexOf('BK') == -1){temp = false;}
                     if (leds.bulk != temp ){
                         // inverter state change
                       leds.bulk = temp;
                       server.send({event:{id:thisthing.id,event:'bulk',value:temp,eventdata:{},source:thisthing.id}});
                     }
                     var temp = true;
-                    if (onleds.indexOf('IN') == 0){temp = false;}
+                    if (onleds.indexOf('IN') == -1){temp = false;}
                     if (leds.inverting != temp ){
                         // inverter state change
                         leds.inverting = temp;
                         server.send({event:{id:thisthing.id,event:'inverting',value:temp,eventdata:{},source:thisthing.id}});
                     }
                     var temp = true;
-                    if (onleds.indexOf('FL') == 0){temp = false;}
+                    if (onleds.indexOf('FL') == -1){temp = false;}
                     if (leds.float != temp ){
                         // inverter state change
                         leds.float = temp;
                         server.send({event:{id:thisthing.id,event:'float',value:temp,eventdata:{},source:thisthing.id}});
                     }
                     var temp = true;
-                    if (onleds.indexOf('OC') == 0){temp = false;}
+                    if (onleds.indexOf('OC') == -1){temp = false;}
                     if (leds.overcurrent != temp ){
                         // inverter state change
                         leds.overcurrent = temp;
                         server.send({event:{id:thisthing.id,event:'overcurrent',value:temp,eventdata:{},source:thisthing.id}});
                     }
 
+                    var temp = true;
+                    if (sbuffer.indexOf('ER') == -1){temp = false;}
+                    if (leds.error != temp ){
+                        // inverter state change
+                        leds.overcurrent = temp;
+                        server.send({event:{id:thisthing.id,event:'error',value:temp,eventdata:{},source:thisthing.id}});
+                    }
 
 
                     console.log('leds:'+onleds)
