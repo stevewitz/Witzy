@@ -111,8 +111,9 @@ function openSerialPort(portname,scb)
                     return
                 };
 
-
+                // leds
                 if (sbuffer.indexOf('\r\n\r\n') != -1){
+                    leds.buffer = sbuffer;
                     sbuffer = sbuffer.replace('\r\n\r\n','');
                     sbuffer = sbuffer.replace('UNIT1','')
                     var flashing = sbuffer.substr(0,sbuffer.indexOf('  '));
