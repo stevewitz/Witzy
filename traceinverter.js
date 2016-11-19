@@ -95,7 +95,7 @@ function openSerialPort(portname,scb)
                 console.log('Timeout:');
 
                 if (sbuffer.indexOf('\r\n\r\n') != -1){
-                    console.log('leds:'+sbuffer+sbuffer.length)
+                    console.log('leds:'+sbuffer.substr(9))
                     websock.send(JSON.stringify({object:"displayleds",data:{value:sbuffer}}),'trace');
 
                 } else
