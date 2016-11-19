@@ -27,7 +27,7 @@ setInterval(function(){
         serialPort.write('/');
     }
 
-},3000)
+},5000)
 setInterval(function(){
   if (!targetmenu && !targetsubmenu && !targetvalue)
     exports.sampleMenu4();
