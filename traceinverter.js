@@ -59,7 +59,7 @@ var sample =[];
 var leds = {
     utilityPower:null,
     generatorPower:null,
-    invertering:null,
+    inverting:null,
     linetie:null,
     float:null,
     bulk:null,
@@ -113,6 +113,13 @@ function openSerialPort(portname,scb)
                     var onleds = sbuffer.substr(sbuffer.indexOf('  ')+2);
                     // this is going to be ugly - best guess at led states
                     var temp = true;
+                    if (onleds.indexOf('LT') == -1){temp = false;}
+                    if (leds.linetie != temp ){
+                        leds.linetie = temp;
+                        server.send({event:{id:thisthing.id,event:'linetie',value:temp,eventdata:{leds},source:thisthing.id}});
+                    }
+
+                    var temp = true;
                     if (onleds.indexOf('BK') == -1){temp = false;}
                     if (leds.bulk != temp ){
                       leds.bulk = temp;
@@ -130,6 +137,7 @@ function openSerialPort(portname,scb)
                         leds.float = temp;
                         server.send({event:{id:thisthing.id,event:'float',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
+
                     var temp = true;
                     if (onleds.indexOf('OC') == -1){temp = false;}
                     if (leds.overcurrent != temp ){
