@@ -23,6 +23,12 @@ var thisthing = {
 }
 ll.writething(thisthing,true);
 setInterval(function(){
+    if (submenu == 0 && targetmenu == 0){
+        serialPort.write('/');
+    }
+
+},1000)
+setInterval(function(){
   if (!targetmenu && !targetsubmenu && !targetvalue)
     exports.sampleMenu4();
 },60000);
