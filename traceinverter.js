@@ -331,7 +331,8 @@ function openSerialPort(portname,scb)
                                                     eventdata:{menu:menu,
                                                         submenu:submenu,
                                                         value:data,
-                                                        display:display
+                                                        display:display,
+                                                        leds:leds
                                                     },
                                                     source:thisthing.id
 
@@ -341,6 +342,7 @@ function openSerialPort(portname,scb)
                                                     submenu:submenu,
                                                     value:data,
                                                     display:display})
+                                                serialPort.write('r');
 
                                             } else
                                             {
@@ -393,7 +395,8 @@ function openSerialPort(portname,scb)
                                                         eventdata:{menu:menu,
                                                             submenu:submenu,
                                                             value:data,
-                                                            display:display
+                                                            display:display,
+                                                            leds:leds
                                                         },
                                                         source:thisthing.id
 
@@ -453,7 +456,8 @@ function openSerialPort(portname,scb)
                                                             eventdata:{menu:menu,
                                                                 submenu:submenu,
                                                                 value:data,
-                                                                display:display
+                                                                display:display,
+                                                                leds:leds
                                                             },
                                                             source:thisthing.id
 
@@ -532,7 +536,8 @@ function openSerialPort(portname,scb)
                                         eventdata:{menu:menu,
                                             submenu:submenu,
                                             value:data,
-                                            display:display
+                                            display:display,
+                                            leds:leds
                                         },
                                         source:thisthing.id
 
@@ -717,7 +722,7 @@ exports.getInverterValue(4,1,10,function(x){
                                     o.outputWatts = o.outputAmps*o.inverterVolts;
                                     console.log(JSON.stringify(o,null,4))
                                     serialPort.write('r')
-
+                                    o.leds = leds;
                                     server.send({event:{
                                         id:thisthing.id,
                                         event:'swData',
