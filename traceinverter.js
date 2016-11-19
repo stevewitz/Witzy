@@ -56,6 +56,8 @@ var oktosend = false;
 var serialPort;
 var samples = 1;
 var sample =[];
+var skipledsample = false; // first sample after a move is milling the flashing leds
+
 var leds = {
     utilityPower:null,
     generatorPower:null,
@@ -104,7 +106,11 @@ function openSerialPort(portname,scb)
         if (sbuffer.indexOf('\r')  != -1){
             // have a menu item message - this is the only type we can detect
             t = setTimeout(function(){
-                console.log('Timeout:');
+                if (skipledsample == true){
+                    skipledsample = false;
+                    return
+                };
+
 
                 if (sbuffer.indexOf('\r\n\r\n') != -1){
                     sbuffer = sbuffer.replace('\r\n\r\n','');
@@ -630,6 +636,7 @@ exports.goInverterValue = function(reqmenu,reqsubmenu,cb,progresscb){
 
 }
 exports.getInverterValue = function(reqmenu,reqsubmenu,reqsamples,cb,progresscb){
+    skipledsample = true;
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
     samples = reqsamples;
@@ -654,6 +661,7 @@ exports.getInverterValue = function(reqmenu,reqsubmenu,reqsamples,cb,progresscb)
 
 }
 exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb,progresscb){
+    skipledsample = true;
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
     targetvalue = reqvalue;
