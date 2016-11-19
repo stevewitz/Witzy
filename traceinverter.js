@@ -111,33 +111,28 @@ function openSerialPort(portname,scb)
                     sbuffer = sbuffer.replace('UNIT1','')
                     var flashing = sbuffer.substr(0,sbuffer.indexOf('  '));
                     var onleds = sbuffer.substr(sbuffer.indexOf('  ')+2);
-                    console.log('Flashing:'+flashing)
                     // this is going to be ugly - best guess at led states
                     var temp = true;
                     if (onleds.indexOf('BK') == -1){temp = false;}
                     if (leds.bulk != temp ){
-                        // inverter state change
                       leds.bulk = temp;
                       server.send({event:{id:thisthing.id,event:'bulk',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
                     var temp = true;
                     if (onleds.indexOf('IN') == -1){temp = false;}
                     if (leds.inverting != temp ){
-                        // inverter state change
                         leds.inverting = temp;
                         server.send({event:{id:thisthing.id,event:'inverting',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
                     var temp = true;
                     if (onleds.indexOf('FL') == -1){temp = false;}
                     if (leds.float != temp ){
-                        // inverter state change
                         leds.float = temp;
                         server.send({event:{id:thisthing.id,event:'float',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
                     var temp = true;
                     if (onleds.indexOf('OC') == -1){temp = false;}
                     if (leds.overcurrent != temp ){
-                        // inverter state change
                         leds.overcurrent = temp;
                         server.send({event:{id:thisthing.id,event:'overcurrent',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
@@ -145,12 +140,49 @@ function openSerialPort(portname,scb)
                     var temp = true;
                     if (sbuffer.indexOf('ER') == -1){temp = false;}
                     if (leds.error != temp ){
-                        // inverter state change
                         leds.error = temp;
                         server.send({event:{id:thisthing.id,event:'error',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
+                    var temp = true;
+                    if (flashing.indexOf('A2') == -1){temp = false;}
+                    if (leds.generatorPowerSyncing != temp ){
+                        leds.generatorPowerSyncing = temp;
+                        server.send({event:{id:thisthing.id,event:'generatorPowerSyncing',value:temp,eventdata:{leds},source:thisthing.id}});
+                        if (temp == true && leds.generatorPower == true){
+                            // turn thisone off - cannot both be on
+                            leds.generatorPower = false
+                            server.send({event:{id:thisthing.id,event:'generatorPower',value:false,eventdata:{leds},source:thisthing.id}});
+                        } else
+                        {
+                            var temp = true;
+                            if (onleds.indexOf('A2') == -1){temp = false;}
+                            if (leds.generatorPower != temp ){
+                                leds.generatorPower = temp;
+                                server.send({event:{id:thisthing.id,event:'generatorPower',value:temp,eventdata:{leds},source:thisthing.id}});
+                            }
+                        }
+                    }
+                    if (flashing.indexOf('A1') == -1){temp = false;}
+                    if (leds.utilityPowerSyncing != temp ){
+                        leds.utilityPowerSyncing = temp;
+                        server.send({event:{id:thisthing.id,event:'utilityPowerSyncing',value:temp,eventdata:{leds},source:thisthing.id}});
+                        if (temp == true && leds.utilityPower == true){
+                            // turn thisone off - cannot both be on
+                            leds.utilityPower = false
+                            server.send({event:{id:thisthing.id,event:'utilityPower',value:false,eventdata:{leds},source:thisthing.id}});
+                        } else
+                        {
+                            var temp = true;
+                            if (onleds.indexOf('A1') == -1){temp = false;}
+                            if (leds.utilityPower != temp ){
+                                leds.utilityPower = temp;
+                                server.send({event:{id:thisthing.id,event:'utilityPower',value:temp,eventdata:{leds},source:thisthing.id}});
+                            }
+                        }
 
+                    }
 
+                    console.log('Flashing:'+flashing)
                     console.log('leds:'+onleds)
                     websock.send(JSON.stringify({object:"displayleds",data:{value:sbuffer}}),'trace');
 
