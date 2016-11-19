@@ -149,7 +149,6 @@ var o = {};
                                     if (callback){
                                         if (o.online != currentValues.online){
                                             // fire on/off line events
-                                            if (o.online){
                                                 server.send({event:{
                                                     id:thisthing.id,
                                                     event:'online',
@@ -158,7 +157,7 @@ var o = {};
                                                     source:thisthing.id
 
                                                 }})
-                                            }
+
 
                                         }
                                         currentValues = o;
