@@ -451,7 +451,10 @@ function openSerialPort(portname,scb)
 
 
                         }
-                        data = data.replace(' ','');
+                        if (data != null){
+                            data = data.replace(' ','');
+                        }
+
 
                         if (data && o.data != data){
                          //   console.log(display+'*Data:'+data)
