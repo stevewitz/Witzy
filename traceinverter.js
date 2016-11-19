@@ -112,7 +112,7 @@ function openSerialPort(portname,scb)
                     sbuffer = sbuffer.replace('UNIT1','')
                     var flashing = sbuffer.substr(0,sbuffer.indexOf('  '));
                     var onleds = sbuffer.substr(sbuffer.indexOf('  ')+2);
-                    console.log('Flashing:flashing)
+                    console.log('Flashing:'+flashing)
 
 
 
