@@ -27,7 +27,7 @@ setInterval(function(){
         serialPort.write('/');
     }
 
-},5000)
+},6500)
 setInterval(function(){
   if (!targetmenu && !targetsubmenu && !targetvalue)
     exports.sampleMenu4();
@@ -56,6 +56,19 @@ var oktosend = false;
 var serialPort;
 var samples = 1;
 var sample =[];
+var leds = {
+    utilityPower:false,
+    generatorPower:false,
+    invertering:false,
+    linetie:false,
+    float:false,
+    bulk:false,
+    error:false,
+    overcurrent:false,
+    utilityPowerSyncing:false,
+    generatorPowerSyncing:false,
+    frequencyError:false,
+}
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
