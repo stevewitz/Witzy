@@ -451,7 +451,7 @@ function openSerialPort(portname,scb)
 
 
                         }
-                        if (data != null){
+                        if (typeof(data) == 'string'){
                             data = data.replace(' ','');
                         }
 
