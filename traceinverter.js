@@ -146,7 +146,7 @@ function openSerialPort(portname,scb)
                     if (sbuffer.indexOf('ER') == -1){temp = false;}
                     if (leds.error != temp ){
                         // inverter state change
-                        leds.overcurrent = temp;
+                        leds.error = temp;
                         server.send({event:{id:thisthing.id,event:'error',value:temp,eventdata:{leds},source:thisthing.id}});
                     }
 
