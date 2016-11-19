@@ -6,31 +6,12 @@ var thisthing = {
     parent:witzyname,
     parenttype:'witzy',
     events:[
-        {name:'offline',values:'BOOLEAN',description:'inverter Off-line'},
-        {name:'online',values:'BOOLEAN',description:'inverter On-line'},
+        {name:'online',values:'BOOLEAN',description:'inverter state'},
         {name:'targetValueSet',values:'Set',description:'A target value was reached'},
         {name:'swData',values:'Number',description:'Output Watts and all details'}
     ]
 
-// {
-//     "online": true,
-//     "voltIn": "296.1",
-//     "currentIn": "1.64",
-//     "powerIn": "486",
-//     "voltOut": "247.0",
-//     "currentOut": "1.75",
-//     "powerOut": "350",
-//     "freqOut": "60.0",
-//     "temp": "81.7",
-//     "tempLimit": 167,
-//     "freq": "59.960",
-//     "mpptVolts": "295.4",
-//     "tempDerating": false,
-//     "powerLimiting": false,
-//     "reconnectTime": "0",
-//     "khwtoday": "10.325",
-//     "efficiency": 0.720164609053498
-// }
+
 
 
 }
@@ -48,7 +29,25 @@ var cb = null;
 var avg = [];
 var templimit;
 var command;
-var currentValues = {} // latest info updated every 2 seconds
+var currentValues = {  // latest info updated every 2 seconds
+    "online": null,
+    "voltIn": null,
+    "currentIn": null,
+    "powerIn": null,
+    "voltOut": null,
+    "currentOut": null,
+    "powerOut": null,
+    "freqOut": null,
+    "temp": null,
+    "tempLimit": null,
+    "freq": null,
+    "mpptVolts": null,
+    "tempDerating": null,
+    "powerLimiting": null,
+    "reconnectTime": null,
+    "khwtoday": null,
+    "efficiency": null
+}
 setInterval(function()
 {    exports.getAll(function(o){
     //console.log(JSON.stringify(o, null, 4));
@@ -150,7 +149,16 @@ var o = {};
                                     if (callback){
                                         if (o.online != currentValues.online){
                                             // fire on/off line events
+                                            if (o.online){
+                                                server.send({event:{
+                                                    id:thisthing.id,
+                                                    event:'online',
+                                                    value:o.online,
+                                                    eventdata:o,
+                                                    source:thisthing.id
 
+                                                }})
+                                            }
 
                                         }
                                         currentValues = o;
