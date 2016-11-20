@@ -474,7 +474,7 @@ function openSerialPort(portname,scb)
                                     if ( data >= o.low && data <=o.high){
                                     // good data
                                         // valid data
-                                        console.log(display+':'+data)
+                                       // console.log(display+':'+data)
                                         if (targetvalue && o.canedit){
                                             if (o.canedit && targetmenu == 0 && targetsubmenu == 0){ // there is a target value and we are at the right place
                                                 if ((targetvalue*10)%(o.step*10) == 0 && targetvalue >= o.low && targetvalue <= o.high  ){
@@ -543,7 +543,7 @@ function openSerialPort(portname,scb)
                         }
 
                         if (getdata  && data != null && isNaN(Number(data)) == false && o.datatype == 'range'){
-console.log('here'+samples)
+
                             samples -= 1;
                             sample.push(Number(data));
 
@@ -588,6 +588,7 @@ console.log('here'+samples)
                                 }
                             } else
                             {
+                                process.stdout.cursorTo(0);
                                 process.stdout.write('-');
 
                             }
