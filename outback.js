@@ -15,7 +15,7 @@ var thisthing = {
 ll.writething(thisthing,true);
 
 setInterval(function(){
-    if (oneMinuteAvg && oneMinuteAvg.pvVoltage > 16){
+    if (oneMinuteAvg && oneMinuteAvg.pvVoltage > 17){
         server.send({event:{
             id:thisthing.id,
             event:'mxData',
@@ -46,6 +46,7 @@ setInterval(function(){
     if ((new Date()-timeout) > 5000){
         if (!lostcom){
             lostcom = true;
+            console.log('MX60 Comm Lost');
             server.send({
                 event: {
                     id: thisthing.id,
@@ -60,6 +61,7 @@ setInterval(function(){
     {
         if (lostcom){
             lostcom = false
+            console.log('MX60 Comm Restored');
             server.send({
                 event: {
                     id: thisthing.id,
@@ -223,6 +225,7 @@ function openSerialPort(portname,scb)
           // console.log(JSON.stringify(a,null,4));
             oneMinuteAvg = a;
         }
+        process.stdout.cursorTo(0);
         process.stdout.write('O');
     })
 
