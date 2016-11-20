@@ -50,7 +50,8 @@ var currentValues = {  // latest info updated every 2 seconds
 setInterval(function()
 {    exports.getAll(function(o){
     //console.log(JSON.stringify(o, null, 4));
-    console.log('Xantrex powerout:'+o.powerOut)
+    process.stdout.write('X')
+
 })
 },2000);
 
@@ -68,6 +69,7 @@ if (currentValues.online == false) {
 
         }
     })
+    console.log('\rXantrex powerout:'+o.powerOut)
 }
 },15000);
 

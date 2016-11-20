@@ -24,7 +24,8 @@ setInterval(function(){
             source:thisthing.id
 
         }});
-        console.log(JSON.stringify(oneMinuteAvg,null,4));
+      //  console.log(JSON.stringify(oneMinuteAvg,null,4));
+        console.log('\rOutback powerout:'+oneMinuteAvg.chargerCurrent*oneMinuteAvg.batteryVoltage)
     }
 },60000);
 
