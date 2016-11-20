@@ -62,7 +62,7 @@ if (currentValues.online == false) {
         event: {
             id: thisthing.id,
             event: 'gtData',
-            value: o.online,
+            value: currentValues.powerOut,
             eventdata: currentValues,
             source: thisthing.id
 
