@@ -586,7 +586,6 @@ console.log('here'+samples)
                                         display:display})
 
                                 }
-                                callback = null;
                             } else
                             {
                                 process.stdout.write('-');
@@ -608,7 +607,7 @@ console.log('here'+samples)
 
 
                             }
-                            callback = null;
+//                            callback = null;
 
 
 
