@@ -31,7 +31,7 @@ setInterval(function(){
 setInterval(function(){
   if (!targetmenu && !targetsubmenu && !targetvalue)
     exports.sampleMenu4();
-},120000);
+},180000);
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
@@ -699,13 +699,13 @@ exports.testcallback = function (d){
 };
 exports.sampleMenu4 = function(){
 var o={};
-exports.getInverterValue(4,1,10,function(x){
+exports.getInverterValue(4,1,15,function(x){
     o.chargerAmps = x.value;
-    exports.getInverterValue(4,2,25,function(x){
+    exports.getInverterValue(4,2,35,function(x){
        o.inputAmps = x.value
-        exports.getInverterValue(4,3,25,function(x){
+        exports.getInverterValue(4,3,35,function(x){
             o.outputAmps = x.value;
-            exports.getInverterValue(4,4,10,function(x){
+            exports.getInverterValue(4,4,15,function(x){
                 o.batteryVolts = x.value;
                 exports.getInverterValue(4,5,1,function(x){
                     o.batteryVoltsTempComp = x.value;
@@ -720,8 +720,8 @@ exports.getInverterValue(4,1,10,function(x){
                                     o.chargerWatts = o.chargerAmps*o.batteryVolts;
                                     o.inputWatts = o.inputAmps*o.gridVolts;
                                     o.outputWatts = o.outputAmps*o.inverterVolts;
-                                    console.log(JSON.stringify(o,null,4))
-                                    serialPort.write('r')
+                                    console.log(JSON.stringify(o,null,4));
+                                    serialPort.write('r'); // reset to the top
                                     o.leds = leds;
                                     server.send({event:{
                                         id:thisthing.id,

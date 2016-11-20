@@ -7,8 +7,7 @@ var thisthing = {
     parenttype:'witzy',
     events:[
         {name:'online',values:'BOOLEAN',description:'inverter state'},
-        {name:'targetValueSet',values:'Set',description:'A target value was reached'},
-        {name:'swData',values:'Number',description:'Output Watts and all details'}
+        {name:'gtData',values:'Number',description:'Output Watts and all details'}
     ]
 
 
@@ -55,7 +54,22 @@ setInterval(function()
 })
 },2000);
 
+setInternal(function(){
+if (currentValues.online == false) {
 
+
+    server.send({
+        event: {
+            id: thisthing.id,
+            event: 'online',
+            value: o.online,
+            eventdata: o,
+            source: thisthing.id
+
+        }
+    })
+}
+},15000)
 
 function openSerialPort(portname,scb)
 {
