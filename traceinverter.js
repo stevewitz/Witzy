@@ -596,6 +596,7 @@ function openSerialPort(portname,scb)
                         }
                         if (typeof(data) == 'string'){
                             data = data.replace(' ','');
+                            console.log('string data:'+data+data.length)
                         }
 
 
