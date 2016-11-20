@@ -69,7 +69,7 @@ if (currentValues.online == false) {
 
         }
     })
-    console.log('\rXantrex powerout:'+o.powerOut)
+    console.log('\rXantrex powerout:'+currentValues.powerOut)
 }
 },15000);
 

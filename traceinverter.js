@@ -202,8 +202,7 @@ function openSerialPort(portname,scb)
 
                     }
 
-                    console.log('Flashing:'+flashing)
-                    console.log('leds:'+onleds)
+                    process.stdout.write('T');
                     websock.send(JSON.stringify({object:"displayleds",data:{value:sbuffer}}),'trace');
 
                 } else
