@@ -595,19 +595,19 @@ console.log('here'+samples)
 
                         } else {
                             // dont average
-                            getdata = false
-                            if (data != null){
+
+                            if (getdata && data != null){
+                                getdata = false
                                 if (callback){
                                     callback({menu:menu,
                                         submenu:submenu,
                                         value:data.replace(/ /g,''),
                                         display:display})
-
+                                    callback = null;
                                 }
 
 
                             }
-//                            callback = null;
 
 
 
