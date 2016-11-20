@@ -61,9 +61,9 @@ if (currentValues.online == false) {
     server.send({
         event: {
             id: thisthing.id,
-            event: 'online',
+            event: 'gtData',
             value: o.online,
-            eventdata: o,
+            eventdata: currentValues,
             source: thisthing.id
 
         }
