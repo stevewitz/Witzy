@@ -678,6 +678,7 @@ exports.getInverterValue = function(reqmenu,reqsubmenu,reqsamples,cb,progresscb)
     skipledsample = true;
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
+    if (!samples){samples = 1};
     samples = reqsamples;
     callback = cb;
     progresscallback = progresscb;
