@@ -141,7 +141,7 @@ function openSerialPort(portname,scb)
 
             cb(data)
         }
-       console.log(data);
+      // console.log(data);
     });
 
 
@@ -195,8 +195,10 @@ var o = {};
                                    // console.timeEnd("getAll");
 
                                     cb = null;
+                                    console.log('here')
                                     if (callback){
                                         if (o.online != currentValues.online){
+                                            console.log('send event')
                                             // fire on/off line events
                                                 server.send({event:{
                                                     id:thisthing.id,
