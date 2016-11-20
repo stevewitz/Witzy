@@ -54,7 +54,7 @@ setInterval(function()
 })
 },2000);
 
-setInternal(function(){
+setInterval(function(){
 if (currentValues.online == false) {
 
 
@@ -69,7 +69,7 @@ if (currentValues.online == false) {
         }
     })
 }
-},15000)
+},15000);
 
 function openSerialPort(portname,scb)
 {
