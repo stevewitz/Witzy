@@ -597,11 +597,15 @@ function openSerialPort(portname,scb)
                         } else {
                             // dont average
                             getdata = false
-                            if (callback){
-                                callback({menu:menu,
-                                    submenu:submenu,
-                                    value:data,
-                                    display:display})
+                            if (data != null){
+                                if (callback){
+                                    callback({menu:menu,
+                                        submenu:submenu,
+                                        value:data.replace(/ /g,''),
+                                        display:display})
+
+                                }
+
 
                             }
                             callback = null;
