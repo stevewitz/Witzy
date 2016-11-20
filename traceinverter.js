@@ -39,7 +39,8 @@ exports.start = function(scb){
     openSerialPort('/dev/ttyUSB0',scb);
 
 }
-
+var lostcom = false;
+var timeout = new Date();
 var sbuffer = '';
 var menu = 0;
 var submenu = 0;
@@ -70,6 +71,37 @@ var leds = {
     utilityPowerSyncing:null,
     generatorPowerSyncing:null,
 };
+setInterval(function(){
+    if ((new Date()-timeout) > 5000){
+        if (!lostcom){
+            lostcom = true;
+            server.send({
+                event: {
+                    id: thisthing.id,
+                    event: 'lostComm',
+                    value: true,
+                    eventdata: {},
+                    source: thisthing.id
+                }
+            })
+        }
+    } else
+    {
+        if (lostcom){
+            lostcom = false
+            server.send({
+                event: {
+                    id: thisthing.id,
+                    event: 'lostComm',
+                    value: false,
+                    eventdata: {},
+                    source: thisthing.id
+                }
+            })
+        }
+    }
+},5000);
+
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
@@ -97,6 +129,7 @@ function openSerialPort(portname,scb)
     });
 
     serialPort.on('data', function(data) {
+        timeout = new Date();
         if (t){
             clearTimeout(t);
         }

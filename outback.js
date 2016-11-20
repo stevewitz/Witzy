@@ -29,7 +29,7 @@ setInterval(function(){
     }
 },60000);
 
-
+var lostcom = false;
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
@@ -37,11 +37,42 @@ exports.start = function(scb){
     openSerialPort('/dev/ttyUSB1',scb);
 
 }
-console.log('wroking?');
+var timeout = new Date();
 var b = {chargeMode:'unknown'};
 
 var avg = [];
 var oneMinuteAvg;
+setInterval(function(){
+    if ((new Date()-timeout) > 5000){
+        if (!lostcom){
+            lostcom = true;
+            server.send({
+                event: {
+                    id: thisthing.id,
+                    event: 'lostComm',
+                    value: true,
+                    eventdata: {},
+                    source: thisthing.id
+                }
+            })
+        }
+    } else
+    {
+        if (lostcom){
+            lostcom = false
+            server.send({
+                event: {
+                    id: thisthing.id,
+                    event: 'lostComm',
+                    value: false,
+                    eventdata: {},
+                    source: thisthing.id
+                }
+            })
+        }
+    }
+},5000);
+
 function openSerialPort(portname,scb)
 {
     // console.log("Attempting to open serial port "+portname);
@@ -70,6 +101,7 @@ function openSerialPort(portname,scb)
     });
 
     serialPort.on('data', function(data) {
+        timeout = new Date();
         data = data.replace(/,/g,' ').match(/\S+/g); // breaks string into array
         var o = {
             address:data[0],

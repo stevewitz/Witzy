@@ -23,6 +23,8 @@ exports.start = function(scb){
 
 };
 console.log('wroking?');
+var timeout = new Date();
+var lostcom = false;
 var b = {};
 var cb = null;
 var avg = [];
@@ -47,6 +49,36 @@ var currentValues = {  // latest info updated every 2 seconds
     "khwtoday": null,
     "efficiency": null
 }
+setInterval(function(){
+    if ((new Date()-timeout) > 5000){
+        if (!lostcom){
+            lostcom = true;
+            server.send({
+                event: {
+                    id: thisthing.id,
+                    event: 'lostComm',
+                    value: true,
+                    eventdata: {},
+                    source: thisthing.id
+                }
+            })
+        }
+    } else
+    {
+        if (lostcom){
+            lostcom = false
+            server.send({
+                event: {
+                    id: thisthing.id,
+                    event: 'lostComm',
+                    value: false,
+                    eventdata: {},
+                    source: thisthing.id
+                }
+            })
+        }
+    }
+},5000);
 setInterval(function()
 {    exports.getAll(function(o){
     //console.log(JSON.stringify(o, null, 4));
@@ -56,7 +88,7 @@ setInterval(function()
 },2000);
 
 setInterval(function(){
-if (currentValues.online == false) {
+if (currentValues.online == true) {
 
 
     server.send({
@@ -71,7 +103,7 @@ if (currentValues.online == false) {
     })
     console.log('\rXantrex powerout:'+currentValues.powerOut)
 }
-},15000);
+},60000);
 
 function openSerialPort(portname,scb)
 {
@@ -104,6 +136,7 @@ function openSerialPort(portname,scb)
     });
 
     serialPort.on('data', function(data) {
+        timeout = new Date();
         if (cb != null){
 
             cb(data)
