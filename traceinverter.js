@@ -589,7 +589,7 @@ function openSerialPort(portname,scb)
                             } else
                             {
                                 process.stdout.cursorTo(0);
-                                process.stdout.write('-');
+                                process.stdout.write(samples);
 
                             }
 
