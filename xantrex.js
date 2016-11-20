@@ -82,6 +82,8 @@ setInterval(function(){
 setInterval(function()
 {    exports.getAll(function(o){
     //console.log(JSON.stringify(o, null, 4));
+    process.stdout.cursorTo(0);
+
     process.stdout.write('X')
 
 })
