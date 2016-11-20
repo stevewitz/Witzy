@@ -859,6 +859,10 @@ menusys['  Inverter/charger amps AC         ']= {
     sub:1,
     hasdata:true,
     charlen:4,
+    datatype:'range',
+    high:64,
+    low:-64,
+    step:1
 
 
 };
@@ -866,50 +870,89 @@ menusys['  Input            amps AC         ']= {
     menu:4,
     sub:2,
     hasdata:true,
-    charlen:4
+    charlen:4,
+    datatype:'range',
+    high:64,
+    low:-64,
+    step:1
+
 };
 
 menusys['  Load             amps AC         ']= {
     menu:4,
     sub:3,
     hasdata:true,
-    charlen:4
+    charlen:4,
+    datatype:'range',
+    high:64,
+    low:0,
+    step:1
+
 };
 menusys['  Battery actual   volts DC        ']= {
     menu:4,
     sub:4,
     hasdata:true,
-    charlen:5
+    charlen:5,
+    datatype:'range',
+    high:71,
+    low:20,
+    step:.1
+
 };
 menusys['  Battery TempComp volts DC        ']= {
     menu:4,
     sub:5,
     hasdata:true,
-    charlen:5
+    charlen:5,
+    datatype:'range',
+    high:71,
+    low:20,
+    step:.1
+
 };
 menusys['  Inverter         volts AC        ']= {
     menu:4,
     sub:6,
     hasdata:true,
-    charlen:4
+    charlen:4,
+    datatype:'range',
+    high:255,
+    low:0,
+    step:1
+
 };
 menusys['  Grid (AC1)       volts AC        ']= {
     menu:4,
     sub:7,
     hasdata:true,
-    charlen:4
+    charlen:4,
+    datatype:'range',
+    high:255,
+    low:0,
+    step:1
+
 };
 menusys['  Generator (AC2)  volts AC        ']= {
     menu:4,
     sub:8,
     hasdata:true,
-    charlen:4
+    charlen:4,
+    datatype:'range',
+    high:255,
+    low:0,
+    step:1
+
 };
 menusys['  Read Frequency   Hertz           ']= {
     menu:4,
     sub:9,
     hasdata:true,
-    charlen:4
+    charlen:4,    datatype:'range',
+    high:67,
+    low:53,
+    step:1
+
 };
 menusys['  Over Current                     ']= {
     menu:5,
