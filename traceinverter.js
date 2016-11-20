@@ -543,7 +543,7 @@ function openSerialPort(portname,scb)
                         }
 
                         if (getdata  && data != null && isNaN(Number(data)) == false && o.datatype == 'range'){
-
+console.log('here')
                             samples -= 1;
                             sample.push(Number(data));
 
