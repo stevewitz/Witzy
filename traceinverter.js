@@ -542,7 +542,7 @@ function openSerialPort(portname,scb)
 
                         }
 
-                        if (getdata  && data != null && isNaN(Number(data)) == false){
+                        if (getdata  && data != null && isNaN(Number(data)) == false && o.datatype == 'range'){
 
                             samples -= 1;
                             sample.push(Number(data));
@@ -586,11 +586,26 @@ function openSerialPort(portname,scb)
                                         display:display})
 
                                 }
+                                callback = null;
                             } else
                             {
                                 process.stdout.write('-');
 
                             }
+
+
+                        } else {
+                            // dont average
+                            getdata = false
+                            if (callback){
+                                callback({menu:menu,
+                                    submenu:submenu,
+                                    value:data,
+                                    display:display})
+
+                            }
+                            callback = null;
+
 
 
                         }
