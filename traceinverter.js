@@ -236,7 +236,7 @@ function openSerialPort(portname,scb)
                     }
                     process.stdout.cursorTo(0);
                     process.stdout.write('T');
-                    websock.send(JSON.stringify({object:"displayleds",data:{leds:leds}}),'solar');
+                    websock.send(JSON.stringify({object:"displayleds",data:{leds}}),'solar');
 
                 } else
                 {

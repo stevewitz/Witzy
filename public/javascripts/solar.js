@@ -29,10 +29,11 @@ function websockstart(){
                 break;
             case "displayleds":
                 console.log('leds:'+x.data.leds);
+                document.getElementById('swleds').value=JSON.stringify(x.data,null,4);
+
                 break;
             case "xantrex":
-                console.log('xantrex:'+x.data);
-                document.getElementById('xantrexdata').value=JSON.stringify(x.data);
+                document.getElementById('xantrexdata').value=JSON.stringify(x.data,null,4);
                 break;
             default:
                 alert(x.object);
