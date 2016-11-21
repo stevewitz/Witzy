@@ -37,6 +37,10 @@ function websockstart(){
             case "outback":
                 document.getElementById('outbackdata').value=JSON.stringify(x.data,null,1);
                 break;
+            case "swData":
+                document.getElementById('swData').value=JSON.stringify(x.data,null,1);
+                break;
+
             default:
                 alert(x.object);
 

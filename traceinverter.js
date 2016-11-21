@@ -783,6 +783,8 @@ exports.getInverterValue(4,1,15,function(x){
                                         eventdata:o,
                                         source:thisthing.id
                                     }});
+                                    websock.send(JSON.stringify({object:"swData",data:o}),'solar');
+
 
                                 })
 
