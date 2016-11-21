@@ -48,8 +48,6 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
                 global.localaddress = iface.address;
 
                 console.log('Local ip:'+localaddress);
-                global.api = localaddress+':'+settings.options.webserver.listenport
-                console.log('api address:'+localaddress);
                 ll.startmongo('witzy-'+witzyname,mongo,initialized)
 //                console.log(ifname, iface.address);
                 return;
@@ -74,6 +72,9 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
 
 
 function initialized(){
+    global.api = localaddress+':'+settings.options.webserver.listenport
+    console.log('api address:'+localaddress);
+
     global.server = require('./witzyserver');
     websock = require('./websocket');
     if (settings.options.modules.rgbled){
