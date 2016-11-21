@@ -57,6 +57,27 @@ exports.incommand = function(c) {
     delete c.obj
     console.log(JSON.stringify(c,null,4))
     switch (c.command) {
+        case "invertermode":
+            switch (c.value){
+                case "float":
+                    exports.setInverterValue(9,1,'FL')
+                    break;
+                case "sell":
+                    exports.setInverterValue(9,1,'SE')
+                    break;
+                case "silent":
+                    exports.setInverterValue(9,1,'SL')
+                    break;
+                case "low battery transfer":
+                    exports.setInverterValue(9,1,'LB')
+                    break;
+
+                default:
+                    console.log('Unknown value for command for SW'+c.value+':'+c.command)
+            }
+            break;
+        default:
+            console.log('Unknown command for SW'+c.command)
 
     }
 }
