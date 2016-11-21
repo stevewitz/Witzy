@@ -776,7 +776,7 @@ exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb){
     targetsubmenu = reqsubmenu;
     targetvalue = reqvalue;
     callback = cb;
-    progresscallback = progresscb;
+    //progresscallback = progresscb;
     samples = 1;
 
     if (menu == targetmenu){
