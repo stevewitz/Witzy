@@ -62,6 +62,11 @@ function websocketsend(type,data){
 
 
 function sendkey(key){
-    websocketsend('trace', {
+    websocketsend('solar', {
         instruction: 'sendkey',key:key});
+}
+function menu4(){
+    websocketsend('solar', {
+        instruction: 'menu4'});
+
 }

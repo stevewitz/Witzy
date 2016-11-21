@@ -162,11 +162,15 @@ function wsData(data,id){
             break;
                 default:
             console.log('unknown datatype '+data.type)
-        case 'trace':
+        case 'solar':
             if (data.data.instruction == 'sendkey'){
 
                 console.log('key:'+data.data.key)
                 sw.write(data.data.key)
+            }
+            if (data.data.instruction == 'menu4'){
+
+                sw.sampleMenu4();
             }
             break;
     }
