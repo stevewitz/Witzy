@@ -175,7 +175,7 @@ exports.cleanup = function(callback) {
     // catch ctrl+c event and exit normally
 
     process.on('SIGINT', function () {
-        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION",
+        server.send({console:"Witzy server DOWN-CTRL-C" +witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
             event:{
                 id:witzyname,
                 event:'serverstatus',
@@ -193,7 +193,7 @@ exports.cleanup = function(callback) {
         console.log('Uncaught Exception...');
         process.stdin.resume();
         console.log('\n'+e.stack);
-        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION",
+        server.send({console:"Witzy server DOWN-UNCAUGHTEXCEPTION"+witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
             event:{
             id:witzyname,
             event:'serverstatus',
