@@ -20,7 +20,7 @@ exports.start = function() {
         res.send(500, 'Something broke!');
     });
     app.post('/api', function (req, res) {
-        console.log('here - incomming api command:'+req.body.obj.device)
+        console.log('here - incomming api command:'+JSON.stringify(req.body,null,4))
         switch (req.body.obj.device){
             case 'rgb':
                 rgb.incommand(req.body);
