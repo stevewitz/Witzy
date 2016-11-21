@@ -24,6 +24,8 @@ exports.start = function() {
             case 'rgb':
                 rgb.incommand(req.body);
                 break;
+            case 'sw5548':
+                rgb.incommand(req.body);
 
 
         }
