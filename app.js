@@ -46,7 +46,10 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
                 }
 
                 global.localaddress = iface.address;
+
                 console.log('Local ip:'+localaddress);
+                global.api = localaddress+':'+settings.options.webserver.listenport
+                console.log('api address:'+localaddress);
                 ll.startmongo('witzy-'+witzyname,mongo,initialized)
 //                console.log(ifname, iface.address);
                 return;
