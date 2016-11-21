@@ -33,7 +33,6 @@ function websockstart(){
             case "xantrex":
                 console.log('leds:'+x.data.value);
                 break;
-
             default:
                 alert(x.object);
 
