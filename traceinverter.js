@@ -10,15 +10,33 @@ var thisthing = {
             description:'Received a value (based on menu and submenu)'},
         {name:'targetValueSet',values:'Set',description:'A target value was reached'},
         {name:'swData',values:'Number',description:'Output Watts and all details'}
-    ]
-    // commands:[
+    ],
+
+     commands:[
     //     {name:'stripSetColor',
     //         sendto:"witzy",
     //         device:'sw5548',
     //         command:'stripSetColor',
     //         arguments:{name:'JSON',
     //             color:{type:'input type = color',defaultvalue:'#ff00ff'},}
-    //     }]
+    //     }
+
+         {
+             name : "Inverter Mode",
+             command : "invertermode",
+             arguments : {
+                 name : "LIST",
+                 values : [
+                     "float",
+                     "sell",
+                     "silent",
+                     "low battery transfer",
+                 ]
+             },
+             sendto : "witzy",
+             device:'sw5548',
+         },
+     ]
 
 }
 ll.writething(thisthing,true);
