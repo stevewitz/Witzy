@@ -775,6 +775,9 @@ exports.getInverterValue(4,1,15,function(x){
                                     o.outputWatts = o.outputAmps*o.inverterVolts;
                                     console.log(JSON.stringify(o,null,4));
                                     serialPort.write('r'); // reset to the top
+                                    // send to websocket before we add the leds - we already have that data
+                                    websock.send(JSON.stringify({object:"swData",data:o}),'solar');
+
                                     o.leds = leds;
                                     server.send({event:{
                                         id:thisthing.id,
@@ -783,7 +786,6 @@ exports.getInverterValue(4,1,15,function(x){
                                         eventdata:o,
                                         source:thisthing.id
                                     }});
-                                    websock.send(JSON.stringify({object:"swData",data:o}),'solar');
 
 
                                 })
