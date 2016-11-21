@@ -28,14 +28,14 @@ function websockstart(){
 
                 break;
             case "displayleds":
-                document.getElementById('swleds').value=JSON.stringify(x.data,null,4);
+                document.getElementById('swleds').value=JSON.stringify(x.data,null,1);
 
                 break;
             case "xantrex":
-                document.getElementById('xantrexdata').value=JSON.stringify(x.data,null,4);
+                document.getElementById('xantrexdata').value=JSON.stringify(x.data,null,1);
                 break;
             case "outback":
-                document.getElementById('outbackdata').value=JSON.stringify(x.data,null,4);
+                document.getElementById('outbackdata').value=JSON.stringify(x.data,null,1);
                 break;
             default:
                 alert(x.object);
