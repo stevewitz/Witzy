@@ -35,8 +35,8 @@ exports.start = function() {
 //        res.status(200).end();
 
     });
-    app.get('/trace', function (req, res) {
-        res.render('trace.ejs',{things:things,settings:global.settings,wsport:settings.options.websocket.listenport});
+    app.get('/solar', function (req, res) {
+        res.render('solar.ejs',{things:things,settings:global.settings,wsport:settings.options.websocket.listenport});
     })
     app.get('/api', function (req, res) {
         res.render('api.ejs');

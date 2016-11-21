@@ -1,6 +1,6 @@
 <html>
 <script src="/javascripts/reconnectingWebsocket.js"> </script>
-<script src="/javascripts/trace.js"> </script>
+<script src="/javascripts/solar.js"> </script>
 
 <% if (global.settings.options.webserver.defaultcssfile) {%>
 <LINK href="<%=global.settings.options.webserver.defaultcssfile%>" rel="stylesheet" type="text/css">
@@ -28,7 +28,10 @@
 
 <button onclick="sendkey('=')">+</button>
 <button onclick="sendkey('-')">-</button>
+<div id="xantrex" style="width:400px;display:inline-block; ">
+    <textarea id="selectedruledisplay" rows="20" style="width:400px;"></textarea>
 
+</div>
 </body>
 </html>
 <script>
