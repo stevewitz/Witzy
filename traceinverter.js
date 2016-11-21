@@ -236,7 +236,7 @@ function openSerialPort(portname,scb)
                     }
                     process.stdout.cursorTo(0);
                     process.stdout.write('T');
-                    websock.send(JSON.stringify({object:"displayleds",data:{leds:leds}}),'trace');
+                    websock.send(JSON.stringify({object:"displayleds",data:{leds:leds}}),'solar');
 
                 } else
                 {
@@ -285,7 +285,7 @@ function openSerialPort(portname,scb)
                 clearTimeout(t);
                 // ok - we know where we are check if its where we want to be
                 console.log('menu:'+menu+':'+submenu+ '  --  '+targetmenu+':'+targetsubmenu);
-                websock.send(JSON.stringify({object:"displaytext",data:{menu:menu,submenu:submenu,text1:display}}),'trace');
+                websock.send(JSON.stringify({object:"displaytext",data:{menu:menu,submenu:submenu,text1:display}}),'solar');
 
                 if (targetmenu > 0){
                     if (menu == targetmenu){
@@ -622,7 +622,7 @@ function openSerialPort(portname,scb)
                         if (data && o.data != data){
                          //   console.log(display+'*Data:'+data)
                             o.data = data;
-                            websock.send(JSON.stringify({object:"displayvalue",data:{value:data}}),'trace');
+                            websock.send(JSON.stringify({object:"displayvalue",data:{value:data}}),'solar');
 
                         }
 

@@ -84,7 +84,7 @@ setInterval(function()
     //console.log(JSON.stringify(o, null, 4));
     process.stdout.cursorTo(0);
     process.stdout.write('X')
-    websock.send(JSON.stringify({object:"xantrex",data:o}),'trace');
+    websock.send(JSON.stringify({object:"xantrex",data:o}),'solar');
 
 })
 },2000);

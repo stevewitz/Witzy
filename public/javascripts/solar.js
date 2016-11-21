@@ -1,5 +1,5 @@
 var oauthwindow
-var pagename ='trace';
+var pagename ='solar';
 function websockstart(){
     ws = new ReconnectingWebSocket(wsUri);
     ws.onopen = function(evt){
@@ -28,10 +28,10 @@ function websockstart(){
 
                 break;
             case "displayleds":
-                console.log('leds:'+x.data.value);
+                console.log('leds:'+x.data.leds);
                 break;
             case "xantrex":
-                console.log('leds:'+x.data.value);
+                console.log('xantrex:'+x.data);
                 break;
             default:
                 alert(x.object);
