@@ -20,6 +20,7 @@ exports.start = function() {
         res.send(500, 'Something broke!');
     });
     app.post('/api', function (req, res) {
+        console.log('here - incomming api command')
         switch (req.body.obj.device){
             case 'rgb':
                 rgb.incommand(req.body);
