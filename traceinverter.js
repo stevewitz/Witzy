@@ -35,6 +35,7 @@ var thisthing = {
              },
              sendto : "witzy",
              device:'sw5548',
+             api:api
          },
      ]
 

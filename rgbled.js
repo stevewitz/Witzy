@@ -52,6 +52,7 @@ var x = settings.hardware.rgbled[0];
                 {name:'stripSetColor',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'stripSetColor',
                     arguments:{name:'JSON',
                         color:{type:'input type = color',defaultvalue:'#ff00ff'},}
@@ -68,6 +69,7 @@ var x = settings.hardware.rgbled[0];
                 {name:'simpleFade',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'simpleFade',
                     arguments:{name:'JSON',
                         fadeLevel:0.5,
@@ -76,18 +78,21 @@ var x = settings.hardware.rgbled[0];
                 {name:'Blackout',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'Blackout'
 
                 },
                 {name:'AllOn',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'AllOn',
                     arguments:{name:'NUMBER'}
                 },
                 {name:'bubbleWalk',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'bubbleWalk',
                     arguments:{
                         name:'JSON',
@@ -100,6 +105,7 @@ var x = settings.hardware.rgbled[0];
                 {name:'twoWayWalk',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'twoWayWalk',
                     arguments:{
                         name:'JSON',
@@ -111,6 +117,7 @@ var x = settings.hardware.rgbled[0];
                 {name:'rainbow',
                     sendto:"witzy",
                     device:'rgb',
+                    api:api,
                     command:'rainbow',
                     arguments:{name:'JSON',
                         numEachColor:1}
@@ -120,6 +127,7 @@ var x = settings.hardware.rgbled[0];
                     name: 'oneLed',
                     sendto: "witzy",
                     device:'rgb',
+                    api:api,
                     command: 'oneLed',
                     arguments: {
                         name: 'JSON',
@@ -133,6 +141,7 @@ var x = settings.hardware.rgbled[0];
                     name: 'shiftRight',
                     sendto: "witzy",
                     device:'rgb',
+                    api:api,
                     command: 'shiftRight',
                     arguments: {
                         name: 'JSON',
@@ -145,6 +154,7 @@ var x = settings.hardware.rgbled[0];
                     name: 'shiftLeft',
                     sendto: "witzy",
                     device:'rgb',
+                    api:api,
                     command: 'shiftLeft',
                     arguments: {
                         name: 'JSON',
@@ -157,6 +167,7 @@ var x = settings.hardware.rgbled[0];
                     name: 'colorGradient',
                     sendto: "witzy",
                     device:'rgb',
+                    api:api,
                     command: 'colorGradient',
                     arguments: {
                         name: 'JSON',
@@ -169,6 +180,7 @@ var x = settings.hardware.rgbled[0];
                     name: 'warning',
                     sendto: "witzy",
                     device:'rgb',
+                    api:api,
                     command: 'warning',
                     arguments: {
                         name: 'JSON',
