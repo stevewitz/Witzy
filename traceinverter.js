@@ -54,7 +54,7 @@ setInterval(function(){
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.incommand = function(c) {
-    console.log(JSON.stringify(c,null,4))
+    console.log(JSON.stringify(c.command,null,4))
     switch (c.command) {
 
     }
