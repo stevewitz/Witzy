@@ -194,6 +194,7 @@ function openSerialPort(portname,scb)
 
 
 
+        websock.send(JSON.stringify({object:"outback",data:o}),'solar');
 
         if (o.address == "B"){
             // lets do the avgerage stuff
