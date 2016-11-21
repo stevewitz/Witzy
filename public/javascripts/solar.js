@@ -32,6 +32,7 @@ function websockstart(){
                 break;
             case "xantrex":
                 console.log('xantrex:'+x.data);
+                document.getElementById('xantrexdata').value=JSON.stringify(x.data);
                 break;
             default:
                 alert(x.object);
