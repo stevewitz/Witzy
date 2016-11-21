@@ -417,11 +417,14 @@ function openSerialPort(portname,scb)
                                                     source:thisthing.id
 
                                                 }});
+                                                if (callback){
 
-                                                callback({menu:menu,
-                                                    submenu:submenu,
-                                                    value:data,
-                                                    display:display})
+                                                    callback({menu:menu,
+                                                        submenu:submenu,
+                                                        value:data,
+                                                        display:display})
+                                                }
+
                                                 serialPort.write('r');
 
                                             } else
@@ -767,7 +770,7 @@ exports.getInverterValue = function(reqmenu,reqsubmenu,reqsamples,cb,progresscb)
 
 
 }
-exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb,progresscb){
+exports.setInverterValue = function(reqmenu,reqsubmenu,reqvalue,cb){
     skipledsample = true;
     targetmenu = reqmenu;
     targetsubmenu = reqsubmenu;
