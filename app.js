@@ -94,7 +94,7 @@ function initialized(){
                     console.log('Xantrex grid-tie Inverter Controller Loaded')
                     if (settings.options.modules.relayboard){
                         rb = require('./relayboard')
-                        //rb.start();
+                        rb.start();
                     }
                     // xa.getAll();
                 });
@@ -105,7 +105,7 @@ function initialized(){
     }
     if (settings.options.modules.relayboard && !settings.options.modules.swinverter){
          rb = require('./relayboard')
-        //rb.start();
+        rb.start();
     }
 
 

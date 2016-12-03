@@ -37,7 +37,7 @@ var datastream=''
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
 
-    openSerialPort(settings.options.relayboard.comport,scb);
+    openSerialPort(settings.options.relayboard.comport);
 }
 
 exports.incommand = function(c) {
@@ -75,7 +75,7 @@ exports.incommand = function(c) {
 
     }
 }
-function openSerialPort(portname,scb)
+function openSerialPort(portname)
 {
     if (portname == undefined) {
         console.log("Serial port not specified as command line - no serial port open");
@@ -95,7 +95,8 @@ function openSerialPort(portname,scb)
 // I dont understand this call 0 but it works
     serialPort.on("open", function (err,res) {
         console.log("Port open success:"+portname);
-        scb();
+        console.log('Relay Board com port open')
+
 
     });
 
@@ -198,11 +199,7 @@ function openSerialPort(portname,scb)
     });
 };
 
-exports.start(function(){
-    console.log('Relay Board com port open')
-    //exports.write('10r1\r10r0\r')
 
-});
 exports.write = function(data) {
     serialPort.write(data,function(err, results)
     {
