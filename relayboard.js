@@ -200,6 +200,7 @@ function openSerialPort(portname)
 
 
 exports.write = function(data) {
+    console.log('relay board write:'+data)
     serialPort.write(data,function(err, results)
     {
         if (err){console.log('relay board comm write error:'+err)}//else{console.log('sw write:'+data)}
