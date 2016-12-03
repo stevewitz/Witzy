@@ -92,10 +92,10 @@ function initialized(){
                 var xa = require('./xantrex');
                 xa.start(function(){
                     console.log('Xantrex grid-tie Inverter Controller Loaded')
-                    if (settings.options.modules.relayboard){
-                        rb = require('./relayboard')
-                        rb.start();
-                    }
+                    // if (settings.options.modules.relayboard){
+                    //     rb = require('./relayboard')
+                    //     rb.start();
+                    // }
                     // xa.getAll();
                 });
 

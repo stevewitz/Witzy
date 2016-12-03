@@ -19,7 +19,7 @@ var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
 
-    openSerialPort('/dev/ttyUSB3',scb);
+    openSerialPort('/dev/ttyUSB2',scb);
 
 };
 console.log('wroking?');
