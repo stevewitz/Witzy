@@ -26,6 +26,11 @@ exports.start = function() {
                 break;
             case 'sw5548':
                 sw.incommand(req.body);
+            case 'relayboard':
+                rb.incommand(req.body);
+
+
+
 
 
         }

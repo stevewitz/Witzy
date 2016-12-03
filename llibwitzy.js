@@ -49,9 +49,13 @@ exports.startmongo = function(collectionname,ip,callback) {
                         options:{
                             modules:{
                                 rgbled:false,
-                                swinverter:false},
+                                swinverter:false,
+                                relayboard:false
+                            },
+
                             websocket:{listenport:8300},
-                            webserver:{listenport:8201}
+                            webserver:{listenport:8201},
+                            relayboard:{comport:'com4'}
                         },
                         rulzy:{ipaddress:rulzyip},
                         hardware:{

@@ -100,6 +100,10 @@ function initialized(){
             //trace.getInverterValue(4,2,testcallback)
         })
     }
+    if (settings.options.modules.relayboard){
+         rb = require('./relayboard')
+        //rb.start();
+    }
 
 
     server.start()
