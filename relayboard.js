@@ -34,6 +34,7 @@ ll.writething(thisthing,true);
 var com = require('serialport');
 var data='';
 var datastream=''
+var serialPort;
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
 
