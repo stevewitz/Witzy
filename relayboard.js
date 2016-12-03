@@ -51,27 +51,9 @@ exports.incommand = function(c) {
             serialPort.write(c.value+'r0\r');
             break;
 
-        case "invertermode":
-            switch (c.value){
-                case "float":
-                    exports.setInverterValue(9,1,'FL')
-                    break;
-                case "sell":
-                    exports.setInverterValue(9,1,'SE')
-                    break;
-                case "silent":
-                    exports.setInverterValue(9,1,'SL')
-                    break;
-                case "low battery transfer":
-                    exports.setInverterValue(9,1,'LB')
-                    break;
 
-                default:
-                    console.log('Unknown value for command for SW'+c.value+':'+c.command)
-            }
-            break;
         default:
-            console.log('Unknown command for SW'+c.command)
+            console.log('Unknown command for relay board'+c.command)
 
     }
 }
@@ -100,7 +82,7 @@ function openSerialPort(portname)
     });
 
     serialPort.on('data', function(sbuffer) {
-  //      console.log(sbuffer);
+        console.log(sbuffer);
         datastream += sbuffer;
         if (datastream.indexOf('\r')  != -1 || datastream.indexOf('\n')  != -1 ) {
 
