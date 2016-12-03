@@ -34,7 +34,7 @@ var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
 
-    openSerialPort('/dev/ttyUSB3',scb);
+    openSerialPort('/dev/ttyUSB1',scb);
 
 }
 var timeout = new Date();
