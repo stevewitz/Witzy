@@ -94,8 +94,7 @@ function openSerialPort(portname)
 
 // I dont understand this call 0 but it works
     serialPort.on("open", function (err,res) {
-        console.log("Port open success:"+portname);
-        console.log('Relay Board com port open')
+        console.log('Relay Board com port open'+portname)
 
 
     });
