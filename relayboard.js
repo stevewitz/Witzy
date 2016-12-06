@@ -1,33 +1,91 @@
-var thisthing = {
-    type:"relayboard",
-    id: witzyname+'-relayboard',
-    name: 'relay board',
-    ipaddress:localaddress+':'+settings.options.webserver.listenport,
-    parent:witzyname,
-    parenttype:'witzy',
-    events:[
-        {name:'relayon',values:'NUMBER',description:'relay turned on'},
-        {name:'relayoff',values:'NUMBER',description:'relay turned off'},
-    ],
-    commands:[
-        {
-            name : "Relay On",
-            command : "relayon",
-            arguments:{name:'NUMBER'},
-            sendto : "witzy",
-            device:'relayboard',
-            api:api
-        },
-        {
-            name : "Relay Off",
-            command : "relayoff",
-            arguments:{name:'NUMBER'},
-            sendto : "witzy",
-            device:'relayboard',
-            api:api
-        }
+if (settings.options.relayboard.toddsfurnace){
 
-    ]
+    var thisthing = {
+        type:"HVAC",
+        id: witzyname+'-HVAC relayboard',
+        name: 'HVAC extended',
+        ipaddress:localaddress+':'+settings.options.webserver.listenport,
+        parent:witzyname,
+        parenttype:'witzy',
+        events:[
+            {name:'relayon',values:'NUMBER',description:'relay turned on'},
+            {name:'relayoff',values:'NUMBER',description:'relay turned off'},
+        ],
+        commands:[
+            {
+                name : "Damper Kids",
+                command : "damperkids",
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            },{
+                name : "Damper House",
+                command : "damperhouse",
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            },
+            {
+                name : "Damper Off",
+                command : "damperoff",
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            },{
+                name : "Relay On",
+                command : "relayon",
+                arguments:{name:'NUMBER'},
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            },
+            {
+                name : "Relay Off",
+                command : "relayoff",
+                arguments:{name:'NUMBER'},
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            }
+
+        ]
+
+    }
+
+}else
+{
+    var thisthing = {
+        type:"relayboard",
+        id: witzyname+'-relayboard',
+        name: 'relay board',
+        ipaddress:localaddress+':'+settings.options.webserver.listenport,
+        parent:witzyname,
+        parenttype:'witzy',
+        events:[
+            {name:'relayon',values:'NUMBER',description:'relay turned on'},
+            {name:'relayoff',values:'NUMBER',description:'relay turned off'},
+        ],
+        commands:[
+            {
+                name : "Relay On",
+                command : "relayon",
+                arguments:{name:'NUMBER'},
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            },
+            {
+                name : "Relay Off",
+                command : "relayoff",
+                arguments:{name:'NUMBER'},
+                sendto : "witzy",
+                device:'relayboard',
+                api:api
+            }
+
+        ]
+
+    }
 
 }
 ll.writething(thisthing,true);
@@ -51,7 +109,15 @@ exports.incommand = function(c) {
         case "relayoff":
             serialPort.write(c.value+'r0\r');
             break;
-
+        case "damperoff":
+            serialPort.write('9r0\r10r0\r');
+            break;
+        case "damperkids":
+            serialPort.write('9r1\r10r1\r');
+            break;
+        case "damperhouse":
+            serialPort.write('9r1\r10r0\r');
+            break;
 
         default:
             console.log('Unknown command for relay board'+c.command)
@@ -83,7 +149,7 @@ function openSerialPort(portname)
     });
 
     serialPort.on('data', function(sbuffer) {
-        console.log(sbuffer);
+      //  console.log(sbuffer);
         datastream += sbuffer;
         if (datastream.indexOf('\r')  != -1 || datastream.indexOf('\n')  != -1 ) {
 
@@ -97,7 +163,7 @@ function openSerialPort(portname)
 
 
             }
-            console.log('Relay Board Data:'+data);
+         //   console.log('Relay Board Data:'+data);
             var o = {}
             //    relay: Number(data.substr(0, data.indexOf('R'))),
                 //   state: Number(data.substr(data.indexOf('R') + 1, 1))
