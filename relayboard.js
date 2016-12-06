@@ -91,7 +91,7 @@ if (settings.options.relayboard.toddsfurnace){
 ll.writething(thisthing,true);
 var com = require('serialport');
 var data='';
-var datastream=''
+var datastream='';
 var serialPort;
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
@@ -100,8 +100,8 @@ exports.start = function(scb){
 }
 
 exports.incommand = function(c) {
-    delete c.obj
-    console.log(JSON.stringify(c,null,4))
+    //delete c.obj
+    //console.log(JSON.stringify(c,null,4))
     switch (c.command) {
         case "relayon":
             serialPort.write(c.value+'r1\r');
@@ -149,33 +149,40 @@ function openSerialPort(portname)
     });
 
     serialPort.on('data', function(sbuffer) {
-      //  console.log(sbuffer);
-        datastream += sbuffer;
-        if (datastream.indexOf('\r')  != -1 || datastream.indexOf('\n')  != -1 ) {
+        datastream += sbuffer.toString();
 
-            if (datastream.indexOf('\r')  != -1){
-                data=datastream.substring(0,datastream.indexOf('\r'));
-                datastream=datastream.substr(datastream.indexOf('\r')+1);
+
+        if (datastream.indexOf('\r') != -1 || datastream.indexOf('\n') != -1) {
+        while (true){
+            if (datastream.indexOf('\r') != -1) {
+                data = datastream.substring(0, datastream.indexOf('\r'));
+                datastream = datastream.substring(datastream.indexOf('\r') + 1);
+                console.log(data + ':' + data.length);
+
+                console.log(JSON.stringify(datastream) + ':' + datastream.length);
             }
-            if (datastream.indexOf('\n')  != -1){
-                data=datastream.substring(0,datastream.indexOf('\n'));
-                datastream=datastream.substr(datastream.indexOf('\n')+1);
+            if (datastream.indexOf('\n') != -1) {
+                data = datastream.substring(0, datastream.indexOf('\n'));
+                datastream = datastream.substring(datastream.indexOf('\n') + 1);
+                console.log(data + ':' + data.length);
 
+                console.log(JSON.stringify(datastream) + ':' + datastream.length);
 
             }
-         //   console.log('Relay Board Data:'+data);
+            if (data == ''){break;}
+            // console.log('Relay Board Data:'+data);
             var o = {}
             //    relay: Number(data.substr(0, data.indexOf('R'))),
-                //   state: Number(data.substr(data.indexOf('R') + 1, 1))
+            //   state: Number(data.substr(data.indexOf('R') + 1, 1))
 
-            if (data.length == 3 || data.length > 4){
-                o.port =  Number(data.substr(0,1))
+            if (data.length == 3 || data.length > 4) {
+                o.port = Number(data.substr(0, 1))
                 data = data.substr(1)
-            } else if (data.length == 4){
-                o.port = Number(data.substr(0,2))
+            } else if (data.length == 4) {
+                o.port = Number(data.substr(0, 2))
                 data = data.substr(2)
             }
-            o.event = data.substr(0,1);
+            o.event = data.substr(0, 1);
             o.state = data.substr(1);
 //            console.log(JSON.stringify(o,null,4));
 
@@ -188,7 +195,7 @@ function openSerialPort(portname)
 
             };
 
-            switch(o.event){
+            switch (o.event) {
                 case "R":
                     if (o.state == 0) {
                         event.event = 'relayoff'
@@ -230,14 +237,15 @@ function openSerialPort(portname)
                     event.eventdata = o;
                     break;
                 default:
-                    console.log('Unknown cardread data:'+data+JSON.stringify(o))
+                    console.log('Unknown cardread data:' + data + JSON.stringify(o))
 
 
             }
-            server.send({event:event})
+            server.send({event: event})
 
-
+            data = ''
         }
+    }
     })
 
 
