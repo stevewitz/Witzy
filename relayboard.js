@@ -226,13 +226,19 @@ function openSerialPort(portname)
                     event.event = 'cardread';
                     o.cardnumber = o.state;
                     event.eventdata = o;
+
                     break;
                 default:
                     console.log('Unknown cardread data:' + data + JSON.stringify(o))
 
 
             }
-            server.send({event: event})
+            if (o.cardnumber && o.cardnumber.length<4){
+                console.log('Bad cardno:'+o.cardnumber)
+            }else{
+                server.send({event: event})
+            }
+
 
             data = ''
         }
