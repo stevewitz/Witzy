@@ -144,8 +144,6 @@ function openSerialPort(portname)
 // I dont understand this call 0 but it works
     serialPort.on("open", function (err,res) {
         console.log('Relay Board com port open'+portname)
-
-
     });
 
     serialPort.on('data', function(sbuffer) {
@@ -157,20 +155,13 @@ function openSerialPort(portname)
             if (datastream.indexOf('\r') != -1) {
                 data = datastream.substring(0, datastream.indexOf('\r'));
                 datastream = datastream.substring(datastream.indexOf('\r') + 1);
-                console.log(data + ':' + data.length);
-
-                console.log(JSON.stringify(datastream) + ':' + datastream.length);
             }
             if (datastream.indexOf('\n') != -1) {
                 data = datastream.substring(0, datastream.indexOf('\n'));
                 datastream = datastream.substring(datastream.indexOf('\n') + 1);
-                console.log(data + ':' + data.length);
-
-                console.log(JSON.stringify(datastream) + ':' + datastream.length);
-
             }
             if (data == ''){break;}
-            // console.log('Relay Board Data:'+data);
+             console.log('Relay Board Data:'+data);
             var o = {}
             //    relay: Number(data.substr(0, data.indexOf('R'))),
             //   state: Number(data.substr(data.indexOf('R') + 1, 1))
