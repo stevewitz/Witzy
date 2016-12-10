@@ -37,7 +37,12 @@ exports.start = function() {
                 switch(req.body.command){
                     case 'monitorOn':
                         console.log('monitor on')
-
+                        execFile('/opt/vc/bin/tvservice', ['-p'], (error, stdout, stderr) => {
+                            if (error) {
+                                throw error;
+                            }
+                            console.log(stdout);
+                        });
                         break;
                     case 'monitorOff':
                         console.log('monitor off')
