@@ -367,7 +367,7 @@ function commandline(s){
 }
 exports.serverup = function(){
     var serverconfig = {
-        ipaddess:localaddress+':'+settings.options.webserver.listenport,
+        ipaddress:localaddress+':'+settings.options.webserver.listenport,
         name:witzyname,
         id:witzyname,
         controller:"witzy",
