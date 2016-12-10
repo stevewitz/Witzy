@@ -26,8 +26,24 @@ exports.start = function() {
                 break;
             case 'sw5548':
                 sw.incommand(req.body);
+                break;
             case 'relayboard':
                 rb.incommand(req.body);
+                break;
+            case 'server':
+
+                switch(req.body.command){
+                    case 'monitorOn':
+                        console.log('monitor on')
+                        break;
+                    case 'monitorOff':
+                        console.log('monitor off')
+                        break;
+                    default:
+                        console.log('unknow witzy server commmand!')
+
+                }
+                break;
 
 
 

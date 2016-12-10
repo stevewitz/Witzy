@@ -366,16 +366,34 @@ function commandline(s){
 
 }
 exports.serverup = function(){
+    var serverconfig = {
+        ipaddess:localaddress+':'+settings.options.webserver.listenport,
+        name:witzyname,
+        id:witzyname,
+        controller:"witzy",
+        type:"server",
+        ipaddess:localaddress+':'+settings.options.webserver.listenport,
+        events:[{name:'serverstatus',values:["online,offline"]}]
+    }
+    if (os.type() == 'Linux'){
+            serverconfig.commands = [
+            {name:'monitor On',
+                sendto:"witzy",
+                device:'server',
+                api:api,
+                command:'monitorOn',
+            },
+                {name:'monitor Off',
+                    sendto:"witzy",
+                    device:'server',
+                    api:api,
+                    command:'monitorOff',
+                }
+            ]
+    }
+
     server.send({console: "Witzy server UP:"+witzyname+"@"+localaddress+':'+settings.options.webserver.listenport,
-        serverconfig:{
-            ipaddess:localaddress+':'+settings.options.webserver.listenport,
-            name:witzyname,
-            id:witzyname,
-            controller:"witzy",
-            type:"server",
-            ipaddess:localaddress+':'+settings.options.webserver.listenport,
-            events:[{name:'serverstatus',values:["online,offline"]}]
-        },
+        serverconfig:serverconfig,
         event:{
             id:witzyname,
             event:'serverstatus',
