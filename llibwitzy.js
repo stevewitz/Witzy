@@ -18,7 +18,6 @@ if (chunk !== null) {
 }
 });
 
-
 exports.startmongo = function(collectionname,ip,callback) {
 // starts the mongo collection
 // returns the settings object from the database

@@ -5,6 +5,8 @@ console.log = (function () {return function (x) {if (debug) {process.stdout.writ
  * Created by todd on 9/16/2016. A
  */
 var request = require('request');
+const execFile = require('child_process').execFile;
+
 
 exports.start = function() {
 
@@ -35,9 +37,16 @@ exports.start = function() {
                 switch(req.body.command){
                     case 'monitorOn':
                         console.log('monitor on')
+
                         break;
                     case 'monitorOff':
                         console.log('monitor off')
+                        execFile('/opt/vc/bin/tvservice', ['-o'], (error, stdout, stderr) => {
+                            if (error) {
+                                throw error;
+                            }
+                            console.log(stdout);
+                        });
                         break;
                     default:
                         console.log('unknow witzy server commmand!')
