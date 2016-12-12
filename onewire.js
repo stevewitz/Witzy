@@ -1,9 +1,23 @@
 /**
  * Created by todd on 12/12/2016.
  */
+var fs = require('fs'),
+    readdir = fs.readdir,
+    readFile = fs.readFile,
+    Promise = require('promise'),
+    BASE_DIR = '/sys/bus/w1/devices/';
 
+// // promise based
+// sensors.listDevices().then(
+//     function (devices) {
+//         console.log('Read all devices', devices);
+//     },
+//     function (err) {
+//         console.log('An error occurred', err);
+//     }
+// );
 
-
+// callback based
 readDevices(function (err, devices) {
     if (err) {
         console.log('An error occurred', err);
@@ -12,11 +26,7 @@ readDevices(function (err, devices) {
 
     console.log('Read all devices', devices);
 });
-var fs = require('fs'),
-    readdir = fs.readdir,
-    readFile = fs.readFile,
-    Promise = require('promise'),
-    BASE_DIR = '/sys/bus/w1/devices/';
+
 
 
 function listDevices (cb) {
