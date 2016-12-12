@@ -16,7 +16,7 @@ readDevices(function (err, devices) {
     console.log('Read all devices', devices);
 
     devices.forEach(function (x){
-        console.log(name);
+        console.log(x.name);
     })
 
 
