@@ -13,13 +13,13 @@ readDevices(function (err, devices) {
         console.log('An error occurred', err);
         return;
     }
+    console.log('Read all devices', devices);
 
     devices.forEach(function (x){
         console.log(name);
     })
 
 
-    console.log('Read all devices', devices);
 });
 
 
