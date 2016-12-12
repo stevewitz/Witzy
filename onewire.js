@@ -1,7 +1,7 @@
 /**
  * Created by todd on 12/12/2016.
  */
-var sensors = require('1wire');
+var sensors = require('ds1820-temp');
 
 // promise based
 sensors.readDevices().then(
