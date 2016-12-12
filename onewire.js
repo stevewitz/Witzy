@@ -10,14 +10,13 @@ var fs = require('fs'),
 var thisthing = {};
 
 listDevices(function(err,devices){
-devices.forEach(function(x){
-    console.log(JSON.stringify(x));
+devices.forEach(function(sensorid){
     thisthing = {
         type:"temperature",
-      //  id: witzyname+'-temperature-'+x.name,
-        name: 'Temperature - '+x.name,
-      //  ipaddress:localaddress+':'+settings.options.webserver.listenport,
-    //    parent:witzyname,
+       id: witzyname+'-temperature-'+sensorid,
+        name: 'Temperature - '+sensorid,
+        ipaddress:localaddress+':'+settings.options.webserver.listenport,
+        parent:witzyname,
         parenttype:'witzy',
         events:[
             {name:'temperature',values:'STRING',
@@ -26,7 +25,8 @@ devices.forEach(function(x){
 
 
     }
-    //ll.writething(thisthing,true);
+    console.log('Found 1-wire sensor:'+sensorid)
+    ll.writething(thisthing,true);
 
 
 
