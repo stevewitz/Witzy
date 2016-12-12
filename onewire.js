@@ -8,7 +8,6 @@ var fs = require('fs'),
     BASE_DIR = '/sys/bus/w1/devices/';
     var prev = {};
 var thisthing = {};
-var os = require('os');
 
 
 listDevices(function(err,devices){
