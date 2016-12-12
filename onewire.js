@@ -7,17 +7,7 @@ var fs = require('fs'),
     Promise = require('promise'),
     BASE_DIR = '/sys/bus/w1/devices/';
 
-// // promise based
-// sensors.listDevices().then(
-//     function (devices) {
-//         console.log('Read all devices', devices);
-//     },
-//     function (err) {
-//         console.log('An error occurred', err);
-//     }
-// );
 
-// callback based
 readDevices(function (err, devices) {
     if (err) {
         console.log('An error occurred', err);
@@ -146,7 +136,7 @@ function readTemperature(str) {
         temperatureString = parts[parts.length - 1],
         temperatureParts = temperatureString.split('='),
         temperature = temperatureParts[1];
-    return parseFloat(temperature)/1000;
+    return ((parseFloat(temperature)/1000)*1.8)+32;
 }
 
 module.exports = {
