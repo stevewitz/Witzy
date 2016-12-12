@@ -16,7 +16,7 @@ devices.forEach(function(x){
         type:"temperature",
       //  id: witzyname+'-temperature-'+x.name,
         name: 'Temperature - '+x.name,
-        ipaddress:localaddress+':'+settings.options.webserver.listenport,
+      //  ipaddress:localaddress+':'+settings.options.webserver.listenport,
     //    parent:witzyname,
         parenttype:'witzy',
         events:[
