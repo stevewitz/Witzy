@@ -63,7 +63,7 @@ setInterval(function(){readDevices(function (err, devices) {
     })
 
 
-})},2000);
+})},30000);
 
 function listDevices (cb) {
     return new Promise(function (fulfill, reject) {
