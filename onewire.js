@@ -12,7 +12,7 @@ setInterval(function(){readDevices(function (err, devices) {
         console.log('An error occurred', err);
         return;
     }
-    console.log('Read all devices', devices);
+    //console.log('Read all devices', devices);
 
     devices.forEach(function (x){
         if (prev[name] && prev.name != x.value){
@@ -20,10 +20,11 @@ setInterval(function(){readDevices(function (err, devices) {
         }
 
         prev[x.name] = x.value;
+        console.log(prev[x.name])
     })
 
 
-})},1000);
+})},2000);
 
 
 
