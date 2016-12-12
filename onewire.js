@@ -15,13 +15,12 @@ setInterval(function(){readDevices(function (err, devices) {
     //console.log('Read all devices', devices);
 
     devices.forEach(function (x){
-       console.log('here'+JSON.stringify(x))
+//       console.log('here'+JSON.stringify(x))
         if (prev[x.name] && prev[x.name] != x.value){
             console.log('temp '+x.name+' changed:'+x.value)
         }
 
         prev[x.name] = x.value;
-        console.log(prev[x.name])
     })
 
 
