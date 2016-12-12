@@ -7,7 +7,7 @@ var fs = require('fs'),
     Promise = require('promise'),
     BASE_DIR = '/sys/bus/w1/devices/';
     prev = {}
-setInterval(readDevices(function (err, devices) {
+setInterval(function(){readDevices(function (err, devices) {
     if (err) {
         console.log('An error occurred', err);
         return;
@@ -23,7 +23,7 @@ setInterval(readDevices(function (err, devices) {
     })
 
 
-}),1000);
+})},1000);
 
 
 
