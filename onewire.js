@@ -100,8 +100,8 @@ function readFiles (files) {
                 if (err) {
                     reject(err);
                 } else {
-                    //fulfill({'name': file, 'data': content.toString()});
-                    fulfill({ file: content.toString()});
+                    fulfill({'name': file, 'data': content.toString()});
+                    //fulfill({ file: content.toString()});
                 }
             });
         });
