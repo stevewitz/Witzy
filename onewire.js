@@ -45,7 +45,17 @@ setInterval(function(){readDevices(function (err, devices) {
     devices.forEach(function (x){
 //       console.log('here'+JSON.stringify(x))
         if (prev[x.name] && prev[x.name] != x.value){
-            console.log('temp '+x.name+' changed:'+x.value)
+            console.log('temp '+x.name+' changed:'+x.value);
+            server.send({
+                event: {
+                    id: itzyname+'-temperature-'+x.name,
+                    event: 'temperature',
+                    value: x.value,
+                    eventdata: {},
+                    source: ''
+                }
+            })
+
         }
 
         prev[x.name] = x.value;
