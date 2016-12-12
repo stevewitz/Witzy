@@ -6,7 +6,35 @@ var fs = require('fs'),
     readFile = fs.readFile,
     Promise = require('promise'),
     BASE_DIR = '/sys/bus/w1/devices/';
-    prev = {}
+    var prev = {};
+var thisthing = {};
+
+listDevices(function(devices){
+devices.forEach(function(x){
+    console.log(x.name);
+    thisthing = {
+        type:"temperature",
+        id: witzyname+'-temperature-'+x.name,
+        name: 'Temperature - '+x.name,
+        ipaddress:localaddress+':'+settings.options.webserver.listenport,
+        parent:witzyname,
+        parenttype:'witzy',
+        events:[
+            {name:'temperature',values:'STRING',
+                description:'Temp in F updated every min if change'}
+        ],
+   ]
+
+    }
+    //ll.writething(thisthing,true);
+
+
+
+});
+
+})
+
+
 setInterval(function(){readDevices(function (err, devices) {
     if (err) {
         console.log('An error occurred', err);
