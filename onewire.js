@@ -9,7 +9,7 @@ var fs = require('fs'),
     var prev = {};
 var thisthing = {};
 
-listDevices(function(devices){
+listDevices(function(err,devices){
 devices.forEach(function(x){
     console.log(x.name);
     thisthing = {
@@ -53,8 +53,6 @@ setInterval(function(){readDevices(function (err, devices) {
 
 
 })},10000);
-
-
 
 function listDevices (cb) {
     return new Promise(function (fulfill, reject) {
