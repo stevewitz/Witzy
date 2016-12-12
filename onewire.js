@@ -14,10 +14,10 @@ devices.forEach(function(x){
     console.log(x.name);
     thisthing = {
         type:"temperature",
-        id: witzyname+'-temperature-'+x.name,
+      //  id: witzyname+'-temperature-'+x.name,
         name: 'Temperature - '+x.name,
         ipaddress:localaddress+':'+settings.options.webserver.listenport,
-        parent:witzyname,
+    //    parent:witzyname,
         parenttype:'witzy',
         events:[
             {name:'temperature',values:'STRING',
@@ -33,7 +33,6 @@ devices.forEach(function(x){
 });
 
 })
-
 
 setInterval(function(){readDevices(function (err, devices) {
     if (err) {
