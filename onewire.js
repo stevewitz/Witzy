@@ -22,8 +22,8 @@ devices.forEach(function(x){
         events:[
             {name:'temperature',values:'STRING',
                 description:'Temp in F updated every min if change'}
-        ],
-   ]
+        ]
+
 
     }
     //ll.writething(thisthing,true);
