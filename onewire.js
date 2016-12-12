@@ -6,13 +6,18 @@ var fs = require('fs'),
     readFile = fs.readFile,
     Promise = require('promise'),
     BASE_DIR = '/sys/bus/w1/devices/';
-
+    prev = {}
 
 readDevices(function (err, devices) {
     if (err) {
         console.log('An error occurred', err);
         return;
     }
+
+    devices.forEach(function (x){
+        console.log(name);
+    })
+
 
     console.log('Read all devices', devices);
 });
