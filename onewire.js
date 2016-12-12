@@ -55,6 +55,7 @@ setInterval(function(){readDevices(function (err, devices) {
                     source: ''
                 }
             })
+            console.log('send after')
 
         }
 
