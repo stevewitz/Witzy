@@ -74,11 +74,12 @@ fs.readFile('setup.txt', 'utf8',function(err,filetxt){
 function initialized(){
     global.api = localaddress+':'+settings.options.webserver.listenport
     console.log('api address:'+localaddress);
+    global.server = require('./witzyserver');
+
     if (os.type() == 'Linux'){
         onewire = require('./onewire')
 
     }
-    global.server = require('./witzyserver');
     websock = require('./websocket');
     if (settings.options.modules.rgbled){
         rgb = require('./rgbled');
