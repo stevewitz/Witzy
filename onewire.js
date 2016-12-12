@@ -48,7 +48,7 @@ setInterval(function(){readDevices(function (err, devices) {
             console.log('temp '+x.name+' changed:'+x.value);
             server.send({
                 event: {
-                    id: itzyname+'-temperature-'+x.name,
+                    id: witzyname+'-temperature-'+x.name,
                     event: 'temperature',
                     value: x.value,
                     eventdata: {},
