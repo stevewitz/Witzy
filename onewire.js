@@ -4,7 +4,7 @@
 var sensors = require('ds1820-temp');
 
 // promise based
-sensors.readDevices().then(
+sensors.listDevices().then(
     function (devices) {
         console.log('Read all devices', devices);
     },
