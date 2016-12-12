@@ -24,7 +24,7 @@ setInterval(function(){readDevices(function (err, devices) {
     })
 
 
-})},2000);
+})},10000);
 
 
 
