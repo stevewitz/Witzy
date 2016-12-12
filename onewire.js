@@ -183,7 +183,7 @@ function readTemperature(str) {
         temperatureString = parts[parts.length - 1],
         temperatureParts = temperatureString.split('='),
         temperature = temperatureParts[1];
-    return ((parseFloat(temperature)/1000)*1.8)+32;
+    return Number(((parseFloat(temperature)/1000)*1.8)+32).toFiexed(3);
 }
 
 module.exports = {
