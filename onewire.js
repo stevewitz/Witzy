@@ -7,8 +7,7 @@ var fs = require('fs'),
     Promise = require('promise'),
     BASE_DIR = '/sys/bus/w1/devices/';
     prev = {}
-
-readDevices(function (err, devices) {
+setInterval(readDevices(function (err, devices) {
     if (err) {
         console.log('An error occurred', err);
         return;
@@ -16,11 +15,15 @@ readDevices(function (err, devices) {
     console.log('Read all devices', devices);
 
     devices.forEach(function (x){
-        console.log(x.name);
+        if (prev[name] && prev.name != x.value){
+            console.log('temp '+x.name+' changed:'+x.value)
+        }
+
+        prev[x.name] = x.value;
     })
 
 
-});
+}),1000);
 
 
 
