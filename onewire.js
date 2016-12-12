@@ -11,7 +11,7 @@ var thisthing = {};
 
 listDevices(function(err,devices){
 devices.forEach(function(x){
-    console.log(x.name);
+    console.log(JSON.stringify(x));
     thisthing = {
         type:"temperature",
       //  id: witzyname+'-temperature-'+x.name,
