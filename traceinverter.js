@@ -148,7 +148,7 @@ setInterval(function(){
             })
         }
     }
-},5000);
+},15000);
 
 function openSerialPort(portname,scb)
 {
