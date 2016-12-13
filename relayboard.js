@@ -96,6 +96,7 @@ var serialPort;
 //openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
 
+  //  openSerialPort(settings.options.relayboard.comport);
     openSerialPort(settings.options.relayboard.comport);
 }
 
