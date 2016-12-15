@@ -6,7 +6,7 @@ console.log = (function () {return function (x) {if (debug) {process.stdout.writ
  */
 var request = require('request');
 const execFile = require('child_process').execFile;
-
+var monitorstate = null;
 
 exports.start = function() {
 
@@ -37,21 +37,31 @@ exports.start = function() {
                 switch(req.body.command){
                     case 'monitorOn':
                         console.log('monitor on')
+                        if (monitorstate == null || monitorstate =='off'){
+                            monitorstate = 'on'
+
                         execFile('/opt/vc/bin/tvservice', ['-p'], (error, stdout, stderr) => {
                             if (error) {
                                 throw error;
                             }
                             console.log(stdout);
                         });
+
+                    }
+
                         break;
                     case 'monitorOff':
                         console.log('monitor off')
-                        execFile('/opt/vc/bin/tvservice', ['-o'], (error, stdout, stderr) => {
-                            if (error) {
-                                throw error;
-                            }
-                            console.log(stdout);
-                        });
+                        if (monitorstate == null || monitorstate =='on') {
+                            monitorstate = 'off'
+
+                            execFile('/opt/vc/bin/tvservice', ['-o'], (error, stdout, stderr) => {
+                                if (error) {
+                                    throw error;
+                                }
+                                console.log(stdout);
+                            });
+                        }
                         break;
                     default:
                         console.log('unknow witzy server commmand!')
