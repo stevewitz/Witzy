@@ -45,6 +45,19 @@ exports.start = function() {
                                 throw error;
                             }
                             console.log(stdout);
+                            server.send({
+
+                                event: {
+                                    id: witzyname,
+                                    event: 'monitorstate',
+                                    value: monitorstate,
+                                    eventdata: {},
+                                    source: witzyname
+                                }
+                            })
+                            //
+
+
                         });
 
                     }
@@ -60,6 +73,17 @@ exports.start = function() {
                                     throw error;
                                 }
                                 console.log(stdout);
+                                server.send({
+
+                                    event: {
+                                        id: witzyname,
+                                        event: 'monitorstate',
+                                        value: monitorstate,
+                                        eventdata: {},
+                                        source: witzyname
+                                    }
+                                })
+
                             });
                         }
                         break;

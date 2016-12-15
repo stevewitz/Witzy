@@ -372,7 +372,8 @@ exports.serverup = function(){
         controller:"witzy",
         type:"server",
         ipaddess:localaddress+':'+settings.options.webserver.listenport,
-        events:[{name:'serverstatus',values:["online,offline"]}]
+        events:[{name:'serverstatus',values:["online,offline"]},
+            {name:'monitorstate',values:["on,off"]}]
     }
     if (os.type() == 'Linux'){
             serverconfig.commands = [
