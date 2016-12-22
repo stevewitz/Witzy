@@ -142,15 +142,16 @@ exports.send = function(data,exitcode){
     //this will send data back to the witzy.api
     // use for buttons - status updats - etc
 if (exitcode){global.exitcode = exitcode}
-    if (!settings.rulzy.ipaddress){
-    console.log(ll.ansi('inverse','WARNING:')+" no ipaddress set for mongo.");
-    console.log(ll.ansi('red','Type "rulzy <RULZY ipaddress:port>"<enter> in the terminal window to set address'));
+    if (!global.rulzyip){
+    console.log(ll.ansi('inverse','WARNING:')+" rulezy ip not found");
+    //console.log(ll.ansi('red','Type "rulzy <RULZY ipaddress:port>"<enter> in the terminal window to set address'));
     return;
 }
 
 
     var request_options = {
-        uri:'http://'+settings.rulzy.ipaddress+'/api/witzy',
+       // uri:'http://'+settings.rulzy.ipaddress+'/api/witzy',
+        uri:'http://'+global.rulzyip+'/api/witzy',
         method:"POST",
         json: data
     };
