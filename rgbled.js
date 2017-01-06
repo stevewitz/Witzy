@@ -197,7 +197,7 @@ var x = settings.hardware.rgbled[0];
 
     //});
 exports.incommand = function(c){
-    //console.log(JSON.stringify(c,null,4))
+    console.log(c.command)
     clearInterval(walkInterval);// stop any walk timers that may be set
     switch (c.command){
         case "stripSetColor":
