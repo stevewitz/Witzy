@@ -3,11 +3,11 @@
  */
 var debug = 1;
 var console = {};
-const fs = require('fs');
 
 var os = require('os');
 console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('magenta','llib     ') + x + '\n');}}})();
 MC = require('mongodb').MongoClient;
+const fs = require('fs');
 
 
 

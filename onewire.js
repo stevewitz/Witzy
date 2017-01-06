@@ -1,3 +1,7 @@
+var debug = 1;
+var console = {}
+console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('red','temp ') + x + '\n');}}})();
+
 /**
  * Created by todd on 12/12/2016.
  */

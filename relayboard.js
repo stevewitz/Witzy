@@ -1,3 +1,7 @@
+var debug = 1;
+var console = {}
+console.log = (function () {return function (x) {if (debug) {process.stdout.write(ll.ansitime('grey','relayboard ') + x + '\n');}}})();
+
 if (settings.options.relayboard.toddsfurnace){
 
     var thisthing = {
