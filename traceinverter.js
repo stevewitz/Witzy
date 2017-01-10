@@ -120,7 +120,7 @@ var leds = {
     generatorPowerSyncing:null,
 };
 setInterval(function(){
-    if ((new Date()-timeout) > 5000){
+    if ((new Date()-timeout) > 15000){
         if (!lostcom){
             lostcom = true;
             server.send({
@@ -148,7 +148,7 @@ setInterval(function(){
             })
         }
     }
-},15000);
+},20000);
 
 function openSerialPort(portname,scb)
 {
