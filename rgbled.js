@@ -462,7 +462,7 @@ function twoWayWalk(o,value){
 function rainbow(o,value){
     var numEachColor = parseInt(value.numEachColor);
     var rainbowArray = [0xFF, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0xFF, 0xFF, 0x00,0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x4b, 0x00, 0x82, 0x94, 0x00, 0xd3]; //rainbow colors
-    var numToIncrement = 0
+    var numToIncrement = (o.startLed-1) *3;
  mainLoop:   for(var i = (o.startLed-1) *3; i < o.endLed*3; i+=rainbowArray.length*numEachColor) {//operate on the
         if( (i + 20 +j)>o.endLed *3){
           //  break;
