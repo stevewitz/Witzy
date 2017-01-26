@@ -538,7 +538,7 @@ function colorGradient(o,value) {
     rgbBuffer[o.stripname][o.startLed-1 +1] = origgreen;
     rgbBuffer[o.stripname][o.startLed-1 +2] = origblue;
 
-    for(var i = o.startLed-1; i < (o.endLed-1)*3; i+=3){
+    for(var i = (o.startLed-1)*3; i < (o.endLed-1)*3; i+=3){
 
         rgbBuffer[o.stripname][i+3]= rgbBuffer[o.stripname][i]-redDelta;
         rgbBuffer[o.stripname][i+1+3]= rgbBuffer[o.stripname][i+1]-greenDelta;
