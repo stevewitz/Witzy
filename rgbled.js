@@ -587,10 +587,12 @@ function colorGradientMirror(o,value) {
         rgbBuffer[o.stripname][i+1+3]= rgbBuffer[o.stripname][i+1]-greenDelta;
         rgbBuffer[o.stripname][i+2+3]= rgbBuffer[o.stripname][i+2]-blueDelta;
     }
+    var cnt = 1;
     for( var i = parseInt(((o.endLed -1)*3)/2); i < (o.endLed-1)*3; i++){// change the second half
-        rgbBuffer[o.stripname][i]= rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-i]
+        rgbBuffer[o.stripname][i]= rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-count]
 
-        console.log(i + "  "+    rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-i]);
+        console.log(i + "  "+    rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-count]+ "  "+ count);
+        count ++;
     }
     updatestrip(o, rgbBuffer[o.stripname]);
 }
