@@ -581,19 +581,19 @@ function colorGradientMirror(o,value) {
     rgbBuffer[o.stripname][o.startLed-1 +1] = origgreen;
     rgbBuffer[o.stripname][o.startLed-1 +2] = origblue;
 
-    for(var i = (o.startLed-1)*3; i < ((o.endLed-1)*3)/2; i+=3){ //change the first half of the lights
-
-        rgbBuffer[o.stripname][i+3]= rgbBuffer[o.stripname][i]-redDelta;
-        rgbBuffer[o.stripname][i+1+3]= rgbBuffer[o.stripname][i+1]-greenDelta;
-        rgbBuffer[o.stripname][i+2+3]= rgbBuffer[o.stripname][i+2]-blueDelta;
+    for(var i = (o.startLed-1)*3; i < (o.endLed-1)*3; i+=3){ //change the first half of the lights
+        if( i<((o.endLed-1)*3)/2) {
+            rgbBuffer[o.stripname][i + 3] = rgbBuffer[o.stripname][i] - redDelta;
+            rgbBuffer[o.stripname][i + 1 + 3] = rgbBuffer[o.stripname][i + 1] - greenDelta;
+            rgbBuffer[o.stripname][i + 2 + 3] = rgbBuffer[o.stripname][i + 2] - blueDelta;
+        }
+        else{
+            rgbBuffer[o.stripname][i + 3] = rgbBuffer[o.stripname][i] + redDelta;
+            rgbBuffer[o.stripname][i + 1 + 3] = rgbBuffer[o.stripname][i + 1] + greenDelta;
+            rgbBuffer[o.stripname][i + 2 + 3] = rgbBuffer[o.stripname][i + 2] + blueDelta;
+        }
     }
-    var cnt = 1;
-    for( var i = parseInt(((o.endLed -1)*3)/2); i < (o.endLed-1)*3; i++){// change the second half
-        rgbBuffer[o.stripname][i]= rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-cnt];
 
-        console.log(i + "  "+    rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-cnt]+ "  "+ cnt);
-        cnt ++;
-    }
     updatestrip(o, rgbBuffer[o.stripname]);
 }
 
