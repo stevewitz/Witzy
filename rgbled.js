@@ -587,7 +587,7 @@ function colorGradientMirror(o,value) {
         rgbBuffer[o.stripname][i+1+3]= rgbBuffer[o.stripname][i+1]-greenDelta;
         rgbBuffer[o.stripname][i+2+3]= rgbBuffer[o.stripname][i+2]-blueDelta;
     }
-    for( var i = ((o.endLed -1)*3)/2; (o.endLed-1)*3; i++){
+    for( var i = ((o.endLed -1)*3)/2; i < (o.endLed-1)*3; i++){
         rgbBuffer[i] = rgbBuffer[(((o.endLed-1)*3)/2) -i];
     }
 
