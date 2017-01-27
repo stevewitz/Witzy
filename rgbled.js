@@ -573,7 +573,7 @@ function colorGradientMirror(o,value) {
     green = newColor[1];
     blue = newColor[2];
 
-    var numberOfLedsInStrip = o.endLed - (o.startLed-1)/2;
+    var numberOfLedsInStrip = (o.endLed - (o.startLed-1))/2;
     var redDelta = (origred-red)/(numberOfLedsInStrip);
     var greenDelta = (origgreen-green)/(numberOfLedsInStrip);
     var blueDelta = (origblue-blue)/(numberOfLedsInStrip);
