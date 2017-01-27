@@ -590,7 +590,7 @@ function colorGradientMirror(o,value) {
     for( var i = parseInt(((o.endLed -1)*3)/2); i < (o.endLed-1)*3; i++){// change the second half
         rgbBuffer[o.stripname][i]= rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-i]
 
-        console.log(i);
+        console.log(i + "  "+    rgbBuffer[o.stripname][parseInt(((o.endLed-1)*3)/2)-i]);
     }
     updatestrip(o, rgbBuffer[o.stripname]);
 }
