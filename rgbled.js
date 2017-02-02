@@ -177,6 +177,19 @@ var x = settings.hardware.rgbled[0];
 
                 },
                 {
+                    name: 'colorGradientMirror',
+                    sendto: "witzy",
+                    device:'rgb',
+                    api:api,
+                    command: 'colorGradientMirror',
+                    arguments: {
+                        name: 'JSON',
+                        startColor:{type:'input type = color',defaultvalue:'#ff00ff'},
+                        endColor:{type:'input type = color',defaultvalue:'#ffff00'}
+                    }
+
+                },
+                {
                     name: 'warning',
                     sendto: "witzy",
                     device:'rgb',
@@ -235,6 +248,9 @@ exports.incommand = function(c){
             break;
         case "colorGradient":
             colorGradient(c.obj,c.value);
+            break;
+        case "colorGradientMirror":
+            colorGradientMirror(c.obj,c.value);
             break;
         case "warning":
             warning(c.obj,c.value);
@@ -462,8 +478,8 @@ function twoWayWalk(o,value){
 function rainbow(o,value){
     var numEachColor = parseInt(value.numEachColor);
     var rainbowArray = [0xFF, 0x00, 0x00, 0xFF, 0x7F, 0x00, 0xFF, 0xFF, 0x00,0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF, 0x4b, 0x00, 0x82, 0x94, 0x00, 0xd3]; //rainbow colors
-    var numToIncrement = 0
- mainLoop:   for(var i = o.startLed-1; i < o.endLed*3; i+=rainbowArray.length*numEachColor) {//operate on the
+    var numToIncrement = (o.startLed-1) *3;
+ mainLoop:   for(var i = (o.startLed-1) *3; i < o.endLed*3; i+=rainbowArray.length*numEachColor) {//operate on the
         if( (i + 20 +j)>o.endLed *3){
           //  break;
         }
@@ -538,7 +554,7 @@ function colorGradient(o,value) {
     rgbBuffer[o.stripname][o.startLed-1 +1] = origgreen;
     rgbBuffer[o.stripname][o.startLed-1 +2] = origblue;
 
-    for(var i = o.startLed-1; i < (o.endLed-1)*3; i+=3){
+    for(var i = (o.startLed-1)*3; i < (o.endLed-1)*3; i+=3){
 
         rgbBuffer[o.stripname][i+3]= rgbBuffer[o.stripname][i]-redDelta;
         rgbBuffer[o.stripname][i+1+3]= rgbBuffer[o.stripname][i+1]-greenDelta;
@@ -546,6 +562,41 @@ function colorGradient(o,value) {
     }
     updatestrip(o, rgbBuffer[o.stripname]);
 }
+function colorGradientMirror(o,value) {
+    var origColor = parseColorToRGB(value.startColor);
+    var origred = origColor[0];
+    var origgreen = origColor[1];
+    var origblue = origColor[2];
+
+    var newColor = parseColorToRGB(value.endColor);
+    red = newColor[0];
+    green = newColor[1];
+    blue = newColor[2];
+
+    var numberOfLedsInStrip = (o.endLed - (o.startLed-1))/2;
+    var redDelta = (origred-red)/(numberOfLedsInStrip);
+    var greenDelta = (origgreen-green)/(numberOfLedsInStrip);
+    var blueDelta = (origblue-blue)/(numberOfLedsInStrip);
+    rgbBuffer[o.stripname][o.startLed-1] = origred;
+    rgbBuffer[o.stripname][o.startLed-1 +1] = origgreen;
+    rgbBuffer[o.stripname][o.startLed-1 +2] = origblue;
+
+    for(var i = (o.startLed-1)*3; i < (o.endLed-1)*3; i+=3){ //change the first half of the lights
+        if( i<((o.endLed-1)*3)/2) {
+            rgbBuffer[o.stripname][i + 3] = rgbBuffer[o.stripname][i] - redDelta;
+            rgbBuffer[o.stripname][i + 1 + 3] = rgbBuffer[o.stripname][i + 1] - greenDelta;
+            rgbBuffer[o.stripname][i + 2 + 3] = rgbBuffer[o.stripname][i + 2] - blueDelta;
+        }
+        else{
+            rgbBuffer[o.stripname][i + 3] = rgbBuffer[o.stripname][i] + redDelta;
+            rgbBuffer[o.stripname][i + 1 + 3] = rgbBuffer[o.stripname][i + 1] + greenDelta;
+            rgbBuffer[o.stripname][i + 2 + 3] = rgbBuffer[o.stripname][i + 2] + blueDelta;
+        }
+    }
+
+    updatestrip(o, rgbBuffer[o.stripname]);
+}
+
 
 function warning(o,value){
     var intervalMS = value.intervalMS;
