@@ -1,5 +1,6 @@
 var oauthwindow
 var pagename ='lightstrip';
+
 function websockstart(){
     ws = new ReconnectingWebSocket(wsUri);
     ws.onopen = function(evt){
@@ -53,6 +54,17 @@ function websocketsend(type,data){
     sendobj.data = data;
     ws.send(JSON.stringify(sendobj));
 
+}
+
+function canvasClick(e){
+    var canvas = document.getElementById("colortest");
+    var ctx = canvas.getContext('2d');
+    var x = e.x - canvas.offsetLeft;
+    var y = e.y - canvas.offsetTop;
+    color = ctx.getImageData(x, y, 1, 1).data;
+    console.log(color)
+    document.getElementById('color').value = ('#FFFFFF');
+    buttonruncommand();
 }
 
 function drawstrips(){

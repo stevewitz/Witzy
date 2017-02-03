@@ -33,6 +33,7 @@ LED String Emulator<hr>
 
         <select id='commandlist' onChange="commandclicked()" size=1  style="width:150"> </select>
         <textarea id="viewcommand" rows="7" cols="30" ></textarea>
+        <canvas id = 'colortest'></canvas>
 
         <div id="VALUEinput">
             value <input id="commandvalue" list="commandvalueoptions" ></input>
@@ -42,6 +43,7 @@ LED String Emulator<hr>
         <datalist id="commandvalueoptions">
 
         </datalist>
+
         <hr>
         <button onclick="buttonruncommand()">Run Command</button>
 
@@ -64,7 +66,19 @@ LED String Emulator<hr>
         drawstrips();
         populatecommandlist(document.getElementById('selectedthingcommand'))
         websockstart();
+        make_base();
+        document.getElementById('colortest').addEventListener('mousedown',canvasClick,false);
+
     }
 
+    function make_base()    {
+
+        base_image = new Image();
+        base_image.src = 'images/colorpick.png';
+        base_image.onload = function(){
+            var ctx = document.getElementById('colortest').getContext('2d');
+            ctx.drawImage(base_image, 0, 0);
+        }
+    }
 
 </script>
