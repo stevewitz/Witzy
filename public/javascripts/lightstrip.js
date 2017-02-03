@@ -62,8 +62,10 @@ function canvasClick(e){
     var x = e.x - canvas.offsetLeft;
     var y = e.y - canvas.offsetTop;
     color = ctx.getImageData(x, y, 1, 1).data;
-    console.log(color)
-    document.getElementById('color').value = ('#FFFFFF');
+    var webcolor ='#'+color[0].toString(16).toUpperCase()+color[1].toString(16).toUpperCase()+color[2].toString(16).toUpperCase()
+    console.log(webcolor)
+
+    document.getElementById('color').value = webcolor;
     buttonruncommand();
 }
 
