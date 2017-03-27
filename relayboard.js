@@ -252,7 +252,7 @@ function openSerialPort(portname)
 
 
     serialPort.on('error', function(error) {
-        console.error("serial port failed to open:"+error);
+        console.log("serial port failed to open:"+error);
 
     });
 };
