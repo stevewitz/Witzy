@@ -55,7 +55,7 @@ var request = require('request');
         /************************************************/
         var thisId= i;
         ws.on('message', function(message) {
-            //  console.log("message :"+message)
+              console.log("message :"+message)
             var data = JSON.parse(message);
             if (!data){
                 console.log('no data in websocket message from'+thisId);
