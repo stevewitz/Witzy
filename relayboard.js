@@ -109,7 +109,8 @@ exports.incommand = function(c) {
     console.log(JSON.stringify(c,null,4))
     switch (c.command) {
         case "relayon":
-            serialPort.write(c.value + 'r1\r');
+           // serialPort.write(c.value + 'r1\r');
+            exports.write(c.value + 'r1\r');
             console.log("at relay on " + c.value);
             break
         case "relayoff":
