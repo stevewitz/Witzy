@@ -106,7 +106,7 @@ exports.start = function(scb){
 
 exports.incommand = function(c) {
     //delete c.obj
-    //console.log(JSON.stringify(c,null,4))
+    console.log(JSON.stringify(c,null,4))
     switch (c.command) {
         case "relayon":
             serialPort.write(c.value+'r1\r');
@@ -252,7 +252,7 @@ function openSerialPort(portname)
 
 
     serialPort.on('error', function(error) {
-        console.error("serial port failed to open:"+error);
+        console.log("serial port failed to open:"+error);
 
     });
 };
