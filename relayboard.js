@@ -106,7 +106,6 @@ exports.start = function(scb){
 
 exports.incommand = function(c) {
     //delete c.obj
-    console.log(JSON.stringify(c,null,4))
     switch (c.command) {
         case "relayon":
             serialPort.write(c.value+'r1\r');
