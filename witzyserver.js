@@ -31,6 +31,7 @@ exports.start = function() {
                 break;
             case 'relayboard':
                 rb.incommand(req.body);
+                console.log("here " + req.body);
                 break;
             case 'server':
 

@@ -108,10 +108,13 @@ exports.incommand = function(c) {
     //delete c.obj
     switch (c.command) {
         case "relayon":
-            serialPort.write(c.value+'r1\r');
+           // serialPort.write(c.value + 'r1\r');
+            exports.write(c.value + 'r1\r');
+            console.log("at relay on " + c.value);
             break
         case "relayoff":
             serialPort.write(c.value+'r0\r');
+            console.log("at relay off "+ c.value);
             break;
         case "damperoff":
             serialPort.write('9r0\r10r0\r');
