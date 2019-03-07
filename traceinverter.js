@@ -181,7 +181,7 @@ function openSerialPort(portname,scb)
         if (t){
             clearTimeout(t);
         }
-//console.log(data)
+console.log('SW data'+data)
 
         sbuffer += data;
         if (sbuffer.indexOf('\r')  != -1){
