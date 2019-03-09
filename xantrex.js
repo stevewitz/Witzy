@@ -20,7 +20,7 @@ var com = require('serialport');
 exports.start = function(scb){
 
     //openSerialPort('/dev/ttyUSB3',scb);
-    openSerialPort('/dev/ttyUSB2',scb);
+    //openSerialPort('/dev/ttyUSB2',scb);
 };
 console.log('wroking?');
 var timeout = new Date();
