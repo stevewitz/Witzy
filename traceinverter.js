@@ -170,7 +170,7 @@ function openSerialPort(portname,scb)
 
 // I dont understand this call 0 but it works
     serialPort.on("open", function (err,res) {
-        console.log("Port open success:"+portname);
+        console.log("--------- TRACE ----------- Port open success:"+portname);
         scb();
         //serialPort.write('r\r')
         //serialPort.write("VLD# 1 65 1 0\r");
