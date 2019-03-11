@@ -37,6 +37,7 @@ function websockstart(){
                 break;
             case "outback":
               if (x.data.address != 'B' || x.data.address != 'C'){
+                 console.log(x.data.address)
                   break
               }
                if (x.data.address == 'C'){
