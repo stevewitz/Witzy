@@ -37,6 +37,7 @@ function websockstart(){
                 break;
             case "outback":
                  x.data.pvWatts = x.data.pvCurrent*x.data.pvVoltage;
+                 x.data.chargeWatts = x.data.chargeCurrent*x.data.batteryVoltage;
                if (x.data.address == 'C'){
                    document.getElementById('outbackdata2').value=JSON.stringify(x.data,null,1);
                }
