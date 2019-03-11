@@ -11,8 +11,7 @@ function websockstart(){
     };
     ws.onmessage = function(evt) {
         var x = JSON.parse(evt.data);
-        var dt = new Date()
-        x.data.time = dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()
+        x.data.time = new Date.toLocaleTimeString();
         switch(x.object){
 
             case "things":
@@ -37,7 +36,7 @@ function websockstart(){
                 document.getElementById('xantrexdata').value=JSON.stringify(x.data,null,1);
                 break;
             case "outback":
-              if (x.data.address =='000'){
+              if (x.data.address != 'B' || x.data.address != 'C'){
                   break
               }
                if (x.data.address == 'C'){
