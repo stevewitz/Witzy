@@ -11,7 +11,7 @@ function websockstart(){
     };
     ws.onmessage = function(evt) {
         var x = JSON.parse(evt.data);
-        x.data.time = new Date.toLocaleTimeString();
+        x.data.time = new Date().toLocaleTimeString();
         switch(x.object){
 
             case "things":
