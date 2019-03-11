@@ -36,7 +36,7 @@ function websockstart(){
                 document.getElementById('xantrexdata').value=JSON.stringify(x.data,null,1);
                 break;
             case "outback":
-
+                 x.data.pvWatts = x.data.pvCurrent*x.data.pvVoltage;
                if (x.data.address == 'C'){
                    document.getElementById('outbackdata2').value=JSON.stringify(x.data,null,1);
                }

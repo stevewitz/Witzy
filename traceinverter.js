@@ -265,6 +265,7 @@ console.log('SW data'+data)
                     if (leds.utilityPowerSyncing != temp ){
                         leds.utilityPowerSyncing = temp;
                         server.send({event:{id:thisthing.id,event:'utilityPowerSyncing',value:temp,eventdata:{leds},source:thisthing.id}});
+
                         if (temp == true){
                             // turn thisone off - cannot both be on
                             if (leds.utilityPower == true){
