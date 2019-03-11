@@ -35,7 +35,13 @@ function websockstart(){
                 document.getElementById('xantrexdata').value=JSON.stringify(x.data,null,1);
                 break;
             case "outback":
-                document.getElementById('outbackdata').value=JSON.stringify(x.data,null,1);
+               if (x.data.address == 'C'){
+                   document.getElementById('outbackdata2').value=JSON.stringify(x.data,null,1);
+               }else
+               {
+                   document.getElementById('outbackdata').value=JSON.stringify(x.data,null,1);
+               }
+
                 break;
             case "swData":
                 document.getElementById('swData').value=JSON.stringify(x.data,null,1);
