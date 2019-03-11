@@ -1,5 +1,6 @@
 var oauthwindow
 var pagename ='solar';
+var pvTotal,chargeTotal;
 function websockstart(){
     ws = new ReconnectingWebSocket(wsUri);
     ws.onopen = function(evt){
@@ -37,11 +38,18 @@ function websockstart(){
                 break;
             case "outback":
                  x.data.pvWatts = x.data.pvCurrent*x.data.pvVoltage;
-                 x.data.chargeWatts = x.data.chargerCurrent*x.data.batteryVoltage;
-               if (x.data.address == 'C'){
+                 x.data.chargeWatts = Math.round(x.data.chargerCurrent*x.data.batteryVoltage);
+
+                if (x.data.address == 'C'){
+                    x.data.chargeTotal=x.data.chargeWatts+chargeTotal;
+                    chargeTotal=0;
+                    x.data.pvTotal=x.data.pvWatts+pvTotal;
+                    pvTotal=0;
                    document.getElementById('outbackdata2').value=JSON.stringify(x.data,null,1);
                }
                 if (x.data.address == 'B'){
+                   chargeTotal=x.data.chargeWatts;
+                   pvTotal=x.data.pvWatts;
                     document.getElementById('outbackdata').value=JSON.stringify(x.data,null,1);
                 }
                 break;
