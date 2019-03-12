@@ -84,7 +84,7 @@ exports.incommand = function(c) {
 
 exports.start = function(scb){
 
-    openSerialPort('/dev/ttyUSB3',scb);
+    openSerialPort('/dev/ttyUSB2',scb);
 
 }
 var lostcom = false;

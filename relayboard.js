@@ -97,11 +97,14 @@ var com = require('serialport');
 var data='';
 var datastream='';
 var serialPort;
-openSerialPort('/dev/ttyS1');
+//openSerialPort('/dev/ttyS0');
 exports.start = function(scb){
 
   //  openSerialPort(settings.options.relayboard.comport);
-    openSerialPort(settings.options.relayboard.comport);
+    //
+    // openSerialPort(settings.options.relayboard.comport);
+    openSerialPort('/dev/ttyUSB0');
+
 }
 
 exports.incommand = function(c) {
