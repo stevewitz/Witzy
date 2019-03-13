@@ -33,7 +33,7 @@ var lostcom = false;
 var com = require('serialport');
 
 exports.start = function(scb){
-    openSerialPort('/dev/ttyUSB1',scb);
+    openSerialPort('/dev/ttyUSB2',scb);
    // openSerialPort('/dev/ttyUSB0',scb);
 }
 var timeout = new Date();

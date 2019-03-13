@@ -103,7 +103,7 @@ exports.start = function(scb){
   //  openSerialPort(settings.options.relayboard.comport);
     //
     // openSerialPort(settings.options.relayboard.comport);
-    openSerialPort('/dev/ttyUSB2');
+    openSerialPort('/dev/ttyUSB0');
 
 }
 
