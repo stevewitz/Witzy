@@ -33,6 +33,7 @@ var lostcom = false;
 var com = require('serialport');
 
 exports.start = function(scb){
+    openSerialPort('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0',scb)
     /////openSerialPort('/dev/ttyUSB2',scb);
 
 }

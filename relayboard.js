@@ -104,6 +104,8 @@ exports.start = function(scb){
     //
     // openSerialPort(settings.options.relayboard.comport);
     ////openSerialPort('/dev/ttyUSB0');
+    openSerialPort('/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A8003PSc-if00-port0',scb)
+
 
 }
 
