@@ -84,8 +84,8 @@ exports.incommand = function(c) {
 
 exports.start = function(scb){
 
-    openSerialPort('/dev/ttyUSB1',scb);
-
+    //openSerialPort('/dev/ttyUSB1',scb);
+        openSerialPort('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0',scb)
 }
 var lostcom = false;
 var timeout = new Date();
