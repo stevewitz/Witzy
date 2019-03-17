@@ -803,15 +803,15 @@ exports.testcallback = function (d){
 };
 exports.sampleMenu4 = function(){
 var o={};
-exports.getInverterValue(4,1,15,function(x){
+exports.getInverterValue(4,1,30,function(x){
     o.chargerAmps = x.value;
-    exports.getInverterValue(4,2,35,function(x){
+    exports.getInverterValue(4,2,30,function(x){
        o.inputAmps = x.value
-        exports.getInverterValue(4,3,35,function(x){
+        exports.getInverterValue(4,3,30,function(x){
             o.outputAmps = x.value;
-            exports.getInverterValue(4,4,15,function(x){
+            exports.getInverterValue(4,4,30,function(x){
                 o.batteryVolts = x.value;
-                exports.getInverterValue(4,5,1,function(x){
+                exports.getInverterValue(4,5,10,function(x){
                     o.batteryVoltsTempComp = x.value;
                     exports.getInverterValue(4,6,1,function(x){
                         o.inverterVolts = x.value;
