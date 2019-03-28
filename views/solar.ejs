@@ -33,13 +33,13 @@
 <button onclick="sendkey('=')">+</button>
 <hr>
 </div>
-    <textarea id="swleds" rows="20" style="width:200px;"></textarea>
+    <textarea id="swleds" rows="20" style="width:200px;" onclick='x=0' ></textarea>
 
-<textarea id="outbackdata" rows="20" style="width:200px;"></textarea>
-<textarea id="outbackdata2" rows="20" style="width:200px;"></textarea>
-<textarea id="swData" rows="20" style="width:330px;"></textarea>
+<textarea id="outbackdata" rows="20" style="width:200px;" onclick='x++'></textarea>
+<textarea id="outbackdata2" rows="20" style="width:200px;"onclick='x=x+5'></textarea>
+<textarea id="swData" rows="20" style="width:330px;"onclick='x=0'></textarea>
 
-<textarea id="xantrexdata" rows="20" style="width:200px;" onclick="document.getElementById('buttons').style.visibility='visible'"></textarea>
+<textarea id="xantrexdata" rows="20" style="width:200px;" onclick="showButtons()"></textarea>
 
 
 
@@ -49,7 +49,17 @@
 <script>
 
 
+    var x = 0
+    function showButtons()
+    {
+        if (x==7){
+            document.getElementById('buttons').style.visibility='visible'
 
+        } else
+        {
+            document.getElementById('buttons').style.visibility='hidden'
+        }
+    }
     function load() {
         settings=<%-JSON.stringify(settings)%>
         things=<%-JSON.stringify(things)%>
