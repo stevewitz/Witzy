@@ -183,6 +183,7 @@ function openSerialPort(portname,scb)
         }
 console.log('SW data'+data)
 
+
         sbuffer += data;
         if (sbuffer.indexOf('\r')  != -1){
             // have a menu item message - this is the only type we can detect

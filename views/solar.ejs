@@ -14,11 +14,12 @@
 
 <h2>Trace SW5548 Inverter</h2>
 <hr>
-<div id = 'displaytext' >
+<div id = 'displaytext' style="visibility: hidden">
 </div>
 <hr>
 <div id = 'displayvalue' >
 </div>
+<div id = 'buttons'>
 <button onclick="sendkey('r')">R</button>
 <button onclick="sendkey('l')">L</button>
 <button onclick="sendkey('u')">U</button>
@@ -31,7 +32,8 @@
 <button onclick="sendkey('-')">-</button>
 <button onclick="sendkey('=')">+</button>
 <hr>
-<textarea id="swleds" rows="20" style="width:200px;"></textarea>
+</div>
+    <textarea id="swleds" rows="20" style="width:200px;"></textarea>
 
 <textarea id="outbackdata" rows="20" style="width:200px;"></textarea>
 <textarea id="outbackdata2" rows="20" style="width:200px;"></textarea>
