@@ -1,10 +1,10 @@
 <html>
-<script src="/javascripts/reconnectingWebsocket.js"> </script>
-<script src="/javascripts/solar.js"> </script>
+<script src="/javascripts/reconnectingWebsocket.js"></script>
+<script src="/javascripts/solar.js"></script>
 
-<% if (global.settings.options.webserver.defaultcssfile) {%>
-<LINK href="<%=global.settings.options.webserver.defaultcssfile%>" rel="stylesheet" type="text/css">
-<%}%>
+<% if (global.settings.options.webserver.defaultcssfile) { %>
+<LINK href="<%= global.settings.options.webserver.defaultcssfile %>" rel="stylesheet" type="text/css">
+<% } %>
 
 <head>
 
@@ -14,35 +14,35 @@
 
 <h2>Trace SW5548 Inverter</h2>
 <hr>
-<div id = 'displaytext' >
+<div id='displaytext'>
 </div>
 <hr>
-<div id = 'displayvalue' >
+<div id='displayvalue'>
 </div>
-<div id = 'buttons' style="visibility: hidden">
-<button onclick="sendkey('r')">R</button>
-<button onclick="sendkey('l')">L</button>
-<button onclick="sendkey('u')">U</button>
-<button onclick="sendkey('d')">D</button>
-<button onclick="sendkey('\x13')">menu9</button>
-<button onclick="sendkey('/')">?</button>
-<button onclick="menu4()">menu4</button>
+<div id='buttons' style="visibility: hidden">
+    <button onclick="sendkey('r')">R</button>
+    <button onclick="sendkey('l')">L</button>
+    <button onclick="sendkey('u')">U</button>
+    <button onclick="sendkey('d')">D</button>
+    <button onclick="sendkey('\x13')">menu9</button>
+    <button onclick="sendkey('/')">?</button>
+    <button onclick="menu4()">menu4</button>
 
 
-<button onclick="sendkey('-')">-</button>
-<button onclick="sendkey('=')">+</button>
-<hr>
+    <button onclick="sendkey('-')">-</button>
+    <button onclick="sendkey('=')">+</button>
+    <hr>
 </div>
-    <textarea readonly id="swleds" rows="20" style="width:200px;" onclick='x=0' ></textarea>
+<textarea readonly id="swleds" rows="20" style="width:200px;" onclick='x=0'></textarea>
 
 <textarea readonly id="outbackdata" rows="20" style="width:200px;" onclick='x++'></textarea>
-<textarea readonly id="outbackdata2" rows="20" style="width:200px;"onclick='x=x+5'></textarea>
-<textarea readonly id="swData" rows="20" style="width:330px;"onclick='showButtons()'></textarea>
+<textarea readonly id="outbackdata2" rows="20" style="width:200px;" onclick='x=x+5'></textarea>
+<textarea readonly id="swData" rows="20" style="width:330px;" onclick='showButtons()'></textarea>
 <br>
-<button onclick='x=0'>X</button>
-<button onclick='x=x+1'>X</button>
-<button onclick='x=x+5'>X</button>
-<button onclick='showButtons()'>X</button>
+<button style="height: 50;width: 50;" onclick='x=0'>X</button>
+<button style="height: 50;width: 50;" onclick='x=x+1'>X</button>
+<button style="height: 50;width: 50;" onclick='x=x+5'>X</button>
+<button style="height: 50;width: 50;" onclick='showButtons()'>X</button>
 
 
 </body>
@@ -51,21 +51,21 @@
 
 
     var x = 0
-    function showButtons()
-    {
-        if (x==7){
-            document.getElementById('buttons').style.visibility='visible'
 
-        } else
-        {
-            document.getElementById('buttons').style.visibility='hidden'
+    function showButtons() {
+        if (x == 7) {
+            document.getElementById('buttons').style.visibility = 'visible'
+
+        } else {
+            document.getElementById('buttons').style.visibility = 'hidden'
         }
-        x =0;
+        x = 0;
     }
+
     function load() {
-        settings=<%-JSON.stringify(settings)%>
-        things=<%-JSON.stringify(things)%>
-        wsUri = "ws://" + window.location.hostname + ":<%=wsport%>";
+        settings =<%- JSON.stringify(settings) %>
+            things =<%- JSON.stringify(things) %>
+                wsUri = "ws://" + window.location.hostname + ":<%= wsport %>";
         websockstart();
     }
 
