@@ -115,44 +115,44 @@ function openSerialPort(portname, scb) {
             address: data[0]
         };
         // error mode not likely implemented in my firmware
-        if (Number(data[8]) > 0) {// error mode
-            var text
-            switch (data[8]) {
-                case 32:
-                    text = 'Shorted Battery Sensor'
-                    break;
-                case 64:
-                    text = 'Too Hot'
-                    break;
-                case 128:
-                    text = 'High VOC (panel volatage too high)'
-                    break;
-
-            }
-            o.error = {val: data[8], text: text}
-            //send the event change here
-        }
+        // if (Number(data[8]) > 0) {// error mode
+        //     var text
+        //     switch (data[8]) {
+        //         case 32:
+        //             text = 'Shorted Battery Sensor'
+        //             break;
+        //         case 64:
+        //             text = 'Too Hot'
+        //             break;
+        //         case 128:
+        //             text = 'High VOC (panel volatage too high)'
+        //             break;
+        //
+        //     }
+        //     o.error = {val: data[8], text: text}
+        //     //send the event change here
+        // }
 //        auxMode:data[7],
-        switch (Number(data[7])) { // aux mode
-            case 0:
-                o.auxMode = 'Disabled';
-                break;
-            case 1:
-                o.auxMode = 'Diversion';
-                break;
-            case 2:
-                o.auxMode = 'Remote';
-                break;
-            case 3:
-                o.auxMode = 'Manual';
-                break;
-            case 4:
-                o.auxMode = 'Vent Fan';
-                break;
-            case 5:
-                o.auxMode = 'PV Trigger';
-                break;
-        }
+//         switch (Number(data[7])) { // aux mode
+//             case 0:
+//                 o.auxMode = 'Disabled';
+//                 break;
+//             case 1:
+//                 o.auxMode = 'Diversion';
+//                 break;
+//             case 2:
+//                 o.auxMode = 'Remote';
+//                 break;
+//             case 3:
+//                 o.auxMode = 'Manual';
+//                 break;
+//             case 4:
+//                 o.auxMode = 'Vent Fan';
+//                 break;
+//             case 5:
+//                 o.auxMode = 'PV Trigger';
+//                 break;
+//         }
 //            chargeMode:data[9],
 
         switch (Number(data[9])) { // aux mode
@@ -175,23 +175,23 @@ function openSerialPort(portname, scb) {
                 console.log('chargemode' + data[9])
         }
 
-        if (o.chargeMode != b.chargeMode && o.address == "B") {
-
-            console.log('Charge Mode Changed:' + o.chargeMode)
-            o.chargeModeOld = b.chargeMode; // add the prev charge mode to the reporting object
-            b.chargeMode = o.chargeMode; // update
-            server.send({
-                event: {
-                    id: thisthing.id,
-                    event: 'chargeTypeChange',
-                    value: b.chargeMode,
-                    eventdata: o,
-                    source: thisthing.id
-
-                }
-            })
-
-        }
+        // if (o.chargeMode != b.chargeMode && o.address == "B") {
+        //
+        //     console.log('Charge Mode Changed:' + o.chargeMode)
+        //     o.chargeModeOld = b.chargeMode; // add the prev charge mode to the reporting object
+        //     b.chargeMode = o.chargeMode; // update
+        //     server.send({
+        //         event: {
+        //             id: thisthing.id,
+        //             event: 'chargeTypeChange',
+        //             value: b.chargeMode,
+        //             eventdata: o,
+        //             source: thisthing.id
+        //
+        //         }
+        //     })
+        //
+        // }
 
 
         websock.send(JSON.stringify({object: "outback", data: o}), 'solar');
