@@ -47,10 +47,10 @@ setInterval(function(){
     }
 
 },5000)
-setInterval(function(){
-  if (!targetmenu && !targetsubmenu && !targetvalue)
-    exports.sampleMenu4();
-},180000);
+// setInterval(function(){
+//   if (!targetmenu && !targetsubmenu && !targetvalue)
+//     exports.sampleMenu4();
+// },180000);
 var com = require('serialport');
 //openSerialPort('/dev/ttyS0');
 exports.incommand = function(c) {
