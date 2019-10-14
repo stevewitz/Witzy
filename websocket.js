@@ -162,6 +162,7 @@ function wsData(data,id){
             break;
                 default:
             console.log('unknown datatype '+data.type)
+
         case 'solar':
             if (data.data.instruction == 'sendkey'){
 
@@ -169,6 +170,10 @@ function wsData(data,id){
                 sw.write(data.data.key)
             }
             if (data.data.instruction == 'menu4'){
+
+                sw.sampleMenu4();
+            }
+            if (data.data.instruction == ''){
 
                 sw.sampleMenu4();
             }

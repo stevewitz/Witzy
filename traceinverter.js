@@ -170,7 +170,7 @@ function openSerialPort(portname,scb)
 
 // I dont understand this call 0 but it works
     serialPort.on("open", function (err,res) {
-        console.log("--------- TRACE ----------- Port open success:"+portname);
+        console.log("--------- TRACE SW ----------- Port open success:"+portname);
         scb();
         //serialPort.write('r\r')
         //serialPort.write("VLD# 1 65 1 0\r");
@@ -181,7 +181,7 @@ function openSerialPort(portname,scb)
         if (t){
             clearTimeout(t);
         }
-console.log('SW data'+data)
+//console.log('SW data'+data)
 
 
         sbuffer += data;
