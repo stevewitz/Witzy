@@ -682,7 +682,7 @@ function openSerialPort(portname,scb)
                     }
 
                     if (sbuffer.length != 0 ){
-                        console.log('more'+sbuffer.length)
+                       // console.log('more'+sbuffer.length)
                         //sbuffer = ''
                     }
 
