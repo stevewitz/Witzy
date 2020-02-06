@@ -19,7 +19,7 @@
 <hr>
 <div id='displayvalue'>
 </div>
-<div id='buttons' >
+<div id='buttons' style="visibility: hidden">
     <button onclick="sendkey('r')">R</button>
     <button onclick="sendkey('l')">L</button>
     <button onclick="sendkey('u')">U</button>
@@ -33,9 +33,16 @@
     <button onclick="sendkey('=')">+</button>
     <hr>
 </div>
-<textarea readonly id="swleds" rows="18" style="width:230px;" onclick='x=x+5'></textarea>
+<textarea readonly id="outbackdata" rows="20" style="width:200px;" onclick='x=0'></textarea>
 
+<textarea readonly id="outbackdata2" rows="20" style="width:200px;" onclick='x++'></textarea>
+<textarea readonly id="swleds" rows="20" style="width:200px;" onclick='x=x+5'></textarea>
+<textarea readonly id="swData" rows="20" style="width:330px;" onclick='showButtons()'></textarea>
 <br>
+<button style="height: 50;width: 50;" onclick='x=0'>X</button>
+<button style="height: 50;width: 50;" onclick='x=x+1'>X</button>
+<button style="height: 50;width: 50;" onclick='x=x+5'>X</button>
+<button style="height: 50;width: 50;" onclick='showButtons()'>X</button>
 
 
 </body>
@@ -43,6 +50,17 @@
 <script>
 
 
+    var x = 0
+
+    function showButtons() {
+        if (x == 7) {
+            document.getElementById('buttons').style.visibility = 'visible'
+
+        } else {
+            document.getElementById('buttons').style.visibility = 'hidden'
+        }
+        x = 0;
+    }
 
     function load() {
         settings =<%- JSON.stringify(settings) %>
